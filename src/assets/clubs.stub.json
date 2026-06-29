@@ -1,0 +1,79 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "name": "Клуб Пастиковай",
+      "address": "Цельнометаллическая, 101",
+      "description": "безмерно подробное описание клуба",
+      "logoUrl": "assets/photo-1543326727-cf6c39e8f84c.avif",
+      "verified": true,
+      "settlement": {
+        "id": 1,
+        "country": "RU",
+        "region": "Кемеровская обл.",
+        "settlement": "Кемерово"
+      },
+      "sports": [
+        "Футбол",
+        "Баскетбол"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Фитнес Клуб \"Олимп\"",
+      "address": "Постометаллическая, 33",
+      "description": "безмерно подробное описание клуба",
+      "logoUrl": "assets/photo-1571019614242-c5c5dee9f50b.avif",
+      "verified": true,
+      "settlement": {
+        "id": 1,
+        "country": "RU",
+        "region": "Кемеровская обл.",
+        "settlement": "Кемерово"
+      },
+      "sports": [
+        "Кроссфит",
+        "ОФП",
+        "Теннис"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Клуб Пастиковай",
+      "address": "Цельнометаллическая, 101",
+      "description": "безмерно подробное описание клуба",
+      "logoUrl": "assets/photo-1543326727-cf6c39e8f84c.avif",
+      "verified": true,
+      "settlement": {
+        "id": 1,
+        "country": "RU",
+        "region": "Кемеровская обл.",
+        "settlement": "Кемерово"
+      },
+      "sports": [
+        "Футбол",
+        "Баскетбол"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Фитнес Клуб \"Олимп\"",
+      "address": "Постометаллическая, 33",
+      "description": "безмерно подробное описание клуба",
+      "logoUrl": "assets/photo-1571019614242-c5c5dee9f50b.avif",
+      "verified": true,
+      "settlement": {
+        "id": 1,
+        "country": "RU",
+        "region": "Кемеровская обл.",
+        "settlement": "Кемерово"
+      },
+      "sports": [
+        "Кроссфит",
+        "ОФП",
+        "Теннис"
+      ]
+    }
+  ],
+  "count": 4
+}

@@ -1,0 +1,23 @@
+<div class="catalog-grid" *ngIf="trainers.length > 0">
+
+  <div class="trainer-card" *ngFor="let trainer of trainers" routerLink="trainer/{{trainer.id}}">
+    <div class="card-top">
+      <img src="{{trainer.logoUrl}}" alt="Тренер" class="trainer-photo">
+      <div class="card-main-info">
+        <span class="role-lbl">Тренер</span>
+        <h4 class="trainer-name">{{trainer.firstname}} {{trainer.lastname}}</h4>
+        <span class="spec-lbl">{{trainer.sports?.join(', ')}}</span>
+      </div>
+    </div>
+    <div class="card-body-info">
+      <p>Спорт: <strong>{{trainer.sports?.join(', ')}}</strong></p>
+      <p>Стаж: <strong>{{trainer.experience}}</strong></p>
+      <p>Город: <strong>{{trainer.settlement?.settlement}}</strong></p>
+      <p>Рейтинг доверия: <strong>(87)</strong></p>
+    </div>
+    <div class="card-footer">
+      <span class="badge-verified-text" *ngIf="trainer.verified">● Проверенный тренер</span>
+    </div>
+  </div>
+
+</div>

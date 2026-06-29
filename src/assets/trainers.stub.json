@@ -1,0 +1,111 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "settlement": {
+        "id": 1,
+        "country": "RU",
+        "region": "Кемеровская обл.",
+        "settlement": "Кемерово"
+      },
+      "firstname": "Аллия",
+      "lastname": "Белонова",
+      "patronymic": "Тарасовна",
+      "age": 33,
+      "experience": 3,
+      "gender": 1,
+      "price": 3500.00,
+      "priceGradation": 0,
+      "description": "",
+      "club": null,
+      "verified": true,
+      "level": 2,
+      "logoUrl": "assets/photo-1541534741688-6078c6bfb5c5.avif",
+      "sports": [
+        "Футбол",
+        "Волейбол"
+      ]
+    },
+    {
+      "id": 2,
+      "settlement": {
+        "id": 1,
+        "country": "RU",
+        "region": "Кемеровская обл.",
+        "settlement": "Кемерово"
+      },
+      "firstname": "Клакитания",
+      "lastname": "Станимова",
+      "patronymic": "Выпендреховна",
+      "age": 43,
+      "experience": 4,
+      "gender": 1,
+      "price": 3700.00,
+      "priceGradation": 0,
+      "description": "",
+      "club": null,
+      "verified": true,
+      "level": 2,
+      "logoUrl": "assets/photo-1534438327276-14e5300c3a48.avif",
+      "sports": [
+        "MMA",
+        "Бокс",
+        "Кикбокс"
+      ]
+    },
+    {
+      "id": 3,
+      "settlement": {
+        "id": 1,
+        "country": "RU",
+        "region": "Кемеровская обл.",
+        "settlement": "Кемерово"
+      },
+      "firstname": "Аллия",
+      "lastname": "Белонова",
+      "patronymic": "Тарасовна",
+      "age": 33,
+      "experience": 3,
+      "gender": 1,
+      "price": 3500.00,
+      "priceGradation": 0,
+      "description": "",
+      "club": null,
+      "verified": true,
+      "level": 2,
+      "logoUrl": "assets/photo-1541534741688-6078c6bfb5c5.avif",
+      "sports": [
+        "Футбол",
+        "Волейбол"
+      ]
+    },
+    {
+      "id": 4,
+      "settlement": {
+        "id": 1,
+        "country": "RU",
+        "region": "Кемеровская обл.",
+        "settlement": "Кемерово"
+      },
+      "firstname": "Клакитания",
+      "lastname": "Станимова",
+      "patronymic": "Выпендреховна",
+      "age": 43,
+      "experience": 4,
+      "gender": 1,
+      "price": 3700.00,
+      "priceGradation": 0,
+      "description": "",
+      "club": null,
+      "verified": true,
+      "level": 2,
+      "logoUrl": "assets/photo-1534438327276-14e5300c3a48.avif",
+      "sports": [
+        "MMA",
+        "Бокс",
+        "Кикбокс"
+      ]
+    }
+  ],
+  "count": 4
+}

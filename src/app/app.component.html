@@ -1,16 +1,47 @@
-<!-- Шапка сайта -->
-<header class="site-header">
-  <div class="container header-wrap">
-    <div class="logo-area">
-      <a routerLink="/" class="logo-text">Тренер<span>PRO</span></a>
-      <div class="logo-tagline">Найдите проверенного спортивного тренера или клуб в вашем городе</div>
+<header>
+  <div class="container header-inner">
+    <div class="logo">
+      <img class="" src="assets/logo.svg" alt="TrainerPRO">
+      <div>
+        Trainer<span class="primary">PRO</span>
+        <span>Лучший тренер для вашего ребенка</span>
+      </div>
     </div>
-    <nav class="header-nav">
-      <a routerLink="/" class="btn btn-outline">Стать тренером</a>
-      <a routerLink="/" class="btn btn-outline">Добавить клуб</a>
-      <a routerLink="/" class="btn btn-orange">Оставить заявку</a>
+    <nav class="nav-links">
+      <a href="#">Тренеры</a>
+      <a href="#">Клубы</a>
+      <a href="#">Виды спорта</a>
+      <a href="#">Цены</a>
+      <a href="#">Для тренеров</a>
     </nav>
+    <div class="user-actions">
+      <div class="location-select">
+        <i class="fas fa-map-marker-alt"></i>
+        <span>Кемерово</span>
+        <i class="fas fa-chevron-down" style="font-size: 10px;"></i>
+      </div>
+      <div class="user-avatar"><i class="far fa-user"></i></div>
+      <span style="font-size: 14px; font-weight: 500;">Войти</span>
+    </div>
   </div>
 </header>
 
 <router-outlet></router-outlet>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="logo" style="color: white;">
+      <i class="fas fa-dumbbell"></i>
+      <div>
+        TrainerPRO
+        <span style="color: #9CA3AF;">Сервис поиска тренеров</span>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat-item"><i class="fas fa-users"></i> 1500+ тренеров</div>
+      <div class="stat-item"><i class="fas fa-map-marker-alt"></i> 400+ клубов</div>
+      <div class="stat-item"><i class="fas fa-medal"></i> 50+ видов спорта</div>
+      <div class="stat-item"><i class="fas fa-star"></i> 25 000+ довольных детей</div>
+    </div>
+  </div>
+</footer>

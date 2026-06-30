@@ -8,9 +8,9 @@
         "region": "Кемеровская обл.",
         "settlement": "Кемерово"
       },
-      "firstname": "Аллия",
-      "lastname": "Белонова",
-      "patronymic": "Тарасовна",
+      "firstname": "Алексей",
+      "lastname": "Смирнов",
+      "patronymic": "Василич",
       "age": 33,
       "experience": 3,
       "gender": 1,
@@ -20,11 +20,15 @@
       "club": null,
       "verified": true,
       "level": 2,
-      "logoUrl": "assets/photo-1541534741688-6078c6bfb5c5.avif",
+      "logoUrl": "assets/photo-1599058917212-d750089bc07e.avif",
       "sports": [
         "Футбол",
         "Волейбол"
-      ]
+      ],
+      "rating": {
+        "value": 4.8,
+        "reviewsCount": 10
+      }
     },
     {
       "id": 2,
@@ -34,8 +38,8 @@
         "region": "Кемеровская обл.",
         "settlement": "Кемерово"
       },
-      "firstname": "Клакитания",
-      "lastname": "Станимова",
+      "firstname": "Мария",
+      "lastname": "Иванова",
       "patronymic": "Выпендреховна",
       "age": 43,
       "experience": 4,
@@ -46,12 +50,14 @@
       "club": null,
       "verified": true,
       "level": 2,
-      "logoUrl": "assets/photo-1534438327276-14e5300c3a48.avif",
+      "logoUrl": "assets/photo-1594744803329-e58b31de8bf5.avif",
       "sports": [
-        "MMA",
-        "Бокс",
-        "Кикбокс"
-      ]
+        "Баскетбол"
+      ],
+      "rating": {
+        "value": 7.3,
+        "reviewsCount": 123
+      }
     },
     {
       "id": 3,
@@ -61,9 +67,9 @@
         "region": "Кемеровская обл.",
         "settlement": "Кемерово"
       },
-      "firstname": "Аллия",
-      "lastname": "Белонова",
-      "patronymic": "Тарасовна",
+      "firstname": "Дмитрий",
+      "lastname": "К.",
+      "patronymic": "Н.",
       "age": 33,
       "experience": 3,
       "gender": 1,
@@ -71,13 +77,17 @@
       "priceGradation": 0,
       "description": "",
       "club": null,
-      "verified": true,
+      "verified": false,
       "level": 2,
-      "logoUrl": "assets/photo-1541534741688-6078c6bfb5c5.avif",
+      "logoUrl": "assets/photo-1577219491135-ce391730fb2c.avif",
       "sports": [
-        "Футбол",
-        "Волейбол"
-      ]
+        "Бокс",
+        "Кикбокс"
+      ],
+      "rating": {
+        "value": 3.1,
+        "reviewsCount": 6
+      }
     },
     {
       "id": 4,
@@ -87,9 +97,9 @@
         "region": "Кемеровская обл.",
         "settlement": "Кемерово"
       },
-      "firstname": "Клакитания",
-      "lastname": "Станимова",
-      "patronymic": "Выпендреховна",
+      "firstname": "Анна",
+      "lastname": "Петрова",
+      "patronymic": "Р.",
       "age": 43,
       "experience": 4,
       "gender": 1,
@@ -99,12 +109,14 @@
       "club": null,
       "verified": true,
       "level": 2,
-      "logoUrl": "assets/photo-1534438327276-14e5300c3a48.avif",
+      "logoUrl": "assets/photo-1544367567-0f2fcb009e0b.avif",
       "sports": [
-        "MMA",
-        "Бокс",
-        "Кикбокс"
-      ]
+        "Гимнастика"
+      ],
+      "rating": {
+        "value": 5.8,
+        "reviewsCount": 15
+      }
     }
   ],
   "count": 4

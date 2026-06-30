@@ -1,18 +1,15 @@
-<div class="catalog-grid" *ngIf="clubs.length > 0">
-
-  <div class="club-card" *ngFor="let club of clubs" routerLink="clubs/{{club.id}}">
-    <img src="{{club.logoUrl}}" alt="Клуб" class="club-banner">
-    <div class="club-content">
-      <div>
-        <h4 class="club-title">{{club.name}}</h4>
-        <p class="club-subtitle">{{club.sports?.join(', ')}}</p>
+<div class="clubs-grid" *ngIf="clubs.length > 0">
+  <div class="club-card" *ngFor="let club of clubs">
+    <div class="club-img">
+      <img src="{{club.logoUrl}}" alt="Клуб">
+    </div>
+    <div class="club-body">
+      <h3>{{ club.name }}</h3>
+      <p class="sport">{{ club.sports?.join(', ') }}</p>
+      <div class="trainer-rating">
+        ★ <span>{{ club.rating?.value }} ({{ club.rating?.reviewsCount }} отзывов)</span>
       </div>
-      <div class="club-stats">
-        <span>👥 387</span>
-        <span>⚽ 203</span>
-        <span>⭐ 55</span>
-      </div>
+      <p class="loc">{{ club.address }}</p>
     </div>
   </div>
-
 </div>

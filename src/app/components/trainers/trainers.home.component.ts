@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {RouterLink} from "@angular/router";
-import {NgForOf, NgIf} from "@angular/common";
+import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {TrainersService} from "../../services/trainers.service";
 import {TrainerModel} from "../../models/trainer.model";
 
@@ -11,7 +11,8 @@ import {TrainerModel} from "../../models/trainer.model";
   imports: [
     RouterLink,
     NgForOf,
-    NgIf
+    NgIf,
+    CurrencyPipe
   ]
 })
 export class TrainersHomeComponent {

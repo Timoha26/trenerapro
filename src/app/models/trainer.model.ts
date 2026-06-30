@@ -3,8 +3,9 @@ import {ClubModel} from "./club.model";
 import {GenderEnum} from "./gender.enum";
 import {PriceGradationEnum} from "./price.gradation.enum";
 import {TrainerLevelEnum} from "./trainer.level.enum";
+import {RatingModel} from "./rating.model";
 
-export interface TrainerModel{
+export interface TrainerModel {
   id?: number;
   settlement?: SettlementModel;
   firstname?: string;
@@ -21,4 +22,5 @@ export interface TrainerModel{
   level?: TrainerLevelEnum;
   logoUrl?: string;
   sports?: string[];
+  rating?: RatingModel;
 }

@@ -14,6 +14,9 @@ import {ClubsService} from "./services/clubs.service";
 import {TrainersHomeComponent} from "./components/trainers/trainers.home.component";
 import {HttpClientModule} from "@angular/common/http";
 import {ClubsHomeComponent} from "./components/clubs/clubs.home.component";
+import {ReviewsHomeComponent} from "./components/reviews/reviews.home.component";
+import {SportsHomeComponent} from "./components/sports/sports.home.component";
+import {WhyusHomeComponent} from "./components/whyus/whyus.home.component";
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import {ClubsHomeComponent} from "./components/clubs/clubs.home.component";
     AppRoutingModule,
     HttpClientModule,
     TrainersHomeComponent,
-    ClubsHomeComponent
+    ClubsHomeComponent,
+    ReviewsHomeComponent,
+    SportsHomeComponent,
+    WhyusHomeComponent
   ],
   providers: [
     TrainersService,

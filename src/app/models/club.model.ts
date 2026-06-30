@@ -1,4 +1,5 @@
 import {SettlementModel} from "./settlement.model";
+import {RatingModel} from "./rating.model";
 
 export interface ClubModel{
   id?: number;
@@ -9,4 +10,5 @@ export interface ClubModel{
   verified?: boolean;
   settlement?: SettlementModel;
   sports?: string[];
+  rating?: RatingModel;
 }

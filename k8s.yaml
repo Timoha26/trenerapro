@@ -1,0 +1,139 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trainerpro-ui
+  labels:
+    app: trainerpro-ui
+    version: v1
+  namespace: trainerpro
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trainerpro-ui
+  template:
+    metadata:
+      labels:
+        app: trainerpro-ui
+        version: v1
+    spec:
+      containers:
+      - name: trainerpro-ui
+        image: timoha26/trainerpro-ui
+---
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: trainerpro-backend
+#  labels:
+#    app: trainerpro-backend
+#    version: v1
+#  namespace: trainerpro
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      app: trainerpro-backend
+#  template:
+#    metadata:
+#      labels:
+#        app: trainerpro-backend
+#        version: v1
+#    spec:
+#      containers:
+#        - name: trainerpro-backend
+#          image: roca26/trainerpro-backend
+#          command: ["/bin/sh", "-c"]
+#          args:
+#            - |
+#              alembic upgrade head &&
+#              python init_admin.py &&
+#              python main.py
+#          ports:
+#            - name: http
+#              containerPort: 8000
+#          env:
+#            - name: DB__NAME
+#              value: "TRAINERPRO"
+#            - name: DB__PASSWORD
+#              value: "root"
+#            - name: DB__HOST
+#              value: "mysql-service"
+#            - name: DB__PORT
+#              value: "3306"
+#            - name: DB__ASYNC_URL
+#              value: "mysql+aiomysql://root:root@mysql-service:3306/TRAINERPRO"
+#            - name: DB__SYNC_URL
+#              value: "mysql+pymysql://root:root@mysql-service:3306/TRAINERPRO"
+#            - name: DB__ECHO
+#              value: "True"
+#            - name: DB__ECHO_POOL
+#              value: "True"
+#            - name: IMAGE_MAX_WIDTH
+#              value: "600"
+#            - name: TG_BOT_TOKEN
+#              value: "7822437324:AAHyS9GDuns52saYqDGj_kzgVm7yOmCo9O0"
+#---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trainerpro-ui-service
+  namespace: trainerpro
+spec:
+  selector:
+    app: trainerpro-ui
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 4200
+      targetPort: 80
+---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: trainerpro-backend-service
+#  namespace: trainerpro
+#spec:
+#  selector:
+#    app: trainerpro-backend
+#  type: ClusterIP
+#  ports:
+#    - name: http
+#      port: 8000
+#      targetPort: 8000
+#---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: trainerpro-ingress
+  namespace: trainerpro
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: trainerpro.local
+      http:
+        paths:
+#          - path: /api
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: trainerpro-backend-service
+#                port:
+#                  number: 8000
+#          - path: /docs_
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: trainerpro-backend-service
+#                port:
+#                  number: 8000
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: trainerpro-ui-service
+                port:
+                  number: 4200

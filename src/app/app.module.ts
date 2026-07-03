@@ -18,6 +18,8 @@ import {ReviewsHomeComponent} from "./components/reviews/reviews.home.component"
 import {SportsHomeComponent} from "./components/sports/sports.home.component";
 import {WhyusHomeComponent} from "./components/whyus/whyus.home.component";
 import {SportsService} from "./services/sports.service";
+import {FormsModule} from "@angular/forms";
+import {TrainerFiltersComponent} from "./components/trainers/trainer.filters.component";
 
 @NgModule({
   declarations: [
@@ -33,11 +35,13 @@ import {SportsService} from "./services/sports.service";
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
     TrainersHomeComponent,
     ClubsHomeComponent,
     ReviewsHomeComponent,
     SportsHomeComponent,
-    WhyusHomeComponent
+    WhyusHomeComponent,
+    TrainerFiltersComponent
   ],
   providers: [
     TrainersService,

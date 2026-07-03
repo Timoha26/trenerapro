@@ -5,7 +5,7 @@ import {SportModel} from "../../models/sport.model";
 import {SportsService} from "../../services/sports.service";
 
 @Component({
-  selector: 'landing-sports-home',
+  selector: 'sports',
   templateUrl: './sports.home.component.html',
   standalone: true,
   imports: [

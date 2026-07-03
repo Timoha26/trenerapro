@@ -1,19 +1,27 @@
-<div class="landing-trainers-grid" *ngIf="trainers.length > 0">
-  <div class="trainer-card" *ngFor="let trainer of trainers">
-    <div class="trainer-img-wrap">
-      <div class="card-badge" *ngIf="trainer.verified"><i class="fas fa-check-circle"></i> Проверен</div>
-      <div class="card-fav"><i class="far fa-heart"></i></div>
-      <img src="{{trainer.logoUrl}}" alt="Trainer">
-    </div>
-    <div class="trainer-body">
-      <h3>{{ trainer.firstname }} {{ trainer.lastname }}</h3>
-      <p class="sport">{{ trainer.sports?.join(', ') }}</p>
-      <div class="trainer-rating">
-        ★ <span>{{ trainer.rating?.value }} ({{ trainer.rating?.reviewsCount }} отзывов)</span>
+<section class="popular container">
+  <div class="section-title">
+    <h2>Популярные тренеры</h2>
+    <button type="button" class="btn-secondary" routerLink="/trainers">
+      Смотреть все
+    </button>
+  </div>
+  <div class="landing-trainers-grid" *ngIf="trainers.length > 0">
+    <div class="trainer-card" *ngFor="let trainer of trainers">
+      <div class="trainer-img-wrap">
+        <div class="card-badge" *ngIf="trainer.verified"><i class="fas fa-check-circle"></i> Проверен</div>
+        <div class="card-fav"><i class="far fa-heart"></i></div>
+        <img src="{{trainer.logoUrl}}" alt="Trainer">
       </div>
-      <div class="trainer-stats">👤 2.1 км от вас</div>
-      <span class="trainer-price">от {{ trainer.price | currency }}/{{ trainer.priceGradation }}</span>
-      <button class="btn-primary" routerLink="trainer/{{trainer.id}}">Подробнее</button>
+      <div class="trainer-body">
+        <h3>{{ trainer.firstname }} {{ trainer.lastname }}</h3>
+        <p class="sport">{{ trainer.sports?.join(', ') }}</p>
+        <div class="trainer-rating">
+          ★ <span>{{ trainer.rating?.value }} ({{ trainer.rating?.reviewsCount }} отзывов)</span>
+        </div>
+        <div class="trainer-stats">👤 2.1 км от вас</div>
+        <span class="trainer-price">от {{ trainer.price | currency }}/{{ trainer.priceGradation }}</span>
+        <button class="btn-primary" routerLink="/trainers/{{trainer.id}}">Подробнее</button>
+      </div>
     </div>
   </div>
-</div>
+</section>

@@ -31,7 +31,8 @@
               "src/fonts"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/fonts/fontawesome/css/all.min.css"
             ],
             "scripts": []
           },
@@ -95,7 +96,8 @@
               "src/fonts"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/fonts/fontawesome/css/all.min.css"
             ],
             "scripts": []
           }

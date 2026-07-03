@@ -1,12 +1,23 @@
-<div class="cat-grid">
-  <div class="cat-item"><i class="fas fa-futbol"></i>Футбол</div>
-  <div class="cat-item"><i class="fas fa-basketball-ball"></i>Баскетбол</div>
-  <div class="cat-item"><i class="fas fa-swimmer"></i>Плавание</div>
-  <div class="cat-item"><i class="fas fa-table-tennis"></i>Теннис</div>
-  <div class="cat-item"><i class="fas fa-horse-head"></i>Конный</div>
-  <div class="cat-item"><i class="fas fa-running"></i>Бег</div>
-  <div class="cat-item"><i class="fas fa-hand-fist"></i>Бокс</div>
-  <div class="cat-item"><i class="fas fa-dharmachakra"></i>Гимнастика</div>
-  <div class="cat-item"><i class="fas fa-mask"></i>Фехтование</div>
-  <div class="cat-item"><i class="fas fa-volleyball-ball"></i>Волейбол</div>
-</div>
+<section class="categories container" #container (window:click)="closeDropdown()">
+  <div class="cat-grid">
+    <div class="cat-item" *ngFor="let sport of visibleSports()" (click)="selectSport(sport)">
+      <i class="fas" [ngClass]="sport.icon"></i> {{ sport.name }}
+    </div>
+    <div class="cat-dropdown-wrapper" *ngIf="hiddenSports().length > 0" (click)="$event.stopPropagation()">
+      <div class="cat-item" #toggleBtn (click)="toggleDropdown()">
+        <i class="fas fa-ellipsis-h"></i> Еще
+      </div>
+      <div class="cat-dropdown" *ngIf="isDropdownOpen()">
+        <div class="cat-item" *ngFor="let sport of hiddenSports()" (click)="selectSport(sport); closeDropdown()">
+          <i class="fas" [ngClass]="sport.icon"></i> {{ sport.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cat-grid ghost" #ghostWrapper *ngIf="visibleSports().length === 0">
+    <div class="cat-item" *ngFor="let sport of allSports()">
+      <i class="fas" [ngClass]="sport.icon"></i> {{ sport.name }}
+    </div>
+  </div>
+</section>

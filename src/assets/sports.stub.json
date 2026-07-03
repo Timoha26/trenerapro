@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Бокс",
+    "icon": "fa-hand-fist"
+  },
+  {
+    "id": 2,
+    "name": "ММА",
+    "icon": "fa-hand-fist"
+  },
+  {
+    "id": 3,
+    "name": "Самбо",
+    "icon": "fa-hand-fist"
+  },
+  {
+    "id": 4,
+    "name": "Дзюдо",
+    "icon": "fa-hand-fist"
+  },
+  {
+    "id": 5,
+    "name": "Борьба",
+    "icon": "fa-hand-fist"
+  },
+  {
+    "id": 6,
+    "name": "Плавание",
+    "icon": "fa-swimmer"
+  },
+  {
+    "id": 7,
+    "name": "Футбол",
+    "icon": "fa-futbol"
+  },
+  {
+    "id": 8,
+    "name": "Хоккей",
+    "icon": "fa-hockey-puck"
+  },
+  {
+    "id": 9,
+    "name": "Баскетбол",
+    "icon": "fa-basketball-ball"
+  },
+  {
+    "id": 10,
+    "name": "Волейбол",
+    "icon": "fa-volleyball-ball"
+  },
+  {
+    "id": 11,
+    "name": "Теннис",
+    "icon": "fa-table-tennis"
+  },
+  {
+    "id": 12,
+    "name": "Фигурное катание",
+    "icon": "fa-person-skating"
+  }
+]

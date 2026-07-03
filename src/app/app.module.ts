@@ -17,6 +17,7 @@ import {ClubsHomeComponent} from "./components/clubs/clubs.home.component";
 import {ReviewsHomeComponent} from "./components/reviews/reviews.home.component";
 import {SportsHomeComponent} from "./components/sports/sports.home.component";
 import {WhyusHomeComponent} from "./components/whyus/whyus.home.component";
+import {SportsService} from "./services/sports.service";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {WhyusHomeComponent} from "./components/whyus/whyus.home.component";
   ],
   providers: [
     TrainersService,
-    ClubsService
+    ClubsService,
+    SportsService
   ],
   bootstrap: [AppComponent]
 })

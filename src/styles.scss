@@ -1,15 +1,18 @@
-@import "fonts/fontawesome/css/all.min.css";
+//@import "fonts/fontawesome/css/all.min.css";
 
 /* --- CSS Reset & Variables --- */
 :root {
   --primary: #F26C22;
   --primary-light-bg: #FFF4EB;
   --primary-hover: #d95b18;
+  --secondary: #F6F6F6;
+  --secondary-hover: #d7d7d7;
   --text-dark: #1A1A1A;
   --text-gray: #6B7280;
   --text-light: #9CA3AF;
   --bg-light: #F9FAFB;
   --bg-white: #FFFFFF;
+  --bg-dark: #F6F6F6;
   --border: #E5E7EB;
   --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   --radius: 12px;
@@ -24,7 +27,7 @@
 }
 
 body {
-  background-color: var(--bg-light);
+  background-color: #FEFEFE;
   color: var(--text-dark);
   line-height: 1.5;
 }
@@ -71,6 +74,23 @@ button {
 
   &:hover {
     background-color: var(--primary-hover);
+  }
+}
+
+.btn-secondary {
+  background-color: var(--bg-dark);
+  color: var(--text-gray);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 14px;
+  text-align: center;
+
+  &:hover {
+    background-color: var(--secondary-hover);
   }
 }
 
@@ -312,6 +332,8 @@ header {
 .cat-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  //grid-auto-flow: column;
+  //overflow-x: auto;
   gap: 10px;
 }
 
@@ -325,9 +347,10 @@ header {
   cursor: pointer;
   color: var(--text-gray);
   font-size: 12px;
+  background: var(--bg-white);
+  width: 110px;
 
   &:hover {
-    background: var(--bg-light);
     color: var(--primary);
   }
 
@@ -335,6 +358,53 @@ header {
     font-size: 22px;
     margin-bottom: 6px;
   }
+}
+
+.cat-dropdown-wrapper{
+  position: relative;
+  display: flex;
+  justify-content: right;
+  width: 100%;
+}
+
+.cat-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  display: inline-block;
+  min-width: 160px;
+  vertical-align: middle;
+  border: 1px solid var(--text-dark);
+  border-radius: 8px;
+  z-index: 999;
+  background-color: var(--bg-white);
+}
+
+.cat-dropdown > .cat-item {
+  display: flex;
+  flex-direction: row;
+  transition: 0.2s;
+  cursor: pointer;
+  color: var(--text-gray);
+  font-size: 12px;
+  background: var(--bg-white);
+  width: 160px;
+
+  &:hover {
+    color: var(--primary);
+  }
+
+  i {
+    font-size: 22px;
+    margin-right: 6px;
+  }
+}
+
+.ghost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
 }
 
 /* --- Popular Trainers (4 колонки на широком экране) --- */
@@ -444,7 +514,7 @@ header {
   padding: 24px;
   border-radius: var(--radius);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
 
   &:hover {
@@ -474,7 +544,7 @@ header {
   height: 44px;
   background: var(--primary-light-bg);
   border-radius: 50%;
-  margin-bottom: 14px;
+  margin-right: 14px;
   color: var(--primary);
   font-size: 18px;
 }
@@ -1191,6 +1261,10 @@ footer {
 
 /* --- Responsive --- */
 @media (max-width: 1200px) {
+  .landing-trainers-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .trainers-grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -1257,6 +1331,10 @@ footer {
     display: flex;
   }
 
+  .landing-trainers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .trainers-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1313,6 +1391,10 @@ footer {
 
   .user-actions .location-select span {
     display: none;
+  }
+
+  .landing-trainers-grid {
+    grid-template-columns: 1fr;
   }
 
   .trainers-grid {

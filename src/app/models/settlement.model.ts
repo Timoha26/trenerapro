@@ -1,4 +1,4 @@
-export interface SettlementModel{
+export interface SettlementModel {
   id?: number;
   country?: string;
   region?: string;

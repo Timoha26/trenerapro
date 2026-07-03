@@ -1,15 +1,23 @@
-<div class="clubs-grid" *ngIf="clubs.length > 0">
-  <div class="club-card" *ngFor="let club of clubs">
-    <div class="club-img">
-      <img src="{{club.logoUrl}}" alt="Клуб">
-    </div>
-    <div class="club-body">
-      <h3>{{ club.name }}</h3>
-      <p class="sport">{{ club.sports?.join(', ') }}</p>
-      <div class="trainer-rating">
-        ★ <span>{{ club.rating?.value }} ({{ club.rating?.reviewsCount }} отзывов)</span>
+<section class="clubs container">
+  <div class="section-title">
+    <h2>Популярные клубы</h2>
+    <button type="button" class="btn-secondary" routerLink="/clubs">
+      Смотреть все
+    </button>
+  </div>
+  <div class="clubs-grid" *ngIf="clubs.length > 0">
+    <div class="club-card" *ngFor="let club of clubs" routerLink="/clubs/{{club.id}}">
+      <div class="club-img">
+        <img src="{{club.logoUrl}}" alt="Клуб">
       </div>
-      <p class="loc">{{ club.address }}</p>
+      <div class="club-body">
+        <h3>{{ club.name }}</h3>
+        <p class="sport">{{ club.sports?.join(', ') }}</p>
+        <div class="trainer-rating">
+          ★ <span>{{ club.rating?.value }} ({{ club.rating?.reviewsCount }} отзывов)</span>
+        </div>
+        <p class="loc">{{ club.address }}</p>
+      </div>
     </div>
   </div>
-</div>
+</section>

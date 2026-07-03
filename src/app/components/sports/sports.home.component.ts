@@ -1,6 +1,8 @@
-import {Component} from "@angular/core";
+import {Component, effect, ElementRef, NgZone, OnDestroy, signal, ViewChild} from "@angular/core";
 import {RouterLink} from "@angular/router";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
+import {SportModel} from "../../models/sport.model";
+import {SportsService} from "../../services/sports.service";
 
 @Component({
   selector: 'landing-sports-home',
@@ -9,10 +11,117 @@ import {NgForOf, NgIf} from "@angular/common";
   imports: [
     RouterLink,
     NgForOf,
-    NgIf
+    NgIf,
+    NgClass
   ]
 })
-export class SportsHomeComponent {
-  constructor() {
+export class SportsHomeComponent implements OnDestroy {
+  @ViewChild('container') container!: ElementRef<HTMLElement>;
+  @ViewChild('ghostWrapper') ghostWrapper!: ElementRef<HTMLElement>;
+
+  private resizeObserver?: ResizeObserver;
+  private itemWidths: number[] = [];
+  private readonly gap = 10;
+  private readonly toggleWidth = 100;
+
+  allSports = signal<SportModel[]>([]);
+  visibleSports = signal<SportModel[]>([]);
+  hiddenSports = signal<SportModel[]>([]);
+  isDropdownOpen = signal<boolean>(false);
+  isLoading = signal<boolean>(true);
+
+  constructor(private zone: NgZone, private sportsService: SportsService) {
+    effect(() => {
+      const sports = this.allSports();
+      if (sports.length > 0)
+        setTimeout(() => {
+          this.calculateInitialWidths();
+          this.initResizeObserver();
+        }, 0);
+    });
+  }
+
+  private getSports() {
+    this.isLoading.set(true);
+
+    this.sportsService.get().subscribe({
+      next: data => {
+        this.allSports.set(data || []);
+        this.isLoading.set(false);
+      },
+      error: () => this.isLoading.set(false)
+    });
+  }
+
+  private initResizeObserver() {
+    if (this.resizeObserver) return;
+
+    this.resizeObserver = new ResizeObserver(() => {
+      this.zone.run(() => this.updateToolbar());
+    });
+
+    this.resizeObserver.observe(this.container.nativeElement);
+  }
+
+  private calculateInitialWidths() {
+    if (!this.ghostWrapper) return;
+
+    const children = this.ghostWrapper.nativeElement.children;
+
+    this.itemWidths = Array.from(children).map(
+      child => (child as HTMLElement).offsetWidth + this.gap
+    );
+
+    this.updateToolbar();
+  }
+
+  private updateToolbar() {
+    const sports = this.allSports();
+    if (sports.length === 0) return;
+
+    const containerWidth = this.container.nativeElement.offsetWidth;
+    let currentWidth = 0;
+
+    const visible: SportModel[] = [];
+    const hidden: SportModel[] = [];
+
+    for (let i = 0; i < sports.length; i++) {
+      currentWidth += this.itemWidths[i];
+
+      if (currentWidth > containerWidth - this.toggleWidth) {
+        hidden.push(...sports.slice(i));
+        break;
+      }
+
+      visible.push(sports[i]);
+    }
+
+    if (visible.length === 0 && sports.length > 0) {
+      visible.push(sports[0]);
+      hidden.shift();
+    }
+
+    this.visibleSports.set(visible);
+    this.hiddenSports.set(hidden);
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen.update(v => !v);
+  }
+
+  closeDropdown() {
+    this.isDropdownOpen.set(false);
+  }
+
+  selectSport(sport: SportModel) {
+    console.log(sport);
+  }
+
+  ngOnDestroy() {
+    this.resizeObserver?.disconnect();
+  }
+
+  ngOnInit() {
+    this.getSports();
   }
 }

@@ -1102,35 +1102,42 @@ footer {
 }
 
 /* --- Pagination --- */
-.pagination {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 40px;
-}
+//.pagination {
+//  display: flex;
+//  justify-content: center;
+//  gap: 8px;
+//  margin-top: 40px;
+//}
+//
+//.page-item {
+//  width: 40px;
+//  height: 40px;
+//  display: flex;
+//  align-items: center;
+//  justify-content: center;
+//  border-radius: 8px;
+//  border: 1px solid var(--border);
+//  font-size: 14px;
+//  font-weight: 500;
+//  cursor: pointer;
+//  transition: 0.2s;
+//
+//  &.active {
+//    background: var(--primary);
+//    color: white;
+//    border-color: var(--primary);
+//  }
+//
+//  &:hover:not(.active) {
+//    border-color: var(--text-dark);
+//  }
+//}
 
-.page-item {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  border: 1px solid var(--border);
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: 0.2s;
-
-  &.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-  }
-
-  &:hover:not(.active) {
-    border-color: var(--text-dark);
-  }
+/* Изменение стилей активной (текущей) кнопки */
+::ng-deep .trainer-pagination .page-item.active .page-link {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
 }
 
 /* --- Right Sidebar --- */
@@ -1454,3 +1461,9 @@ footer {
     }
   }
 }
+
+/* Importing Bootstrap SCSS file. */
+@import "./node_modules/bootstrap/scss/bootstrap";
+
+/* Importing Datepicker SCSS file. */
+@import "node_modules/ngx-bootstrap/datepicker/bs-datepicker";

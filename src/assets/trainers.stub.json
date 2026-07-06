@@ -22,8 +22,7 @@
       "level": 2,
       "logoUrl": "assets/photo-1599058917212-d750089bc07e.avif",
       "sports": [
-        "Футбол",
-        "Волейбол"
+        "Карате"
       ],
       "rating": {
         "value": 4.8,
@@ -68,8 +67,8 @@
         "settlement": "Кемерово"
       },
       "firstname": "Дмитрий",
-      "lastname": "К.",
-      "patronymic": "Н.",
+      "lastname": "Кузнецов",
+      "patronymic": "Алексеевич",
       "age": 33,
       "experience": 3,
       "gender": 1,
@@ -99,7 +98,7 @@
       },
       "firstname": "Анна",
       "lastname": "Петрова",
-      "patronymic": "Р.",
+      "patronymic": "Ребутовна",
       "age": 43,
       "experience": 4,
       "gender": 1,
@@ -117,7 +116,65 @@
         "value": 5.8,
         "reviewsCount": 15
       }
+    },
+    {
+      "id": 4,
+      "settlement": {
+        "id": 1,
+        "country": "RU",
+        "region": "Кемеровская обл.",
+        "settlement": "Кемерово"
+      },
+      "firstname": "Ииииигорь",
+      "lastname": "Васильев",
+      "patronymic": "Каковтович",
+      "age": 43,
+      "experience": 4,
+      "gender": 1,
+      "price": 3800.00,
+      "priceGradation": 0,
+      "description": "",
+      "club": null,
+      "verified": true,
+      "level": 2,
+      "logoUrl": "assets/photo-1628155930542-3c7a64e2c833.avif",
+      "sports": [
+        "Плавание"
+      ],
+      "rating": {
+        "value": 4.7,
+        "reviewsCount": 12
+      }
+    },
+    {
+      "id": 4,
+      "settlement": {
+        "id": 1,
+        "country": "RU",
+        "region": "Кемеровская обл.",
+        "settlement": "Кемерово"
+      },
+      "firstname": "Екатирина",
+      "lastname": "Соколова",
+      "patronymic": "Орелевна",
+      "age": 43,
+      "experience": 4,
+      "gender": 1,
+      "price": 3900.00,
+      "priceGradation": 0,
+      "description": "",
+      "club": null,
+      "verified": true,
+      "level": 2,
+      "logoUrl": "assets/photo-1518611012118-696072aa579a.avif",
+      "sports": [
+        "ММА"
+      ],
+      "rating": {
+        "value": 4.8,
+        "reviewsCount": 14
+      }
     }
   ],
-  "count": 4
+  "count": 6
 }

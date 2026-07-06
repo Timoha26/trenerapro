@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {PageResultModel} from "../models/page.result.model";
-import {ClubModel} from "../models/club.model";
+import {ClubModel} from "../models/clubs/club.model";
 
 @Injectable()
 export class ClubsService {

@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import {RouterLink} from "@angular/router";
 import {NgForOf, NgIf} from "@angular/common";
 import {ClubsService} from "../../services/clubs.service";
-import {ClubModel} from "../../models/club.model";
+import {ClubModel} from "../../models/clubs/club.model";
 
 @Component({
   selector: 'landing-clubs-home',

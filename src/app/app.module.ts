@@ -20,6 +20,9 @@ import {WhyusHomeComponent} from "./components/whyus/whyus.home.component";
 import {SportsService} from "./services/sports.service";
 import {FormsModule} from "@angular/forms";
 import {TrainerFiltersComponent} from "./components/trainers/trainer.filters.component";
+import {RightSidebarComponent} from "./components/rightSidebar/rightSidebar.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {PaginationModule} from "ngx-bootstrap/pagination";
 
 @NgModule({
   declarations: [
@@ -41,7 +44,10 @@ import {TrainerFiltersComponent} from "./components/trainers/trainer.filters.com
     ReviewsHomeComponent,
     SportsHomeComponent,
     WhyusHomeComponent,
-    TrainerFiltersComponent
+    TrainerFiltersComponent,
+    RightSidebarComponent,
+    BrowserAnimationsModule,
+    PaginationModule
   ],
   providers: [
     TrainersService,

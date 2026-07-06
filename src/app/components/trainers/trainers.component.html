@@ -30,122 +30,21 @@
     <!-- Middle Column (Cards) - ТЕПЕРЬ ЗДЕСЬ 3 КОЛОНКИ -->
     <section>
       <div class="trainers-grid">
-        <!-- Card 1 -->
-        <div class="trainer-card">
+        <div class="trainer-card" *ngFor="let trainer of trainers.items">
           <div class="trainer-img-wrap">
-            <div class="card-badge"><i class="fas fa-check-circle"></i> Проверен</div>
+            <div class="card-badge" *ngIf="trainer.verified"><i class="fas fa-check-circle"></i> Проверен</div>
             <div class="card-fav"><i class="far fa-heart"></i></div>
-            <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?q=80&w=400&h=300&auto=format&fit=crop" alt="Trainer">
+            <img src="{{trainer.logoUrl}}" alt="Trainer">
           </div>
           <div class="trainer-body">
-            <h3>Алексей Смирнов <i class="fas fa-check-circle"></i></h3>
-            <p class="sport">Карате</p>
-            <div class="trainer-rating">★★★★☆ <span>4.8 (128)</span></div>
+            <h3>{{ trainer.firstname }} {{ trainer.lastname }}</h3>
+            <p class="sport">{{ trainer.sports?.join(', ') }}</p>
+            <div class="trainer-rating">★ <span>{{ trainer.rating?.value }} ({{ trainer.rating?.reviewsCount }} отзывов)</span></div>
             <div class="trainer-stats"><i class="fas fa-map-marker-alt"></i> 2,1 км от вас</div>
             <div class="trainer-stats"><i class="fas fa-child"></i> Дети 6-12 лет</div>
-            <span class="trainer-price">от 1 000 ₽</span>
+            <span class="trainer-price">от {{ trainer.price | currency }}/{{ trainer.priceGradation }}</span>
             <div class="trainer-actions">
-              <button class="btn-outline">Подробнее</button>
-              <button class="btn-primary">Записаться</button>
-            </div>
-          </div>
-        </div>
-        <!-- Card 2 -->
-        <div class="trainer-card">
-          <div class="trainer-img-wrap">
-            <div class="card-badge"><i class="fas fa-check-circle"></i> Проверен</div>
-            <div class="card-fav"><i class="far fa-heart"></i></div>
-            <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?q=80&w=400&h=300&auto=format&fit=crop" alt="Trainer">
-          </div>
-          <div class="trainer-body">
-            <h3>Мария Иванова <i class="fas fa-check-circle"></i></h3>
-            <p class="sport">Футбол</p>
-            <div class="trainer-rating">★★★★☆ <span>4.8 (96)</span></div>
-            <div class="trainer-stats"><i class="fas fa-map-marker-alt"></i> 3,4 км от вас</div>
-            <div class="trainer-stats"><i class="fas fa-child"></i> Дети 5-10 лет</div>
-            <span class="trainer-price">от 800 ₽</span>
-            <div class="trainer-actions">
-              <button class="btn-outline">Подробнее</button>
-              <button class="btn-primary">Записаться</button>
-            </div>
-          </div>
-        </div>
-        <!-- Card 3 -->
-        <div class="trainer-card">
-          <div class="trainer-img-wrap">
-            <div class="card-badge"><i class="fas fa-check-circle"></i> Проверен</div>
-            <div class="card-fav"><i class="far fa-heart"></i></div>
-            <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=400&h=300&auto=format&fit=crop" alt="Trainer">
-          </div>
-          <div class="trainer-body">
-            <h3>Дмитрий Кузнецов <i class="fas fa-check-circle"></i></h3>
-            <p class="sport">Бокс</p>
-            <div class="trainer-rating">★★★★☆ <span>4.9 (73)</span></div>
-            <div class="trainer-stats"><i class="fas fa-map-marker-alt"></i> 1,8 км от вас</div>
-            <div class="trainer-stats"><i class="fas fa-child"></i> Дети 7-14 лет</div>
-            <span class="trainer-price">от 1 200 ₽</span>
-            <div class="trainer-actions">
-              <button class="btn-outline">Подробнее</button>
-              <button class="btn-primary">Записаться</button>
-            </div>
-          </div>
-        </div>
-        <!-- Card 4 -->
-        <div class="trainer-card">
-          <div class="trainer-img-wrap">
-            <div class="card-badge"><i class="fas fa-check-circle"></i> Проверен</div>
-            <div class="card-fav"><i class="far fa-heart"></i></div>
-            <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=400&h=300&auto=format&fit=crop" alt="Trainer">
-          </div>
-          <div class="trainer-body">
-            <h3>Анна Петрова <i class="fas fa-check-circle"></i></h3>
-            <p class="sport">Гимнастика</p>
-            <div class="trainer-rating">★★★★☆ <span>4.9 (112)</span></div>
-            <div class="trainer-stats"><i class="fas fa-map-marker-alt"></i> 2,6 км от вас</div>
-            <div class="trainer-stats"><i class="fas fa-child"></i> Дети 4-10 лет</div>
-            <span class="trainer-price">от 1 000 ₽</span>
-            <div class="trainer-actions">
-              <button class="btn-outline">Подробнее</button>
-              <button class="btn-primary">Записаться</button>
-            </div>
-          </div>
-        </div>
-        <!-- Card 5 -->
-        <div class="trainer-card">
-          <div class="trainer-img-wrap">
-            <div class="card-badge"><i class="fas fa-check-circle"></i> Проверен</div>
-            <div class="card-fav"><i class="far fa-heart"></i></div>
-            <img src="https://images.unsplash.com/photo-1628155930542-3c7a64e2c833?q=80&w=400&h=300&auto=format&fit=crop" alt="Trainer">
-          </div>
-          <div class="trainer-body">
-            <h3>Игорь Васильев <i class="fas fa-check-circle"></i></h3>
-            <p class="sport">Плавание</p>
-            <div class="trainer-rating">★★★★☆ <span>4.7 (84)</span></div>
-            <div class="trainer-stats"><i class="fas fa-map-marker-alt"></i> 2,2 км от вас</div>
-            <div class="trainer-stats"><i class="fas fa-child"></i> Дети 5-12 лет</div>
-            <span class="trainer-price">от 900 ₽</span>
-            <div class="trainer-actions">
-              <button class="btn-outline">Подробнее</button>
-              <button class="btn-primary">Записаться</button>
-            </div>
-          </div>
-        </div>
-        <!-- Card 6 -->
-        <div class="trainer-card">
-          <div class="trainer-img-wrap">
-            <div class="card-badge"><i class="fas fa-check-circle"></i> Проверен</div>
-            <div class="card-fav"><i class="far fa-heart"></i></div>
-            <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=400&h=300&auto=format&fit=crop" alt="Trainer">
-          </div>
-          <div class="trainer-body">
-            <h3>Екатерина Соколова <i class="fas fa-check-circle"></i></h3>
-            <p class="sport">Хореография</p>
-            <div class="trainer-rating">★★★★☆ <span>4.8 (67)</span></div>
-            <div class="trainer-stats"><i class="fas fa-map-marker-alt"></i> 3,1 км от вас</div>
-            <div class="trainer-stats"><i class="fas fa-child"></i> Дети 4-9 лет</div>
-            <span class="trainer-price">от 700 ₽</span>
-            <div class="trainer-actions">
-              <button class="btn-outline">Подробнее</button>
+              <button class="btn-outline" routerLink="/trainers/{{trainer.id}}">Подробнее</button>
               <button class="btn-primary">Записаться</button>
             </div>
           </div>
@@ -162,79 +61,18 @@
         <div class="page-item">7</div>
         <div class="page-item"><i class="fas fa-chevron-right"></i></div>
       </div>
+      <pagination
+        [totalItems]="trainers.count ?? 0"
+        (pageChanged)="setPage($event)"
+        [maxSize]="6"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" class="trainer-pagination">
+      </pagination>
     </section>
 
     <!-- Right Sidebar -->
-    <aside>
-      <!-- Banner -->
-      <div class="banner-promo">
-        <i class="fas fa-trophy"></i>
-        <h4>Станьте PRO тренером</h4>
-        <ul>
-          <li>• Больше учеников</li>
-          <li>• Продвижение в поиске</li>
-          <li>• Онлайн-запись</li>
-        </ul>
-        <button class="btn-white">Подробнее</button>
-      </div>
-
-      <!-- Top List -->
-      <div class="sidebar-block">
-        <h3>Популярные тренеры</h3>
-        <div class="top-list-item">
-          <div class="top-avatar"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=100&auto=format&fit=crop" style="width:100%; height:100%; border-radius:50%;"></div>
-          <div class="top-info">
-            <h4>Иван Петров</h4>
-            <p>Футбол • ★ 4.9 (156)</p>
-          </div>
-          <i class="fas fa-chevron-right" style="color: #ccc; font-size: 12px;"></i>
-        </div>
-        <div class="top-list-item">
-          <div class="top-avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=100&auto=format&fit=crop" style="width:100%; height:100%; border-radius:50%;"></div>
-          <div class="top-info">
-            <h4>Алексей Смирнов</h4>
-            <p>Карате • ★ 4.8 (128)</p>
-          </div>
-          <i class="fas fa-chevron-right" style="color: #ccc; font-size: 12px;"></i>
-        </div>
-        <div class="top-list-item">
-          <div class="top-avatar"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=100&auto=format&fit=crop" style="width:100%; height:100%; border-radius:50%;"></div>
-          <div class="top-info">
-            <h4>Мария Иванова</h4>
-            <p>Футбол • ★ 4.8 (96)</p>
-          </div>
-          <i class="fas fa-chevron-right" style="color: #ccc; font-size: 12px;"></i>
-        </div>
-        <button class="btn-outline" style="width: 100%; margin-top: 10px;">Смотреть всех</button>
-      </div>
-
-      <!-- Nearby -->
-      <div class="sidebar-block">
-        <h3>Рядом с вами</h3>
-        <div class="stat-row"><i class="fas fa-user"></i> <span>12</span> тренеров <br>в радиусе 2 км</div>
-        <div class="stat-row"><i class="fas fa-user"></i> <span>34</span> тренера <br>в этом районе</div>
-        <div class="stat-row"><i class="fas fa-user"></i> <span>128</span> тренеров <br>во всем городе</div>
-        <button class="btn-outline" style="width: 100%;">На карте</button>
-      </div>
-
-      <!-- Verified -->
-      <div class="sidebar-block">
-        <div style="display: flex; align-items: flex-start; gap: 12px; margin-bottom: 12px;">
-          <i class="fas fa-shield-alt" style="color: #22C55E; font-size: 20px; margin-top: 2px;"></i>
-          <div>
-            <h3 style="font-size: 15px; margin-bottom: 0;">Только проверенные</h3>
-            <p style="font-size: 12px; color: var(--text-gray);">Все тренеры проходят проверку документов и квалификации</p>
-          </div>
-        </div>
-        <div style="display: flex; margin-bottom: 12px;">
-          <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07e?q=80&w=60&h=60&auto=format&fit=crop" style="width:32px; height:32px; border-radius:50%; border: 2px solid white; margin-right: -10px;">
-          <img src="https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?q=80&w=60&h=60&auto=format&fit=crop" style="width:32px; height:32px; border-radius:50%; border: 2px solid white; margin-right: -10px;">
-          <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=60&h=60&auto=format&fit=crop" style="width:32px; height:32px; border-radius:50%; border: 2px solid white; margin-right: -10px;">
-          <div style="width:32px; height:32px; border-radius:50%; background: #F3F4F6; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:600;">+316</div>
-        </div>
-        <button class="btn-outline" style="width: 100%;">Подробнее о проверке</button>
-      </div>
-    </aside>
+    <rightSidebar></rightSidebar>
 
   </div>
 </main>

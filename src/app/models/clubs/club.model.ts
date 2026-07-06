@@ -1,5 +1,5 @@
-import {SettlementModel} from "./settlement.model";
-import {RatingModel} from "./rating.model";
+import {SettlementModel} from "../settlement.model";
+import {RatingModel} from "../rating.model";
 
 export interface ClubModel{
   id?: number;

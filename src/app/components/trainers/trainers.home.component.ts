@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import {RouterLink} from "@angular/router";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {TrainersService} from "../../services/trainers.service";
-import {TrainerModel} from "../../models/trainer.model";
+import {TrainerModel} from "../../models/trainers/trainer.model";
 
 @Component({
   selector: 'landing-trainers-home',
@@ -22,7 +22,7 @@ export class TrainersHomeComponent {
   }
 
   private getTrainers() {
-    this.trainersService.get().subscribe({
+    this.trainersService.getTop().subscribe({
       next: data => {
         this.trainers = data.items ?? [];
       }

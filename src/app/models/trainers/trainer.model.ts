@@ -1,9 +1,9 @@
-import {SettlementModel} from "./settlement.model";
-import {ClubModel} from "./club.model";
+import {SettlementModel} from "../settlement.model";
+import {ClubModel} from "../clubs/club.model";
 import {GenderEnum} from "./gender.enum";
 import {PriceGradationEnum} from "./price.gradation.enum";
 import {TrainerLevelEnum} from "./trainer.level.enum";
-import {RatingModel} from "./rating.model";
+import {RatingModel} from "../rating.model";
 
 export interface TrainerModel {
   id?: number;

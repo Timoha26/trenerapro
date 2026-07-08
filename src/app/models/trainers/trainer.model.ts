@@ -23,4 +23,5 @@ export interface TrainerModel {
   logoUrl?: string;
   sports?: string[];
   rating?: RatingModel;
+  public?: boolean;
 }

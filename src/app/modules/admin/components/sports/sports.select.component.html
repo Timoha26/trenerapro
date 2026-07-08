@@ -1,0 +1,13 @@
+<div class="d-inline-block w-100">
+  <a class="btn btn-outline-success btn-sm float-end" (click)="addSport()">
+    <em class="fa fa-plus"></em>
+    Добавить дисциплину
+  </a>
+</div>
+<div class="form-check form-check-inline" *ngFor="let sport of sports">
+  <input type="checkbox" class="form-check-input" id="sport_{{sport.id}}" [checked]="isChecked(sport.id)"
+         (change)="checkboxChange(sport.id, $event)">
+  <label class="form-check-label" for="sport_{{sport.id}}">
+    {{ sport.name }}
+  </label>
+</div>

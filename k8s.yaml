@@ -19,61 +19,55 @@ spec:
     spec:
       containers:
       - name: trainerpro-ui
-        image: timoha26/trainerpro-ui
+        image: 192.168.0.170:5000/trainerpro-ui
 ---
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: trainerpro-backend
-#  labels:
-#    app: trainerpro-backend
-#    version: v1
-#  namespace: trainerpro
-#spec:
-#  replicas: 1
-#  selector:
-#    matchLabels:
-#      app: trainerpro-backend
-#  template:
-#    metadata:
-#      labels:
-#        app: trainerpro-backend
-#        version: v1
-#    spec:
-#      containers:
-#        - name: trainerpro-backend
-#          image: roca26/trainerpro-backend
-#          command: ["/bin/sh", "-c"]
-#          args:
-#            - |
-#              alembic upgrade head &&
-#              python init_admin.py &&
-#              python main.py
-#          ports:
-#            - name: http
-#              containerPort: 8000
-#          env:
-#            - name: DB__NAME
-#              value: "TRAINERPRO"
-#            - name: DB__PASSWORD
-#              value: "root"
-#            - name: DB__HOST
-#              value: "mysql-service"
-#            - name: DB__PORT
-#              value: "3306"
-#            - name: DB__ASYNC_URL
-#              value: "mysql+aiomysql://root:root@mysql-service:3306/TRAINERPRO"
-#            - name: DB__SYNC_URL
-#              value: "mysql+pymysql://root:root@mysql-service:3306/TRAINERPRO"
-#            - name: DB__ECHO
-#              value: "True"
-#            - name: DB__ECHO_POOL
-#              value: "True"
-#            - name: IMAGE_MAX_WIDTH
-#              value: "600"
-#            - name: TG_BOT_TOKEN
-#              value: "7822437324:AAHyS9GDuns52saYqDGj_kzgVm7yOmCo9O0"
-#---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trainerpro-backend
+  labels:
+    app: trainerpro-backend
+    version: v1
+  namespace: trainerpro
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trainerpro-backend
+  template:
+    metadata:
+      labels:
+        app: trainerpro-backend
+        version: v1
+    spec:
+      containers:
+        - name: trainerpro-backend
+          image: 192.168.0.170:5000/trenerapro-api
+          ports:
+            - name: http
+              containerPort: 8000
+          env:
+            - name: APP_NAME
+              value: "TreneraPRO API"
+            - name: DATABASE_URL
+              value: "postgresql+asyncpg://postgre:1234@postgres-service.default.svc.cluster.local:5432/trenerapro-db"
+            - name: DEBUG
+              value: "False"
+            - name: DB__ECHO
+              value: "1"
+            - name: DB__ECHO_POOL
+              value: "1"
+            - name: ADMIN_USERNAME
+              value: "admin"
+            - name: ADMIN_PASSWORD
+              value: "admin123"
+            - name: AUTH_SECRET_KEY
+              value: "super-secret-key"
+            - name: AUTH_ALGORITHM
+              value: "HS256"
+            - name: AUTH_TOKEN_TTL_MINUTES
+              value: "1440"
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -88,20 +82,20 @@ spec:
       port: 4200
       targetPort: 80
 ---
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: trainerpro-backend-service
-#  namespace: trainerpro
-#spec:
-#  selector:
-#    app: trainerpro-backend
-#  type: ClusterIP
-#  ports:
-#    - name: http
-#      port: 8000
-#      targetPort: 8000
-#---
+apiVersion: v1
+kind: Service
+metadata:
+  name: trainerpro-backend-service
+  namespace: trainerpro
+spec:
+  selector:
+    app: trainerpro-backend
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -109,27 +103,35 @@ metadata:
   namespace: trainerpro
   annotations:
     kubernetes.io/ingress.class: traefik
-    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/router.entrypoints: web,
+    traefik.ingress.kubernetes.io/router.middlewares: ""
 spec:
   ingressClassName: traefik
   rules:
     - host: trainerpro.local
       http:
         paths:
-#          - path: /api
-#            pathType: Prefix
-#            backend:
-#              service:
-#                name: trainerpro-backend-service
-#                port:
-#                  number: 8000
-#          - path: /docs_
-#            pathType: Prefix
-#            backend:
-#              service:
-#                name: trainerpro-backend-service
-#                port:
-#                  number: 8000
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: trainerpro-backend-service
+                port:
+                  number: 8000
+          - path: /docs
+            pathType: Prefix
+            backend:
+              service:
+                name: trainerpro-backend-service
+                port:
+                  number: 8000
+          - path: /openapi.json
+            pathType: Exact
+            backend:
+              service:
+                name: trainerpro-backend-service
+                port:
+                  number: 8000
           - path: /
             pathType: Prefix
             backend:

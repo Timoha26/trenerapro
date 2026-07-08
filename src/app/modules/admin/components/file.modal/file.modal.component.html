@@ -1,0 +1,32 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Новый файл</h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="cancel()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<form name="fileForm" #fileForm="ngForm" novalidate>
+  <div class="modal-body text-center">
+    <div class="row mb-1">
+      <label for="file" class="form-label col-sm-4">Файл</label>
+      <div class="col-sm-8">
+        <select id="type" name="type" #type="ngModel" [(ngModel)]="fileType" required class="form-control form-control-sm">
+          <option [ngValue]="undefined" disabled>Выберите</option>
+          <option *ngFor="let option of fileTypeOptions" [ngValue]="option.key">{{option.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mb-1">
+      <label for="file" class="form-label col-sm-4">Файл</label>
+      <div class="col-sm-8">
+        <input type="file" id="file" name="file" placeholder="Файл" required class="form-control form-control-sm"
+               (change)="selectFile($event)">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="save()" [disabled]="fileForm.invalid">
+      Добавить
+    </button>
+    <button type="button" class="btn btn-outline-danger" (click)="cancel()">Отмена</button>
+  </div>
+</form>

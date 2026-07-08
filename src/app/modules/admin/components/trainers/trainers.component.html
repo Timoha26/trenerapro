@@ -1,0 +1,67 @@
+<section id="admin_projects" class="py-5">
+  <div class="container">
+    <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between mb-4">
+      <div>
+        <h4 class="fw-bold mb-2">Админка - Тренеры</h4>
+      </div>
+      <div class="btn-group float-end">
+        <a class="btn btn-outline-success mt-3 mt-md-0" routerLink="/admin">
+          <em class="fas fa-angle-left"></em>
+          в админку
+        </a>
+        <a class="btn btn-outline-success mt-3 mt-md-0" routerLink="create">
+          <em class="fas fa-plus"></em>
+          создать
+        </a>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Имя</th>
+          <th>Цена</th>
+          <th>Описание</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let trainer of trainers.items">
+          <td>{{ trainer.firstname }} {{ trainer.lastname }}</td>
+          <td>{{ trainer.price | currency }}</td>
+          <td>{{ trainer.description }}</td>
+          <td class="text-end">
+            <div class="btn-group" role="group">
+              <button class="btn btn-sm" [ngClass]="{'btn-success': trainer.public, 'btn-secondary': !trainer.public}"
+                      (click)="public(trainer)" [title]="trainer.public ? 'Снять с публикации' : 'Опубликовать'">
+                <em class="fas" [ngClass]="{'fa-eye': trainer.public, 'fa-eye-slash': !trainer.public}"></em>
+              </button>
+              <button class="btn btn-warning btn-sm" routerLink="{{trainer.id}}/edit" title="Редактировать">
+                <em class="fas fa-pen-to-square"></em>
+              </button>
+              <button class="btn btn-danger btn-sm" (click)="remove(trainer)" title="Удалить">
+                <em class="fas fa-trash"></em>
+              </button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="3">
+            <pagination
+              [totalItems]="trainers.count ?? 0"
+              (pageChanged)="setPage($event)"
+              [maxSize]="10"
+              [rotate]="true"
+              [boundaryLinks]="true"
+              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" class="pagination-sm">
+            </pagination>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>

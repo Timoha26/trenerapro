@@ -1,0 +1,33 @@
+<header class="border-bottom sticky-top bg-white shadow-sm">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" routerLink="/">
+        <span class="fw-bold">Админка</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" aria-expanded="false" (click)="isCollapsed = !isCollapsed">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" [collapse]="isCollapsed">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/">
+              <em class="fas fa-angle-left"></em>
+              на сайт
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="trainers">тренеры</a>
+          </li>
+        </ul>
+
+        <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-2">
+          <a class="nav-link" href="#" (click)="logout()">Выйти</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<router-outlet></router-outlet>

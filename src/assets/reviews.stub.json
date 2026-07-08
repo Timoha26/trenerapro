@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "text": "Отличный тренер! Ребенок в восторге, есть результат!",
+    "rating": 5,
+    "createdAt": "2024-01-10T11:05:06Z",
+    "user": {
+      "id": 1,
+      "firstName": "Екатерина",
+      "lastName": "C.",
+      "avatarUrl": "assets/photo-1438761681033-6461ffad8d80.avif",
+      "role": 1
+    }
+  },
+  {
+    "id": 1,
+    "text": "Профессиональный подход к занятиям, очень довольны.",
+    "rating": 4,
+    "createdAt": "2024-01-05T11:05:06Z",
+    "user": {
+      "id": 1,
+      "firstName": "Иван",
+      "lastName": "К.",
+      "avatarUrl": "assets/photo-1500648767791-00dcc994a43e.avif",
+      "role": 1
+    }
+  },
+  {
+    "id": 1,
+    "text": "Сын стал гораздо увереннее, тренер нашел подход. Спасибо!",
+    "rating": 5,
+    "createdAt": "2023-12-22T11:05:06Z",
+    "user": {
+      "id": 1,
+      "firstName": "Анна",
+      "lastName": "П.",
+      "avatarUrl": "assets/photo-1544005313-94ddf0286df2.avif",
+      "role": 1
+    }
+  }
+]

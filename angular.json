@@ -32,7 +32,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/fonts/fontawesome/css/all.min.css"
+              "src/fonts/fontawesome-all.min.css"
             ],
             "scripts": []
           },
@@ -50,7 +50,13 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/app/conf/conf.ts",
+                  "with": "src/app/conf/conf.production.ts"
+                }
+              ]
             },
             "development": {
               "buildOptimizer": false,
@@ -97,7 +103,7 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/fonts/fontawesome/css/all.min.css"
+              "src/fonts/fontawesome-all.min.css"
             ],
             "scripts": []
           }

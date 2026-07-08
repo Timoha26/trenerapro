@@ -1,0 +1,124 @@
+<section id="admin_projects" class="py-5">
+  <div class="container" *ngIf="trainer">
+    <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between mb-4">
+      <div>
+        <h4 class="fw-bold mb-2">Админка - Тренеры - {{ trainer.firstname }} {{ trainer.lastname }}</h4>
+      </div>
+      <div class="btn-group float-end">
+        <a class="btn btn-outline-success mt-3 mt-md-0" routerLink="/admin/projects">
+          <em class="fas fa-angle-left"></em>
+          к тренерам
+        </a>
+      </div>
+    </div>
+
+    <div class="row gy-4 align-items-center">
+      <div class="col-lg-12">
+        <form name="trainerForm" #trainerForm="ngForm" novalidate>
+          <div class="row mb-1">
+            <label for="firstname" class="form-label col-sm-3 col-md-2 col-lg-1">Имя</label>
+            <div class="col-sm-9 col-md-10 col-lg-11">
+              <input type="text" id="firstname" name="firstname" #firstname="ngModel" [(ngModel)]="trainer.firstname"
+                     placeholder="Название" required class="form-control"
+                     [ngClass]="{'is-invalid': firstname.invalid && (firstname.touched || firstname.dirty)}">
+            </div>
+          </div>
+          <div class="row mb-1">
+            <label for="lastname" class="form-label col-sm-3 col-md-2 col-lg-1">Фамилия</label>
+            <div class="col-sm-9 col-md-10 col-lg-11">
+              <input type="text" id="lastname" name="lastname" #lastname="ngModel" [(ngModel)]="trainer.lastname"
+                     placeholder="Название" required class="form-control"
+                     [ngClass]="{'is-invalid': lastname.invalid && (lastname.touched || lastname.dirty)}">
+            </div>
+          </div>
+          <div class="row mb-1">
+            <label for="patronymic" class="form-label col-sm-3 col-md-2 col-lg-1">Отчество</label>
+            <div class="col-sm-9 col-md-10 col-lg-11">
+              <input type="text" id="patronymic" name="patronymic" #patronymic="ngModel"
+                     [(ngModel)]="trainer.patronymic" placeholder="Название" required class="form-control"
+                     [ngClass]="{'is-invalid': patronymic.invalid && (patronymic.touched || patronymic.dirty)}">
+            </div>
+          </div>
+          <div class="row mb-1">
+            <label for="description" class="form-label col-sm-3 col-md-2 col-lg-1">Описание</label>
+            <div class="col-sm-9 col-md-10 col-lg-11">
+              <textarea id="description" name="description" #description="ngModel" rows="3"
+                        [(ngModel)]="trainer.description" placeholder="Описание" class="form-control"
+                        [ngClass]="{'is-invalid': description.invalid && (description.touched || description.dirty)}"></textarea>
+            </div>
+          </div>
+          <div class="row mb-1">
+            <label for="price" class="form-label col-sm-3 col-md-2 col-lg-1">Цена</label>
+            <div class="col-sm-9 col-md-10 col-lg-11">
+              <input type="text" id="price" name="price" #price="ngModel" [(ngModel)]="trainer.price"
+                     [inputMask]="priceMask" placeholder="0.0" required class="form-control"
+                     [ngClass]="{'is-invalid': price.invalid && (price.touched || price.dirty)}">
+            </div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-12">
+              <div class="btn-group w-auto float-end">
+                <button type="submit" (click)="save()" [disabled]="trainerForm.invalid" class="btn btn-success px-4">
+                  Сохранить
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- pdf -->
+          <div class="row mb-1">
+            <div class="col-12">
+              <div class="btn-group w-auto float-end">
+                <button type="button" (click)="addPdf()" class="btn btn-sm btn-outline-success">
+                  Добавить *.pdf файл проекта
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- images -->
+          <div class="row mb-1">
+            <div class="col-12">
+              <div class="btn-group w-auto float-end">
+                <button type="button" (click)="addImage()" class="btn btn-sm btn-outline-success">
+                  Добавить изображение
+                </button>
+              </div>
+            </div>
+          </div>
+
+<!--          <div class="row mb-1">-->
+<!--            <div class="col-sm-6 col-md-4 col-lg-2 pb-2" *ngFor="let image of trainer.images">-->
+<!--              <div class="card h-100 border-dark">-->
+<!--                <div class="card-header">-->
+<!--                  <h6 class="card-title float-start">{{ image.name }}</h6>-->
+<!--                  <button type="button" class="btn-close btn-sm p-0 float-end" title="удалить" (click)="removeImage(image.id)"></button>-->
+<!--                </div>-->
+<!--                <div class="card-body d-flex flex-column">-->
+<!--                  <img src="{{image.url}}" alt="{{image.name}}"/>-->
+<!--                  <p class="card-text small mb-2 text-muted">{{ image.description }}</p>-->
+<!--                  <div class="form-check">-->
+<!--                    <input class="form-check-input" type="checkbox" [(ngModel)]="image.mainImage" id="mainImage_{{image.id}}" name="mainImage_{{image.id}}" (mouseup)="updateImage(image)">-->
+<!--                    <label class="form-check-label" for="mainImage_{{image.id}}">-->
+<!--                      Основное-->
+<!--                    </label>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+          <div class="row mb-1">
+            <div class="col-12">
+              <div class="btn-group w-auto float-end">
+                <button type="submit" (click)="save()" [disabled]="trainerForm.invalid" class="btn btn-success px-4">
+                  Сохранить
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

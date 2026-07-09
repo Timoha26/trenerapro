@@ -22,7 +22,6 @@ import {FormsModule} from "@angular/forms";
 import {TrainerFiltersComponent} from "./components/trainers/trainer.filters.component";
 import {RightSidebarComponent} from "./components/rightSidebar/rightSidebar.component";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {PaginationModule} from "ngx-bootstrap/pagination";
 import {ReviewsService} from "./services/reviews.service";
 import {registerLocaleData} from "@angular/common";
 import localeRu from "@angular/common/locales/ru";
@@ -31,8 +30,9 @@ import {ErrorInterceptor} from "./services/auth/error.interceptor";
 import { InputMaskModule } from '@ngneat/input-mask';
 import {AuthService} from "./services/auth/auth.service";
 import {AuthGuardService} from "./services/auth/auth.guard.service";
-import {LoginComponent} from "./components/login/login.component";
 import {RestoreUrlService} from "./services/restore.url.service";
+import {SettlementsService} from "./services/settlements.service";
+import {PaginationComponent} from "./components/pagination/pagination.component";
 
 registerLocaleData(localeRu)
 
@@ -40,7 +40,6 @@ registerLocaleData(localeRu)
   declarations: [
     AppComponent,
     NotFoundComponent,
-    LoginComponent,
     HomeComponent,
     TrainersComponent,
     TrainersDetailsComponent,
@@ -60,8 +59,8 @@ registerLocaleData(localeRu)
     TrainerFiltersComponent,
     RightSidebarComponent,
     BrowserAnimationsModule,
-    PaginationModule,
-    InputMaskModule
+    InputMaskModule,
+    PaginationComponent
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'ru-RU'},
@@ -74,7 +73,8 @@ registerLocaleData(localeRu)
     ReviewsService,
     AuthService,
     AuthGuardService,
-    RestoreUrlService
+    RestoreUrlService,
+    SettlementsService
   ],
   bootstrap: [AppComponent]
 })

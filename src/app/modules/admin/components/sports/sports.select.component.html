@@ -1,8 +1,7 @@
 <div class="d-inline-block w-100">
-  <a class="btn btn-outline-success btn-sm float-end" (click)="addSport()">
+  <button type="button" class="btn btn-outline-success btn-sm float-end" (click)="addSport()" title="Добавить дисциплину">
     <em class="fa fa-plus"></em>
-    Добавить дисциплину
-  </a>
+  </button>
 </div>
 <div class="form-check form-check-inline" *ngFor="let sport of sports">
   <input type="checkbox" class="form-check-input" id="sport_{{sport.id}}" [checked]="isChecked(sport.id)"

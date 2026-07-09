@@ -1,8 +1,7 @@
 <div class="d-inline-block w-100">
-  <a class="btn btn-outline-success btn-sm float-end" (click)="addCategory()">
+  <button type="button" class="btn btn-outline-success btn-sm float-end" (click)="addCategory()" title="Добавить уровень">
     <em class="fa fa-plus"></em>
-    Добавить уровень
-  </a>
+  </button>
 </div>
 <div class="form-check form-check-inline" *ngFor="let category of categories">
   <input type="checkbox" class="form-check-input" id="category_{{category.id}}" [checked]="isChecked(category.id)"

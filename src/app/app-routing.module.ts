@@ -7,7 +7,6 @@ import {TrainersDetailsComponent} from "./components/trainers/trainers.details.c
 import {ClubsComponent} from "./components/clubs/clubs.component";
 import {ClubsDetailsComponent} from "./components/clubs/clubs.details.component";
 import {AuthGuardService} from "./services/auth/auth.guard.service";
-import {LoginComponent} from "./components/login/login.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -21,7 +20,6 @@ const routes: Routes = [
     title: 'СИП-строй админка',
     canMatch: [AuthGuardService]
   },
-  {path: 'login', component: LoginComponent, title: 'СИП-строй авторизация'},
   {path: '**', component: NotFoundComponent}
 ];
 

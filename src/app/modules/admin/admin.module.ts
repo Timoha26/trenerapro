@@ -32,6 +32,9 @@ import {
 import {ClientCategoriesSelectComponent} from "./components/client.categories/client.categories.select.component";
 import {FileModalComponent} from "./components/file.modal/file.modal.component";
 import {RestoreUrlService} from "../../services/restore.url.service";
+import {SettlementsService} from "../../services/settlements.service";
+import {SettlementSelectComponent} from "./components/settlement/settlement.select.component";
+import {SettlementCreateModalComponent} from "./components/settlement/settlement.create.modal.component";
 
 
 @NgModule({
@@ -45,6 +48,7 @@ import {RestoreUrlService} from "../../services/restore.url.service";
     SportCreateModalComponent,
     TrainingFormatsCreateModalComponent,
     ClientCategoriesCreateModalComponent,
+    SettlementCreateModalComponent,
     FileModalComponent
   ],
   imports: [
@@ -58,7 +62,8 @@ import {RestoreUrlService} from "../../services/restore.url.service";
     CollapseModule,
     SportsSelectComponent,
     TrainingFormatsSelectComponent,
-    ClientCategoriesSelectComponent
+    ClientCategoriesSelectComponent,
+    SettlementSelectComponent
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'ru-RU'},
@@ -71,7 +76,8 @@ import {RestoreUrlService} from "../../services/restore.url.service";
     TrainingFormatsService,
     ClientCategoriesService,
     SportsService,
-    RestoreUrlService
+    RestoreUrlService,
+    SettlementsService
   ]
 })
 export class AdminModule {

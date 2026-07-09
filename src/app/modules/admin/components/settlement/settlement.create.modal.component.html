@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Новая локация</h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="cancel()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<form name="settlementForm" #settlementForm="ngForm" novalidate>
+  <div class="modal-body text-center">
+    <div class="row mb-1">
+      <label for="country" class="form-label col-sm-4">Страна</label>
+      <div class="col-sm-8">
+        <input type="text" id="country" name="country" #country="ngModel" [(ngModel)]="newSettlement.country"
+               class="form-control form-control-sm" required>
+      </div>
+    </div>
+    <div class="row mb-1">
+      <label for="region" class="form-label col-sm-4">Регион</label>
+      <div class="col-sm-8">
+        <input type="text" id="region" name="region" #region="ngModel" [(ngModel)]="newSettlement.region"
+               class="form-control form-control-sm" required>
+      </div>
+    </div>
+    <div class="row mb-1">
+      <label for="settlement" class="form-label col-sm-4">Регион</label>
+      <div class="col-sm-8">
+        <input type="text" id="settlement" name="settlement" #settlement="ngModel"
+               [(ngModel)]="newSettlement.settlement" class="form-control form-control-sm" required>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-success" (click)="save()" [disabled]="settlementForm.invalid">
+      Добавить
+    </button>
+    <button type="button" class="btn btn-outline-danger" (click)="cancel()">
+      Отмена
+    </button>
+  </div>
+</form>

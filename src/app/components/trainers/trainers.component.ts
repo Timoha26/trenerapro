@@ -3,7 +3,7 @@ import {TrainersService} from "../../services/trainers.service";
 import {TrainerModel} from "../../models/trainers/trainer.model";
 import {PageResultModel} from "../../models/page.result.model";
 import {TrainerFiltersModel} from "../../models/trainers/trainer.filters.model";
-import {PageChangedEvent} from "ngx-bootstrap/pagination";
+import {PageStateEvent} from "../../models/page.state.event";
 
 @Component({
   selector: 'landing-trainers',
@@ -34,7 +34,8 @@ export class TrainersComponent {
     this.getTrainers(this.filters);
   }
 
-  setPage(event: PageChangedEvent) {
+  setPage(event: PageStateEvent) {
+    console.log(event);
     this.setOffset(event.page, event.itemsPerPage);
   }
 

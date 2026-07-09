@@ -30,8 +30,12 @@ export class TrainersService {
   }
 
   public getTop(limit?: number): Observable<PageResultModel<TrainerModel>> {
+    const params: HttpParams = new HttpParams()
+      .set('limit', 4);
+      //.set('sportId', 1);
+
     return this.http.get(this.getUrl('/random'), {
-      params: new HttpParams().set('limit', limit || 4)
+      params: params
     });
   }
 

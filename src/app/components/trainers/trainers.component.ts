@@ -35,7 +35,6 @@ export class TrainersComponent {
   }
 
   setPage(event: PageStateEvent) {
-    console.log(event);
     this.setOffset(event.page, event.itemsPerPage);
   }
 

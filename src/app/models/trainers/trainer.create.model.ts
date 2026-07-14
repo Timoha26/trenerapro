@@ -11,4 +11,5 @@ export interface TrainerCreateModel {
   price?: number;
   priceGradation?: PriceGradationEnum;
   description?: string;
+  settlementId?: number;
 }

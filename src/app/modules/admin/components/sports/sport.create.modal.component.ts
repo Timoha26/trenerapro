@@ -20,8 +20,6 @@ export class SportCreateModalComponent {
   }
 
   save() {
-    console.log(this.newSport);
-
     this.sportsService.create(this.newSport).subscribe({
       next: (data: SportModel) => {
         this.event.emit(data);

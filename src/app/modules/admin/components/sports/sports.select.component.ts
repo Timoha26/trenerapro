@@ -36,8 +36,6 @@ export class SportsSelectComponent {
       if (index > -1)
         this.sportIds.splice(index, 1);
     }
-
-    console.log(this.sportIds);
   }
 
   isChecked(sportId: number | undefined): boolean {

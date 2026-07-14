@@ -1,11 +1,11 @@
 <section id="admin_projects" class="py-5">
-  <div class="container" *ngIf="trainer">
+  <div class="container">
     <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between mb-4">
       <div>
-        <h4 class="fw-bold mb-2">Тренеры - {{ trainer.firstname }} {{ trainer.lastname }}</h4>
+        <h4 class="fw-bold mb-2">Тренеры - Изменить</h4>
       </div>
       <div class="btn-group float-end">
-        <a class="btn btn-outline-success mt-3 mt-md-0" routerLink="/admin/projects">
+        <a class="btn btn-outline-success mt-3 mt-md-0" routerLink="/admin/trainers">
           <em class="fas fa-angle-left"></em>
           к тренерам
         </a>
@@ -16,98 +16,111 @@
       <div class="col-lg-12">
         <form name="trainerForm" #trainerForm="ngForm" novalidate>
           <div class="row mb-1">
-            <label for="firstname" class="form-label col-sm-3 col-md-2 col-lg-1">Имя</label>
-            <div class="col-sm-9 col-md-10 col-lg-11">
-              <input type="text" id="firstname" name="firstname" #firstname="ngModel" [(ngModel)]="trainer.firstname"
-                     placeholder="Название" required class="form-control"
-                     [ngClass]="{'is-invalid': firstname.invalid && (firstname.touched || firstname.dirty)}">
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Имя</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              {{trainer.firstname}}
             </div>
           </div>
           <div class="row mb-1">
-            <label for="lastname" class="form-label col-sm-3 col-md-2 col-lg-1">Фамилия</label>
-            <div class="col-sm-9 col-md-10 col-lg-11">
-              <input type="text" id="lastname" name="lastname" #lastname="ngModel" [(ngModel)]="trainer.lastname"
-                     placeholder="Название" required class="form-control"
-                     [ngClass]="{'is-invalid': lastname.invalid && (lastname.touched || lastname.dirty)}">
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Фамилия</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              {{trainer.lastname}}
             </div>
           </div>
           <div class="row mb-1">
-            <label for="patronymic" class="form-label col-sm-3 col-md-2 col-lg-1">Отчество</label>
-            <div class="col-sm-9 col-md-10 col-lg-11">
-              <input type="text" id="patronymic" name="patronymic" #patronymic="ngModel"
-                     [(ngModel)]="trainer.patronymic" placeholder="Название" required class="form-control"
-                     [ngClass]="{'is-invalid': patronymic.invalid && (patronymic.touched || patronymic.dirty)}">
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Отчество</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              {{trainer.patronymic}}
             </div>
           </div>
           <div class="row mb-1">
-            <label for="description" class="form-label col-sm-3 col-md-2 col-lg-1">Описание</label>
-            <div class="col-sm-9 col-md-10 col-lg-11">
-              <textarea id="description" name="description" #description="ngModel" rows="3"
-                        [(ngModel)]="trainer.description" placeholder="Описание" class="form-control"
-                        [ngClass]="{'is-invalid': description.invalid && (description.touched || description.dirty)}"></textarea>
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Пол</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              {{trainer.gender}}
             </div>
           </div>
           <div class="row mb-1">
-            <label for="price" class="form-label col-sm-3 col-md-2 col-lg-1">Цена</label>
-            <div class="col-sm-9 col-md-10 col-lg-11">
-              <input type="text" id="price" name="price" #price="ngModel" [(ngModel)]="trainer.price"
-                     [inputMask]="priceMask" placeholder="0.0" required class="form-control"
-                     [ngClass]="{'is-invalid': price.invalid && (price.touched || price.dirty)}">
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Возраст</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              {{trainer.age}}
             </div>
           </div>
           <div class="row mb-1">
-            <div class="col-12">
-              <div class="btn-group w-auto float-end">
-                <button type="submit" (click)="save()" [disabled]="trainerForm.invalid" class="btn btn-success px-4">
-                  Сохранить
-                </button>
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Стаж</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              {{trainer.experience}}
+            </div>
+          </div>
+          <div class="row mb-1">
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Описание</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              {{trainer.description}}
+            </div>
+          </div>
+          <div class="row mb-1">
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Цена</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              {{trainer.price}}
+            </div>
+          </div>
+          <div class="row mb-1">
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Цена за</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              {{trainer.priceGradation}}
+            </div>
+          </div>
+          <div class="row mb-1">
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Локация</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              {{trainer.settlement?.country}} {{trainer.settlement?.region}} {{trainer.settlement?.settlement}}
+            </div>
+          </div>
+          <div class="row mb-1">
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Спортивные дисциплины</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              <span *ngFor="let sport of trainer.sports">
+                <em class="fa" [ngClass]="sport.icon"></em> {{sport.name}}
+              </span>
+            </div>
+          </div>
+          <div class="row mb-1">
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Формат занятий</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              <span *ngFor="let format of trainer.trainingFormats">{{format.name}}</span>
+            </div>
+          </div>
+          <div class="row mb-1">
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Уровень подготовки</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              <span *ngFor="let category of trainer.clientCategories">{{category.name}}</span>
+            </div>
+          </div>
+          <div class="row mb-1">
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Файлы</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              <button type="button" class="btn btn-outline-success btn-sm float-end" (click)="addFile()"
+                      title="Добавить файл">
+                <em class="fa fa-plus"></em>
+              </button>
+            </div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-sm-6 col-md-4 col-lg-2 pb-2" *ngFor="let file of trainer.files">
+              <div class="card h-100 border-dark">
+                <div class="card-header">
+                  <h6 class="card-title float-start">{{ file.type }}</h6>
+                  <button type="button" class="btn-close btn-sm p-0 float-end" title="удалить"
+                          (click)="removeFile(file.id)"></button>
+                </div>
+                <div class="card-body d-flex flex-column" *ngIf="isImage(file)">
+                  <img src="{{file.url}}" alt="{{file.url}}"/>
+                </div>
+                <div class="card-body d-flex flex-column" *ngIf="isNotImage(file)">
+                  {{ file.url }}
+                </div>
               </div>
             </div>
           </div>
-
-          <!-- pdf -->
-          <div class="row mb-1">
-            <div class="col-12">
-              <div class="btn-group w-auto float-end">
-                <button type="button" (click)="addPdf()" class="btn btn-sm btn-outline-success">
-                  Добавить *.pdf файл проекта
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- images -->
-          <div class="row mb-1">
-            <div class="col-12">
-              <div class="btn-group w-auto float-end">
-                <button type="button" (click)="addImage()" class="btn btn-sm btn-outline-success">
-                  Добавить изображение
-                </button>
-              </div>
-            </div>
-          </div>
-
-<!--          <div class="row mb-1">-->
-<!--            <div class="col-sm-6 col-md-4 col-lg-2 pb-2" *ngFor="let image of trainer.images">-->
-<!--              <div class="card h-100 border-dark">-->
-<!--                <div class="card-header">-->
-<!--                  <h6 class="card-title float-start">{{ image.name }}</h6>-->
-<!--                  <button type="button" class="btn-close btn-sm p-0 float-end" title="удалить" (click)="removeImage(image.id)"></button>-->
-<!--                </div>-->
-<!--                <div class="card-body d-flex flex-column">-->
-<!--                  <img src="{{image.url}}" alt="{{image.name}}"/>-->
-<!--                  <p class="card-text small mb-2 text-muted">{{ image.description }}</p>-->
-<!--                  <div class="form-check">-->
-<!--                    <input class="form-check-input" type="checkbox" [(ngModel)]="image.mainImage" id="mainImage_{{image.id}}" name="mainImage_{{image.id}}" (mouseup)="updateImage(image)">-->
-<!--                    <label class="form-check-label" for="mainImage_{{image.id}}">-->
-<!--                      Основное-->
-<!--                    </label>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-
           <div class="row mb-1">
             <div class="col-12">
               <div class="btn-group w-auto float-end">

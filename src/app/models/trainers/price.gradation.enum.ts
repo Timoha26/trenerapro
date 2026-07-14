@@ -1,6 +1,6 @@
 export enum PriceGradationEnum {
-  Lesson,
-  Day,
-  Week,
-  Month
+  Lesson = 'lesson',
+  Day = 'day',
+  Week = 'week',
+  Month = 'month'
 }

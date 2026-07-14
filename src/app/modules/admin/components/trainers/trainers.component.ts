@@ -6,6 +6,7 @@ import {PageResultModel} from "../../../../models/page.result.model";
 import {TrainerModel} from "../../../../models/trainers/trainer.model";
 import {TrainerFiltersModel} from "../../../../models/trainers/trainer.filters.model";
 import {TrainersService} from "../../../../services/trainers.service";
+import {TrainerDataFilters} from "../../../../models/trainers/trainer.data.filters";
 
 @Component({
   selector: 'admin-projects',
@@ -20,17 +21,27 @@ export class TrainersComponent {
     sort: 'name',
     desc: false
   };
+  dataFilters: TrainerDataFilters = {
+    settlementIds: undefined,
+    sportIds: undefined,
+    clientCategoryIds: undefined,
+    trainingFormatIds: undefined,
+    verified: undefined,
+    minRating: undefined,
+    minPrice: undefined,
+    maxPrice: undefined
+  };
 
   constructor(private trainersService: TrainersService, private modalService: BsModalService) {
   }
 
-  private getTrainers(filters: TrainerFiltersModel) {
-    this.trainersService.get(filters).subscribe({next: data => this.trainers = data});
+  private getTrainers(filters: TrainerFiltersModel, dataFilters: TrainerDataFilters) {
+    this.trainersService.get(filters, dataFilters).subscribe({next: data => this.trainers = data});
   }
 
   private setOffset(page: number, itemsPerPage: number) {
     this.filters.offset = (page - 1) * itemsPerPage;
-    this.getTrainers(this.filters);
+    this.getTrainers(this.filters, this.dataFilters);
   }
 
   setPage(event: PageChangedEvent) {
@@ -75,7 +86,7 @@ export class TrainersComponent {
       class: 'modal-dialog-centered modal-sm',
       initialState: {
         title: 'Вы уверены?',
-        text: 'Проект <b>' + trainer.firstname + ' ' + trainer.lastname + '</b> будет удален'
+        text: 'Тренер <b>' + trainer.firstname + ' ' + trainer.lastname + '</b> будет удален'
       }
     };
 
@@ -90,6 +101,6 @@ export class TrainersComponent {
   }
 
   ngOnInit() {
-    this.getTrainers(this.filters);
+    this.getTrainers(this.filters, this.dataFilters);
   }
 }

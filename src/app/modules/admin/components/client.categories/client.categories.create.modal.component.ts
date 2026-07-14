@@ -20,8 +20,6 @@ export class ClientCategoriesCreateModalComponent {
   }
 
   save() {
-    console.log(this.newCategory);
-
     this.clientCategoriesService.create(this.newCategory).subscribe({
       next: (data: ClientCategoryModel) => {
         this.event.emit(data);

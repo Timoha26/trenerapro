@@ -4,6 +4,10 @@ import {GenderEnum} from "./gender.enum";
 import {PriceGradationEnum} from "./price.gradation.enum";
 import {TrainerLevelEnum} from "./trainer.level.enum";
 import {RatingModel} from "../rating.model";
+import {SportModel} from "../sport.model";
+import {TrainingFormatModel} from "../training.format.model";
+import {FileUploadModel} from "../file.upload.model";
+import {ClientCategoryModel} from "../client.category.model";
 
 export interface TrainerModel {
   id?: number;
@@ -21,7 +25,11 @@ export interface TrainerModel {
   verified?: boolean;
   level?: TrainerLevelEnum;
   logoUrl?: string;
-  sports?: string[];
+  sports?: SportModel[];
   rating?: RatingModel;
+  trainingFormats?: TrainingFormatModel[];
+  files?: FileUploadModel[];
+  clientCategories?: ClientCategoryModel[];
+  lessonAddresses?: any[];
   public?: boolean;
 }

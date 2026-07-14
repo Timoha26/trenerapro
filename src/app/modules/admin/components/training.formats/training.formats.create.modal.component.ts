@@ -20,8 +20,6 @@ export class TrainingFormatsCreateModalComponent {
   }
 
   save() {
-    console.log(this.newFormat);
-
     this.trainingFormatsService.create(this.newFormat).subscribe({
       next: (data: TrainingFormatModel) => {
         this.event.emit(data);

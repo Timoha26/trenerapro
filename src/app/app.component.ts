@@ -3,6 +3,7 @@ import {AuthService} from "./services/auth/auth.service";
 import {AuthModel} from "./models/auth.model";
 import {NgForm} from "@angular/forms";
 import {TokenModel} from "./models/token.model";
+import {RestoreUrlService} from "./services/restore.url.service";
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import {TokenModel} from "./models/token.model";
 })
 export class AppComponent {
   title = 'trenerapro-app';
+  logoUrl?: string;
   showLoginForm: boolean = false;
   authError?: string;
   authData: AuthModel = {
@@ -18,7 +20,7 @@ export class AppComponent {
     password: undefined
   };
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private restoreUrlService: RestoreUrlService) {
   }
 
   isLogged() {
@@ -41,5 +43,9 @@ export class AppComponent {
 
   logout() {
     this.authService.logout();
+  }
+
+  ngOnInit(){
+    this.logoUrl = this.restoreUrlService.restoreUrl('/trainerpro/static/logo2.svg');
   }
 }

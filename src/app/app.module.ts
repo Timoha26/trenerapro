@@ -23,7 +23,7 @@ import {TrainerFiltersComponent} from "./components/trainers/trainer.filters.com
 import {RightSidebarComponent} from "./components/rightSidebar/rightSidebar.component";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ReviewsService} from "./services/reviews.service";
-import {registerLocaleData} from "@angular/common";
+import {NgOptimizedImage, registerLocaleData} from "@angular/common";
 import localeRu from "@angular/common/locales/ru";
 import {AuthInterceptor} from "./services/auth/auth.interceptor";
 import {ErrorInterceptor} from "./services/auth/error.interceptor";
@@ -60,7 +60,8 @@ registerLocaleData(localeRu)
     RightSidebarComponent,
     BrowserAnimationsModule,
     InputMaskModule,
-    PaginationComponent
+    PaginationComponent,
+    NgOptimizedImage
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'ru-RU'},

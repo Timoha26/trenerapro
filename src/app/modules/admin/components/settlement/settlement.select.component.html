@@ -1,6 +1,6 @@
 <div class="input-group">
-  <select id="settlement" name="settlement" #settlement="ngModel" [(ngModel)]="settlementId" required
-          class="form-control form-control-sm">
+  <select id="settlement" name="settlement" #settlement="ngModel" [(ngModel)]="settlementId"
+          (ngModelChange)="onValueChange($event)" required class="form-control form-control-sm">
     <option [ngValue]="undefined" disabled>Выберите</option>
     <option *ngFor="let option of settlements" [ngValue]="option.id">{{ option.country }}, {{ option.region }}
       , {{ option.settlement }}

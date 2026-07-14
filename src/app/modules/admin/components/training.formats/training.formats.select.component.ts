@@ -36,8 +36,6 @@ export class TrainingFormatsSelectComponent {
       if (index > -1)
         this.trainingFormatIds.splice(index, 1);
     }
-
-    console.log(this.trainingFormatIds);
   }
 
   isChecked(formatId: number | undefined): boolean {

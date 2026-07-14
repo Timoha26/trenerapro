@@ -36,8 +36,6 @@ export class ClientCategoriesSelectComponent {
       if (index > -1)
         this.clientCategoryIds.splice(index, 1);
     }
-
-    console.log(this.clientCategoryIds);
   }
 
   isChecked(categoryId: number | undefined): boolean {

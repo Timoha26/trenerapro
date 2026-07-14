@@ -24,7 +24,7 @@ export class TrainersService {
       .set('sort_by', pageFilters?.sort ?? 'name')
       .set('is_desc', pageFilters?.desc ?? false);
 
-    return this.http.post(this.getUrl(''), dataFilters, {
+    return this.http.post(this.getUrl('/filters'), dataFilters, {
       params: params
     });
   }

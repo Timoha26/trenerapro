@@ -1,10 +1,24 @@
 import {Component} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {createMask} from "@ngneat/input-mask";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {ToastrService} from "ngx-toastr";
 import {TrainerModel} from "../../../../models/trainers/trainer.model";
 import {TrainersService} from "../../../../services/trainers.service";
+import {FileUploadModel} from "../../../../models/file.upload.model";
+import {GenderEnum} from "../../../../models/trainers/gender.enum";
+import {PriceGradationEnum} from "../../../../models/trainers/price.gradation.enum";
+import {RestoreUrlService} from "../../../../services/restore.url.service";
+import {FileModalComponent} from "../file.modal/file.modal.component";
+import {FileTypeEnum} from "../../../../models/file.type.enum";
+import {TrainerCreateRequestModel} from "../../../../models/trainers/trainer.create.request.model";
+import {SettlementModel} from "../../../../models/settlement.model";
+import {ClubModel} from "../../../../models/clubs/club.model";
+import {TrainerLevelEnum} from "../../../../models/trainers/trainer.level.enum";
+import {RatingModel} from "../../../../models/rating.model";
+import {SportModel} from "../../../../models/sport.model";
+import {TrainingFormatModel} from "../../../../models/training.format.model";
+import {ClientCategoryModel} from "../../../../models/client.category.model";
 
 @Component({
   selector: 'admin-projects-edit',
@@ -12,8 +26,44 @@ import {TrainersService} from "../../../../services/trainers.service";
 })
 export class TrainersEditComponent {
   id: number | undefined;
-  trainer: TrainerModel | undefined;
-  modalRef?: BsModalRef;
+  trainer: TrainerModel = {
+    id: undefined,
+    settlement: undefined,
+    firstname: undefined,
+    lastname: undefined,
+    patronymic: undefined,
+    age: undefined,
+    experience: undefined,
+    gender: undefined,
+    price: undefined,
+    priceGradation: undefined,
+    description: undefined,
+    club: undefined,
+    verified: undefined,
+    level: undefined,
+    logoUrl: undefined,
+    sports: undefined,
+    rating: undefined,
+    trainingFormats: undefined,
+    files: undefined,
+    clientCategories: undefined,
+    lessonAddresses: undefined,
+    public: undefined
+  };
+
+  files: FileUploadModel[] = [];
+
+  genderOptions = [
+    {key: GenderEnum.Male, name: "Мужщина"},
+    {key: GenderEnum.Female, name: "Женщина"}
+  ];
+
+  priceGradationOptions = [
+    {key: PriceGradationEnum.Lesson, name: "Занятие"},
+    {key: PriceGradationEnum.Day, name: "День"},
+    {key: PriceGradationEnum.Week, name: "Неделя"},
+    {key: PriceGradationEnum.Month, name: "Месяц"}
+  ];
 
   priceMask = createMask({
     alias: 'currency',
@@ -22,110 +72,80 @@ export class TrainersEditComponent {
     unmaskAsNumber: true
   });
 
-  constructor(private activatedRoute: ActivatedRoute, private modalService: BsModalService, private trainerService: TrainersService, private toastr: ToastrService) {
+  private modalRef?: BsModalRef;
+
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: BsModalService, private toastr: ToastrService, private trainerService: TrainersService, private restoreUrlService: RestoreUrlService) {
     this.id = activatedRoute.snapshot.params['id'];
   }
 
-  private getProject(id: number) {
+  private getTrainer(id: number) {
     this.trainerService.getDetails(id).subscribe({
       next: data => {
+        if(data.files) {
+          data.files.forEach(file => {
+            file.url = this.restoreUrlService.restoreUrl(file.url);
+          });
+        }
+
         this.trainer = data;
       }
     });
   }
 
-  addImage() {
-    // if (!this.trainer) return;
-    //
-    // const imageModalOptions: ModalOptions = {
-    //   class: 'modal-dialog-centered modal-md',
-    //   initialState: {
-    //     projectId: this.id,
-    //     imagesCount: this.trainer.images.length
-    //   }
+  addFile() {
+    // const modalOptions: ModalOptions = {
+    //   class: 'modal-dialog-centered modal-md'
     // };
     //
-    // this.modalRef = this.modalService.show(ImageModalComponent, imageModalOptions);
+    // this.modalRef = this.modalService.show(FileModalComponent, modalOptions);
     //
     // this.modalRef.content.event.subscribe({
-    //   next: (image: ImageModel) => {
-    //     if (image && this.project) {
-    //       image.url = this.restoreUrlService.restoreUrl(image.url);
-    //       this.project.images.push(image);
+    //   next: (file: FileUploadModel) => {
+    //     if (file) {
+    //       file.url = this.restoreUrlService.restoreUrl(file.url);
+    //       this.trainer.uploadedFileIds.push(file.id ?? 0);
+    //       this.files.push(file);
     //     }
     //   }
     // });
   }
 
-  removeImage(imageId?: number) {
-    // if (!this.project || !imageId) return;
-    //
-    // this.imagesService.remove(imageId).subscribe({
-    //   next: data => {
-    //     this.toastr.success('изображение удалено', 'Изображение');
-    //
-    //     if (this.project)
-    //       for (let i = 0; i < this.project.images.length; i++)
-    //         if (this.project.images[i].id == imageId) {
-    //           this.project.images.splice(i, 1);
-    //           break;
-    //         }
-    //   }
-    // });
+  removeFile(fileId?: number) {
+    console.log('removing file');
   }
 
-  updateImage(image: any) {
-    // const data: ImageUpdateModel = {
-    //   name: image.name,
-    //   mainImage: !image.mainImage
-    // };
-    //
-    // console.log(data);
-    //
-    // this.imagesService.update(image.id, data).subscribe({
-    //   next: () => {
-    //     this.getProject(this.id ?? '');
-    //   }
-    // });
+  isImage(file: FileUploadModel) {
+    if (file.type === undefined) return false;
+
+    const type = file.type as FileTypeEnum;
+
+    return type == FileTypeEnum.Avatar || type == FileTypeEnum.Logo || type == FileTypeEnum.Photo;
   }
 
-  addPdf() {
-    // if (!this.project) return;
-    //
-    // const pdfModalOptions: ModalOptions = {
-    //   class: 'modal-dialog-centered modal-md',
-    //   initialState: {
-    //     projectId: this.id
-    //   }
-    // };
-    //
-    // this.modalRef = this.modalService.show(PdfModalComponent, pdfModalOptions);
-    //
-    // this.modalRef.content.event.subscribe({
-    //   next: (project: ProjectModel) => {
-    //     if (project && this.project) {
-    //       project.pdfUrls = this.restoreUrlService.restorePdfUrls(project.pdfUrls ?? []);
-    //       this.project.pdfUrls = project.pdfUrls;
-    //     }
-    //   }
-    // });
+  isNotImage(file: FileUploadModel) {
+    if (file.type === undefined) return false;
+
+    const type = file.type as FileTypeEnum;
+
+    return type == FileTypeEnum.Video || type == FileTypeEnum.Document;
   }
 
   save() {
-    let trainer: TrainerModel = JSON.parse(JSON.stringify(this.trainer));
-
-    if (trainer.price)
-      trainer.price = parseFloat(trainer.price.toString().replace(/[^0-9.]/g, ''));
-
-    // this.trainerService.update(trainer).subscribe({
+    // let trainer: TrainerCreateRequestModel = JSON.parse(JSON.stringify(this.trainer));
+    //
+    // if (trainer.createTrainer?.price)
+    //   trainer.createTrainer.price = parseFloat(trainer.createTrainer.price.toString().replace(/[^0-9.]/g, ''));
+    //
+    // this.trainerService.create(trainer).subscribe({
     //   next: data => {
-    //     this.toastr.success('проект сохранен', 'Проект');
+    //     this.toastr.success('тренер сохранен', 'Тренер');
+    //     this.router.navigate(['/admin/trainers/' + data.id + '/edit']);
     //   }
     // });
   }
 
   ngOnInit() {
     if (this.id)
-      this.getProject(this.id);
+      this.getTrainer(this.id);
   }
 }

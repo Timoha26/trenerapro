@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {SettlementsService} from "../../../../services/settlements.service";
 import {SettlementModel} from "../../../../models/settlement.model";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
@@ -17,6 +17,7 @@ import {SettlementCreateModalComponent} from "./settlement.create.modal.componen
 })
 export class SettlementSelectComponent {
   @Input() settlementId?: number;
+  @Output() settlementIdChanged = new EventEmitter<number>();
 
   settlements: SettlementModel[] = [];
 
@@ -42,6 +43,10 @@ export class SettlementSelectComponent {
 
   private getSettlements() {
     this.settlementsService.get().subscribe({next: (data: SettlementModel[]) => this.settlements = data});
+  }
+
+  onValueChange(newValue: number) {
+    this.settlementIdChanged.emit(Number(newValue));
   }
 
   ngOnInit() {

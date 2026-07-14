@@ -10,6 +10,7 @@ import {FileModalComponent} from "../file.modal/file.modal.component";
 import {FileUploadModel} from "../../../../models/file.upload.model";
 import {FileTypeEnum} from "../../../../models/file.type.enum";
 import {RestoreUrlService} from "../../../../services/restore.url.service";
+import {GenderEnum} from "../../../../models/trainers/gender.enum";
 
 @Component({
   selector: 'admin-projects-create',
@@ -26,9 +27,9 @@ export class TrainersCreateComponent {
       gender: undefined,
       price: undefined,
       priceGradation: undefined,
-      description: undefined
+      description: undefined,
+      settlementId: undefined
     },
-    settlementId: undefined,
     sportIds: [],
     trainingFormatIds: [],
     clientCategoryIds: [],
@@ -36,6 +37,11 @@ export class TrainersCreateComponent {
   };
 
   files: FileUploadModel[] = [];
+
+  genderOptions = [
+    {key: GenderEnum.Male, name: "Мужщина"},
+    {key: GenderEnum.Female, name: "Женщина"}
+  ];
 
   priceGradationOptions = [
     {key: PriceGradationEnum.Lesson, name: "Занятие"},
@@ -70,8 +76,6 @@ export class TrainersCreateComponent {
           this.trainer.uploadedFileIds.push(file.id ?? 0);
           this.files.push(file);
         }
-
-        console.log(this.trainer.uploadedFileIds);
       }
     });
   }
@@ -109,6 +113,4 @@ export class TrainersCreateComponent {
       }
     });
   }
-
-  protected readonly FileTypeEnum = FileTypeEnum;
 }

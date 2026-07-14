@@ -21,8 +21,6 @@ export class SettlementCreateModalComponent {
   }
 
   save() {
-    console.log(this.newSettlement);
-
     this.settlementsService.create(this.newSettlement).subscribe({
       next: (data: SettlementModel) => {
         this.event.emit(data);

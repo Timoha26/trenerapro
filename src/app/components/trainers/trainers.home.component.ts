@@ -3,6 +3,7 @@ import {RouterLink} from "@angular/router";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {TrainersService} from "../../services/trainers.service";
 import {TrainerModel} from "../../models/trainers/trainer.model";
+import {RestoreUrlService} from "../../services/restore.url.service";
 
 @Component({
   selector: 'landing-trainers-home',
@@ -18,13 +19,22 @@ import {TrainerModel} from "../../models/trainers/trainer.model";
 export class TrainersHomeComponent {
   public trainers: TrainerModel[] = [];
 
-  constructor(private trainersService: TrainersService) {
+  constructor(private trainersService: TrainersService, private restoreUrlService: RestoreUrlService) {
   }
 
   private getTrainers() {
     this.trainersService.getTop().subscribe({
       next: data => {
-        this.trainers = data.items ?? [];
+        let items = data.items ?? [];
+
+        items.forEach(item => {
+          if(item.files)
+            item.files.forEach(file => {
+              file.url = this.restoreUrlService.restoreUrl(file.url);
+            });
+        });
+
+        this.trainers = items;
       }
     })
   }

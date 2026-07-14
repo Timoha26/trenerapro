@@ -32,6 +32,8 @@
             ],
             "styles": [
               "src/styles.scss",
+              "src/app/app.component.scss",
+              "src/app/modules/admin/admin.component.scss",
               "src/fonts/fontawesome-all.min.css"
             ],
             "scripts": []
@@ -103,6 +105,8 @@
             ],
             "styles": [
               "src/styles.scss",
+              "src/app/app.component.scss",
+              "src/app/modules/admin/admin.component.scss",
               "src/fonts/fontawesome-all.min.css"
             ],
             "scripts": []

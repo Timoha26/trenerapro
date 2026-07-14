@@ -6,7 +6,7 @@ export class RestoreUrlService {
   constructor() {
   }
 
-  public restoreUrl(url?: string): string {
-    return conf.trainerProUrl + url;
+  public restoreUrl(path?: string): string {
+    return conf.filesUrl + path;
   }
 }

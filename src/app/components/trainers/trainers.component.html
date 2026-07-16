@@ -19,7 +19,7 @@
   </div>
 
   <!-- Categories -->
-  <sports></sports>
+  <sports (selectedSportId)="onSportIdChange($event)"></sports>
 
   <!-- Main Layout -->
   <div class="content-grid">
@@ -41,7 +41,7 @@
             <p class="sport">{{ trainer.sports | sportsListener }}</p>
             <div class="trainer-rating">★ <span>{{ trainer.rating?.value }} ({{ trainer.rating?.reviewsCount }} отзывов)</span></div>
             <div class="trainer-stats"><i class="fas fa-map-marker-alt"></i> 2,1 км от вас</div>
-            <div class="trainer-stats"><i class="fas fa-child"></i> Дети 6-12 лет</div>
+            <div class="trainer-stats"><i class="fas fa-child"></i> {{trainer.clientCategories | clientCategoriesListener}}</div>
             <span class="trainer-price">от {{ trainer.price | currency }}/{{ trainer.priceGradation | priceGradation }}</span>
             <div class="trainer-actions">
               <button class="btn-outline" routerLink="/trainers/{{trainer.id}}">Подробнее</button>
@@ -52,7 +52,7 @@
       </div>
 
       <!-- Pagination -->
-      <tp-pagination [currentPage]="1" [totalItems]="trainers.count ?? 0" [itemsPerPage]="filters.limit ?? 0" (pageChange)="setPage($event)"></tp-pagination>
+      <tp-pagination [currentPage]="1" [totalItems]="trainers.count ?? 0" [itemsPerPage]="filters().limit ?? 0" (pageChange)="onPageChange($event)"></tp-pagination>
     </section>
 
     <!-- Right Sidebar -->

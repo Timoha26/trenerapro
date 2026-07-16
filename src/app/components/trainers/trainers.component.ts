@@ -1,26 +1,24 @@
-import {Component} from "@angular/core";
+import {Component, OnInit, signal} from "@angular/core";
 import {TrainersService} from "../../services/trainers.service";
 import {TrainerModel} from "../../models/trainers/trainer.model";
 import {PageResultModel} from "../../models/page.result.model";
 import {TrainerFiltersModel} from "../../models/trainers/trainer.filters.model";
 import {PageStateEvent} from "../../models/page.state.event";
-import {TrainerDataFilters} from "../../models/trainers/trainer.data.filters";
 import {RestoreUrlService} from "../../services/restore.url.service";
 import {FileTypeEnum} from "../../models/file.type.enum";
+import {toObservable} from "@angular/core/rxjs-interop";
+import {distinctUntilChanged, switchMap} from "rxjs";
 
 @Component({
   selector: 'landing-trainers',
   templateUrl: './trainers.component.html'
 })
 export class TrainersComponent {
-  public trainers: PageResultModel<TrainerModel> = {count: 0, items: []};
-  public filters: TrainerFiltersModel = {
+  public filters = signal<TrainerFiltersModel>({
     offset: 0,
     limit: 6,
     sort: 'name',
-    desc: false
-  };
-  dataFilters: TrainerDataFilters = {
+    desc: false,
     settlementIds: undefined,
     sportIds: undefined,
     clientCategoryIds: undefined,
@@ -29,38 +27,43 @@ export class TrainersComponent {
     minRating: undefined,
     minPrice: undefined,
     maxPrice: undefined
-  };
+  });
+
+  public trainers: PageResultModel<TrainerModel> = {count: 0, items: []};
 
   constructor(private trainersService: TrainersService, private restoreUrlService: RestoreUrlService) {
   }
 
-  private getTrainers(filters: TrainerFiltersModel, dataFilters: TrainerDataFilters) {
-    this.trainersService.get(filters, dataFilters).subscribe({
-      next: data => {
-        data.items?.forEach(item =>
-          item.files?.forEach(file => {
-            file.url = this.restoreUrlService.restoreUrl(file.url);
+  private dataSubscription = toObservable(this.filters).pipe(
+    distinctUntilChanged(),
+    switchMap(id => this.trainersService.get(this.filters()))
+  ).subscribe({
+    next: data => {
+      data.items?.forEach(item =>
+        item.files?.forEach(file => {
+          file.url = this.restoreUrlService.restoreUrl(file.url);
 
-            if(file.type == FileTypeEnum.Avatar || file.type == FileTypeEnum.Photo)
-              item.logoUrl = file.url;
-          })
-        );
+          if (file.type == FileTypeEnum.Avatar || file.type == FileTypeEnum.Photo)
+            item.logoUrl = file.url;
+        })
+      );
 
-        this.trainers = data;
-      }
-    });
+      this.trainers = data;
+    }
+  });
+
+  onSportIdChange(sportId?: number) {
+    this.filters.update(prev => ({
+      ...prev,
+      sportIds: sportId ? [sportId] : undefined,
+      offset: 0
+    }));
   }
 
-  private setOffset(page: number, itemsPerPage: number) {
-    this.filters.offset = (page - 1) * itemsPerPage;
-    this.getTrainers(this.filters, this.dataFilters);
-  }
-
-  setPage(event: PageStateEvent) {
-    this.setOffset(event.page, event.itemsPerPage);
-  }
-
-  ngOnInit() {
-    this.getTrainers(this.filters, this.dataFilters);
+  onPageChange(event: PageStateEvent): void {
+    this.filters.update(prev => ({
+      ...prev,
+      offset: (event.page - 1) * event.itemsPerPage
+    }));
   }
 }

@@ -115,7 +115,6 @@ export class SportsHomeComponent implements OnDestroy {
   }
 
   selectSport(sport?: SportModel) {
-    console.log(sport);
     this.selectedSportId.emit(sport?.id);
   }
 

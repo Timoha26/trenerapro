@@ -17,26 +17,38 @@ export class TrainersService {
     return conf.trainerProUrl + '/api/v1/trainers' + path;
   }
 
-  public get(pageFilters?: TrainerFiltersModel, dataFilters?: TrainerDataFilters): Observable<PageResultModel<TrainerModel>> {
+  public get(filters?: TrainerFiltersModel): Observable<PageResultModel<TrainerModel>> {
     const params: HttpParams = new HttpParams()
-      .set('offset', pageFilters?.offset ?? 0)
-      .set('limit', pageFilters?.limit ?? 6)
-      .set('sort_by', pageFilters?.sort ?? 'name')
-      .set('is_desc', pageFilters?.desc ?? false);
+      .set('offset', filters?.offset ?? 0)
+      .set('limit', filters?.limit ?? 6)
+      .set('sort_by', filters?.sort ?? 'name')
+      .set('is_desc', filters?.desc ?? false);
+
+
+  let dataFilters: TrainerDataFilters = {
+      settlementIds: filters?.settlementIds,
+      sportIds: filters?.sportIds,
+      clientCategoryIds: filters?.clientCategoryIds,
+      trainingFormatIds: filters?.trainingFormatIds,
+      verified: filters?.verified,
+      minRating: filters?.minRating,
+      minPrice: filters?.minPrice,
+      maxPrice: filters?.maxPrice
+    };
 
     return this.http.post(this.getUrl('/filters'), dataFilters, {
       params: params
     });
   }
 
-  public getTop(limit?: number, sportId?: number): Observable<PageResultModel<TrainerModel>> {
+  public getTop(limit?: number, sportId?: number): Observable<TrainerModel[]> {
     let params: HttpParams = new HttpParams()
       .set('limit', limit ?? 4);
 
     if(sportId)
       params = params.set('sportId', sportId);
 
-    return this.http.get<PageResultModel<TrainerModel>>(this.getUrl('/random'), {
+    return this.http.get<TrainerModel[]>(this.getUrl('/random'), {
       params: params
     });
   }

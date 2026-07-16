@@ -9,10 +9,13 @@
   <div class="filter-block">
     <h3 style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Возраст ребёнка</h3>
     <div class="filter-options-row">
-      <button class="filter-btn active">3–6 лет</button>
-      <button class="filter-btn">7–10 лет</button>
-      <button class="filter-btn">11–14 лет</button>
-      <button class="filter-btn">15+ лет</button>
+      <button class="filter-btn" [ngClass]="{'active': false}" *ngFor="let category of clientCategories">
+        {{category.name}}
+      </button>
+<!--      <button class="filter-btn active">3–6 лет</button>-->
+<!--      <button class="filter-btn">7–10 лет</button>-->
+<!--      <button class="filter-btn">11–14 лет</button>-->
+<!--      <button class="filter-btn">15+ лет</button>-->
     </div>
   </div>
 

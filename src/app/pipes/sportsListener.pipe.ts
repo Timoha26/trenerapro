@@ -13,6 +13,6 @@ export class SportsListenerPipe implements PipeTransform {
 
     sports.forEach(sport => sportNames.push(sport.name ?? 'undefined'));
 
-    return sportNames.join(',');
+    return sportNames.join(', ');
   }
 }

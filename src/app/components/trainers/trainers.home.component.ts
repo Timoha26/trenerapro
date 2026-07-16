@@ -40,7 +40,7 @@ export class TrainersHomeComponent implements OnInit, OnDestroy{
       switchMap((param) => this.trainersService.getTop(this.limit, param))
     ).subscribe({
       next: data => {
-        let items = data.items ?? [];
+        let items = data ?? [];
 
         items?.forEach(item =>
           item.files?.forEach(file => {

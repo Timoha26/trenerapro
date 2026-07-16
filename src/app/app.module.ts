@@ -35,6 +35,8 @@ import {SettlementsService} from "./services/settlements.service";
 import {PaginationComponent} from "./components/pagination/pagination.component";
 import {SportsListenerPipe} from "./pipes/sportsListener.pipe";
 import {PriceGradationPipe} from "./pipes/priceGradation.pipe";
+import {ClientCategoriesListenerPipe} from "./pipes/clientCategoriesListener.pipe";
+import {ClientCategoriesService} from "./services/client.categories.service";
 
 registerLocaleData(localeRu)
 
@@ -65,7 +67,8 @@ registerLocaleData(localeRu)
         PaginationComponent,
         NgOptimizedImage,
         SportsListenerPipe,
-        PriceGradationPipe
+        PriceGradationPipe,
+        ClientCategoriesListenerPipe
     ],
   providers: [
     {provide: LOCALE_ID, useValue: 'ru-RU'},
@@ -79,7 +82,8 @@ registerLocaleData(localeRu)
     AuthService,
     AuthGuardService,
     RestoreUrlService,
-    SettlementsService
+    SettlementsService,
+    ClientCategoriesService
   ],
   bootstrap: [AppComponent]
 })

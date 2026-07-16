@@ -3,7 +3,6 @@ import {RouterLink} from "@angular/router";
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {ReviewsService} from "../../services/reviews.service";
 import {PageResultModel} from "../../models/page.result.model";
-import {TrainerModel} from "../../models/trainers/trainer.model";
 import {ReviewModel} from "../../models/reviews/review.model";
 import {RatingRepeatPipe} from "../../pipes/ratingRepeat.pipe";
 

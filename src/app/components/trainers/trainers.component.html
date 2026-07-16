@@ -38,11 +38,11 @@
           </div>
           <div class="trainer-body">
             <h3>{{ trainer.firstname }} {{ trainer.lastname }}</h3>
-            <p class="sport">{{ trainer.sports?.join(', ') }}</p>
+            <p class="sport">{{ trainer.sports | sportsListener }}</p>
             <div class="trainer-rating">★ <span>{{ trainer.rating?.value }} ({{ trainer.rating?.reviewsCount }} отзывов)</span></div>
             <div class="trainer-stats"><i class="fas fa-map-marker-alt"></i> 2,1 км от вас</div>
             <div class="trainer-stats"><i class="fas fa-child"></i> Дети 6-12 лет</div>
-            <span class="trainer-price">от {{ trainer.price | currency }}/{{ trainer.priceGradation }}</span>
+            <span class="trainer-price">от {{ trainer.price | currency }}/{{ trainer.priceGradation | priceGradation }}</span>
             <div class="trainer-actions">
               <button class="btn-outline" routerLink="/trainers/{{trainer.id}}">Подробнее</button>
               <button class="btn-primary">Записаться</button>

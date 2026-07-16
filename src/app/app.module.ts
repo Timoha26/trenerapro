@@ -33,6 +33,8 @@ import {AuthGuardService} from "./services/auth/auth.guard.service";
 import {RestoreUrlService} from "./services/restore.url.service";
 import {SettlementsService} from "./services/settlements.service";
 import {PaginationComponent} from "./components/pagination/pagination.component";
+import {SportsListenerPipe} from "./pipes/sportsListener.pipe";
+import {PriceGradationPipe} from "./pipes/priceGradation.pipe";
 
 registerLocaleData(localeRu)
 
@@ -46,23 +48,25 @@ registerLocaleData(localeRu)
     ClubsComponent,
     ClubsDetailsComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    TrainersHomeComponent,
-    ClubsHomeComponent,
-    ReviewsHomeComponent,
-    SportsHomeComponent,
-    WhyusHomeComponent,
-    TrainerFiltersComponent,
-    RightSidebarComponent,
-    BrowserAnimationsModule,
-    InputMaskModule,
-    PaginationComponent,
-    NgOptimizedImage
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        TrainersHomeComponent,
+        ClubsHomeComponent,
+        ReviewsHomeComponent,
+        SportsHomeComponent,
+        WhyusHomeComponent,
+        TrainerFiltersComponent,
+        RightSidebarComponent,
+        BrowserAnimationsModule,
+        InputMaskModule,
+        PaginationComponent,
+        NgOptimizedImage,
+        SportsListenerPipe,
+        PriceGradationPipe
+    ],
   providers: [
     {provide: LOCALE_ID, useValue: 'ru-RU'},
     {provide: DEFAULT_CURRENCY_CODE, useValue: 'RUB'},

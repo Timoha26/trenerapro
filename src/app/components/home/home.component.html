@@ -25,10 +25,10 @@
   </section>
 
   <!-- Categories -->
-  <sports></sports>
+  <sports (selectedSportId)="selectedSportId = $event"></sports>
 
   <!-- Trainers -->
-  <landing-trainers-home></landing-trainers-home>
+  <landing-trainers-home [filterParam]="selectedSportId"></landing-trainers-home>
 
   <!-- Why Us -->
   <landing-whyus-home></landing-whyus-home>
@@ -43,7 +43,7 @@
   <section class="container">
     <div class="become-trainer">
       <div class="become-content">
-        <h2>Станьте тренером на TrainerPRO</h2>
+        <h2>Станьте тренером на ТренерPRO</h2>
         <p>Начните зарабатывать на своих знаниях и опыте! Заполните анкету и находите клиентов рядом с домом.</p>
       </div>
       <div class="become-actions">

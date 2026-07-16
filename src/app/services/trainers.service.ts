@@ -29,12 +29,14 @@ export class TrainersService {
     });
   }
 
-  public getTop(limit?: number): Observable<PageResultModel<TrainerModel>> {
-    const params: HttpParams = new HttpParams()
-      .set('limit', 4);
-      //.set('sportId', 1);
+  public getTop(limit?: number, sportId?: number): Observable<PageResultModel<TrainerModel>> {
+    let params: HttpParams = new HttpParams()
+      .set('limit', limit ?? 4);
 
-    return this.http.get(this.getUrl('/random'), {
+    if(sportId)
+      params = params.set('sportId', sportId);
+
+    return this.http.get<PageResultModel<TrainerModel>>(this.getUrl('/random'), {
       params: params
     });
   }

@@ -1,5 +1,8 @@
 <section class="categories container" #container (window:click)="closeDropdown()">
   <div class="cat-grid">
+    <div class="cat-item" (click)="selectSport(undefined)">
+      <i class="fas fa-bars"></i> Все
+    </div>
     <div class="cat-item" *ngFor="let sport of visibleSports()" (click)="selectSport(sport)">
       <i class="fas" [ngClass]="sport.icon"></i> {{ sport.name }}
     </div>

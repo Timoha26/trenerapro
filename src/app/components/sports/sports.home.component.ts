@@ -1,4 +1,4 @@
-import {Component, effect, ElementRef, NgZone, OnDestroy, signal, ViewChild} from "@angular/core";
+import {Component, effect, ElementRef, EventEmitter, NgZone, OnDestroy, Output, signal, ViewChild} from "@angular/core";
 import {RouterLink} from "@angular/router";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {SportModel} from "../../models/sport.model";
@@ -18,11 +18,12 @@ import {SportsService} from "../../services/sports.service";
 export class SportsHomeComponent implements OnDestroy {
   @ViewChild('container') container!: ElementRef<HTMLElement>;
   @ViewChild('ghostWrapper') ghostWrapper!: ElementRef<HTMLElement>;
+  @Output() selectedSportId: EventEmitter<number | undefined> = new EventEmitter<number | undefined>();
 
   private resizeObserver?: ResizeObserver;
   private itemWidths: number[] = [];
   private readonly gap = 10;
-  private readonly toggleWidth = 100;
+  private readonly toggleWidth = 200;
 
   allSports = signal<SportModel[]>([]);
   visibleSports = signal<SportModel[]>([]);
@@ -113,8 +114,9 @@ export class SportsHomeComponent implements OnDestroy {
     this.isDropdownOpen.set(false);
   }
 
-  selectSport(sport: SportModel) {
+  selectSport(sport?: SportModel) {
     console.log(sport);
+    this.selectedSportId.emit(sport?.id);
   }
 
   ngOnDestroy() {
@@ -122,6 +124,7 @@ export class SportsHomeComponent implements OnDestroy {
   }
 
   ngOnInit() {
+    this.selectedSportId.emit(undefined);
     this.getSports();
   }
 }

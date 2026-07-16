@@ -14,12 +14,12 @@
       </div>
       <div class="trainer-body">
         <h3>{{ trainer.firstname }} {{ trainer.lastname }}</h3>
-        <p class="sport">{{ trainer.sports?.join(', ') }}</p>
+        <p class="sport">{{ trainer.sports | sportsListener }}</p>
         <div class="trainer-rating">
           ★ <span>{{ trainer.rating?.value }} ({{ trainer.rating?.reviewsCount }} отзывов)</span>
         </div>
         <div class="trainer-stats">👤 2.1 км от вас</div>
-        <span class="trainer-price">от {{ trainer.price | currency }}/{{ trainer.priceGradation }}</span>
+        <span class="trainer-price">от {{ trainer.price | currency }}/{{ trainer.priceGradation | priceGradation }}</span>
         <button class="btn-primary" routerLink="/trainers/{{trainer.id}}">Подробнее</button>
       </div>
     </div>

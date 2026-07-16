@@ -6,14 +6,8 @@ import {RestoreUrlService} from "../../services/restore.url.service";
   templateUrl: 'home.component.html'
 })
 export class HomeComponent {
-  heroImageUrl?: string;
-  becomeImageUrl?: string;
+  selectedSportId?: number = undefined;
 
   constructor(private restoreUrlService: RestoreUrlService) {
-  }
-
-  ngOnInit(){
-    this.heroImageUrl = this.restoreUrlService.restoreUrl('/trainerpro/static/guys_playing.png');
-    this.heroImageUrl = this.restoreUrlService.restoreUrl('/trainerpro/static/guys_resting.png');
   }
 }

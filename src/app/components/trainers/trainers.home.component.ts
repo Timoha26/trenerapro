@@ -1,9 +1,13 @@
-import {Component} from "@angular/core";
+import {Component, Input, OnDestroy, OnInit} from "@angular/core";
 import {RouterLink} from "@angular/router";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {TrainersService} from "../../services/trainers.service";
 import {TrainerModel} from "../../models/trainers/trainer.model";
 import {RestoreUrlService} from "../../services/restore.url.service";
+import {FileTypeEnum} from "../../models/file.type.enum";
+import {BehaviorSubject, Subject, Subscription, switchMap} from "rxjs";
+import {SportsListenerPipe} from "../../pipes/sportsListener.pipe";
+import {PriceGradationPipe} from "../../pipes/priceGradation.pipe";
 
 @Component({
   selector: 'landing-trainers-home',
@@ -13,33 +17,47 @@ import {RestoreUrlService} from "../../services/restore.url.service";
     RouterLink,
     NgForOf,
     NgIf,
-    CurrencyPipe
+    CurrencyPipe,
+    SportsListenerPipe,
+    PriceGradationPipe
   ]
 })
-export class TrainersHomeComponent {
+export class TrainersHomeComponent implements OnInit, OnDestroy{
   public trainers: TrainerModel[] = [];
+  private limit: number = 4;
+  private paramSource$: BehaviorSubject<number | undefined> = new BehaviorSubject<number | undefined>(undefined);
+  private subscription!: Subscription;
+
+  @Input() set filterParam(value: number | undefined){
+    this.paramSource$.next(value);
+  }
 
   constructor(private trainersService: TrainersService, private restoreUrlService: RestoreUrlService) {
   }
 
-  private getTrainers() {
-    this.trainersService.getTop().subscribe({
+  ngOnInit() {
+    this.subscription = this.paramSource$.pipe(
+      switchMap((param) => this.trainersService.getTop(this.limit, param))
+    ).subscribe({
       next: data => {
         let items = data.items ?? [];
 
-        items.forEach(item => {
-          if(item.files)
-            item.files.forEach(file => {
-              file.url = this.restoreUrlService.restoreUrl(file.url);
-            });
-        });
+        items?.forEach(item =>
+          item.files?.forEach(file => {
+            file.url = this.restoreUrlService.restoreUrl(file.url);
+
+            if(file.type == FileTypeEnum.Avatar || file.type == FileTypeEnum.Photo)
+              item.logoUrl = file.url;
+          })
+        );
 
         this.trainers = items;
       }
-    })
+    });
   }
 
-  ngOnInit() {
-    this.getTrainers();
+  ngOnDestroy() {
+    if(this.subscription)
+      this.subscription.unsubscribe();
   }
 }

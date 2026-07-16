@@ -52,6 +52,7 @@ export class PaginationComponent implements OnInit {
     if (typeof page === 'number' && page !== this.currentPage) {
       this.state.page = page;
       this.state.itemsPerPage = this.itemsPerPage;
+      this.currentPage = page;
       this.pageChange.emit(this.state);
     }
   }
@@ -60,6 +61,7 @@ export class PaginationComponent implements OnInit {
     if (this.currentPage > 1) {
       this.state.page = this.currentPage - 1;
       this.state.itemsPerPage = this.itemsPerPage;
+      this.currentPage = this.state.page;
       this.pageChange.emit(this.state);
     }
   }
@@ -68,6 +70,7 @@ export class PaginationComponent implements OnInit {
     if (this.currentPage < this.totalPages) {
       this.state.page = this.currentPage + 1;
       this.state.itemsPerPage = this.itemsPerPage;
+      this.currentPage = this.state.page;
       this.pageChange.emit(this.state);
     }
   }

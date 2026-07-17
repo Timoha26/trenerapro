@@ -43,9 +43,17 @@
               <em class="fas fa-star"></em>
               <span>{{ trainer.rating?.value }} ({{ trainer.rating?.reviewsCount | reviews }})</span>
             </div>
-            <div class="trainer-stats"><i class="fas fa-map-marker-alt"></i> 2,1 км от вас</div>
-            <div class="trainer-stats"><i class="fas fa-child"></i> {{trainer.clientCategories | clientCategoriesListener}}</div>
-            <span class="trainer-price">от {{ trainer.price | currency }}/{{ trainer.priceGradation | priceGradation }}</span>
+            <div class="trainer-stats">
+              <em class="fas fa-map-marker-alt"></em>
+              2,1 км от вас
+            </div>
+            <div class="trainer-stats">
+              <em class="fas fa-child"></em>
+              {{trainer.clientCategories | clientCategoriesListener}}
+            </div>
+            <span class="trainer-price">
+              от {{ trainer.price | currency }}/{{ trainer.priceGradation | priceGradation }}
+            </span>
             <div class="trainer-actions">
               <button class="btn-outline" routerLink="/trainers/{{trainer.id}}">Подробнее</button>
               <button class="btn-primary">Записаться</button>

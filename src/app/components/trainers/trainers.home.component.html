@@ -1,15 +1,20 @@
 <section class="popular container">
   <div class="section-title">
     <h2>Популярные тренеры</h2>
-    <button type="button" class="btn-secondary" routerLink="/trainers">
+    <button type="button" class="btn-outline" routerLink="/trainers">
       Смотреть все
     </button>
   </div>
   <div class="landing-trainers-grid" *ngIf="trainers.length > 0">
     <div class="trainer-card" *ngFor="let trainer of trainers">
       <div class="trainer-img-wrap">
-        <div class="card-badge" *ngIf="trainer.verified"><i class="fas fa-check-circle"></i> Проверен</div>
-        <div class="card-fav"><i class="far fa-heart"></i></div>
+        <div class="card-badge" *ngIf="trainer.verified">
+          <em class="fas fa-check-circle"></em>
+          Проверен
+        </div>
+        <div class="card-fav">
+          <em class="far fa-heart"></em>
+        </div>
         <img src="{{trainer.logoUrl}}" alt="Trainer">
       </div>
       <div class="trainer-body">
@@ -19,8 +24,13 @@
           <em class="fas fa-star"></em>
           <span>{{ trainer.rating?.value }} ({{ trainer.rating?.reviewsCount | reviews }})</span>
         </div>
-        <div class="trainer-stats">👤 2.1 км от вас</div>
-        <span class="trainer-price">от {{ trainer.price | currency }}/{{ trainer.priceGradation | priceGradation }}</span>
+        <div class="trainer-stats">
+          <em class="fas fa-map-marker-alt"></em>
+          2.1 км от вас
+        </div>
+        <span class="trainer-price">
+          от {{ trainer.price | currency }}/{{ trainer.priceGradation | priceGradation }}
+        </span>
         <button class="btn-primary" routerLink="/trainers/{{trainer.id}}">Подробнее</button>
       </div>
     </div>

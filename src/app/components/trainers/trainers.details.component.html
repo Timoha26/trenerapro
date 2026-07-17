@@ -1,1 +1,46 @@
-<h1>trainer details page</h1>
+<main class="container">
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1>Подробности о тренере</h1>
+  </div>
+
+  <!-- Main Layout -->
+  <div class="content-grid details-grid">
+    <section>
+      <div class="trainer-details-card">
+        <div class="card-top">
+          <div class="avatar">
+            <img src="{{trainer.logoUrl}}" alt="Trainer">
+          </div>
+          <div class="info">
+            <div class="name">{{ trainer.firstname }} {{ trainer.lastname }}</div>
+            <div class="speciality">{{ trainer.sports | sportsListener }}</div>
+
+            <div class="rating-row">
+              <div class="trainer-rating">★ <span>{{ trainer.rating?.value }} ({{ trainer.rating?.reviewsCount }}
+                отзывов)</span></div>
+            </div>
+
+            <div class="distance-status">
+              <div class="trainer-stats"><i class="fas fa-map-marker-alt"></i> 2,1 км от вас</div>
+            </div>
+
+            <div class="distance-status">
+              <div class="trainer-stats"><i class="fas fa-child"></i> {{ trainer.clientCategories | clientCategoriesListener }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <div class="price">
+            от {{ trainer.price | currency }}/{{ trainer.priceGradation | priceGradation }}
+          </div>
+          <button class="btn-primary">Записаться</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Sidebar -->
+    <rightSidebar></rightSidebar>
+
+  </div>
+</main>

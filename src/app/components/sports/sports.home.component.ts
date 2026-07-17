@@ -20,6 +20,8 @@ export class SportsHomeComponent implements OnDestroy {
   @ViewChild('ghostWrapper') ghostWrapper!: ElementRef<HTMLElement>;
   @Output() selectedSportId: EventEmitter<number | undefined> = new EventEmitter<number | undefined>();
 
+  public currentSportId?: number = undefined;
+
   private resizeObserver?: ResizeObserver;
   private itemWidths: number[] = [];
   private readonly gap = 10;
@@ -116,6 +118,7 @@ export class SportsHomeComponent implements OnDestroy {
 
   selectSport(sport?: SportModel) {
     this.selectedSportId.emit(sport?.id);
+    this.currentSportId = sport?.id;
   }
 
   ngOnDestroy() {

@@ -1,9 +1,9 @@
 <section class="categories container" #container (window:click)="closeDropdown()">
   <div class="cat-grid">
-    <div class="cat-item" (click)="selectSport(undefined)">
+    <div class="cat-item" [ngClass]="{'active': !currentSportId}" (click)="selectSport(undefined)">
       <i class="fas fa-bars"></i> Все
     </div>
-    <div class="cat-item" *ngFor="let sport of visibleSports()" (click)="selectSport(sport)">
+    <div class="cat-item" *ngFor="let sport of visibleSports()" [ngClass]="{'active': sport.id == currentSportId}" (click)="selectSport(sport)">
       <i class="fas" [ngClass]="sport.icon"></i> {{ sport.name }}
     </div>
     <div class="cat-dropdown-wrapper" *ngIf="hiddenSports().length > 0" (click)="$event.stopPropagation()">
@@ -11,7 +11,7 @@
         <i class="fas fa-ellipsis-h"></i> Еще
       </div>
       <div class="cat-dropdown" *ngIf="isDropdownOpen()">
-        <div class="cat-item" *ngFor="let sport of hiddenSports()" (click)="selectSport(sport); closeDropdown()">
+        <div class="cat-item" *ngFor="let sport of hiddenSports()" [ngClass]="{'active': sport.id == currentSportId}" (click)="selectSport(sport); closeDropdown()">
           <i class="fas" [ngClass]="sport.icon"></i> {{ sport.name }}
         </div>
       </div>

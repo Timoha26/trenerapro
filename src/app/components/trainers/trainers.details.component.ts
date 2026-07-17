@@ -4,6 +4,7 @@ import {TrainersService} from "../../services/trainers.service";
 import {RestoreUrlService} from "../../services/restore.url.service";
 import {TrainerModel} from "../../models/trainers/trainer.model";
 import {FileTypeEnum} from "../../models/file.type.enum";
+import {FileUploadModel} from "../../models/file.upload.model";
 
 @Component({
   selector: 'landing-trainers-details',
@@ -55,6 +56,22 @@ export class TrainersDetailsComponent {
         this.trainer = data;
       }
     });
+  }
+
+  isImage(file: FileUploadModel) {
+    if (file.type === undefined) return false;
+
+    const type = file.type as FileTypeEnum;
+
+    return type == FileTypeEnum.Avatar || type == FileTypeEnum.Logo || type == FileTypeEnum.Photo;
+  }
+
+  isNotImage(file: FileUploadModel) {
+    if (file.type === undefined) return false;
+
+    const type = file.type as FileTypeEnum;
+
+    return type == FileTypeEnum.Video || type == FileTypeEnum.Document;
   }
 
   ngOnInit() {

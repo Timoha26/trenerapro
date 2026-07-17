@@ -10,23 +10,64 @@
       <div class="trainer-details-card">
         <div class="card-top">
           <div class="avatar">
-            <img src="{{trainer.logoUrl}}" alt="Trainer">
+            <img src="{{trainer.logoUrl}}" alt="Тренер">
           </div>
           <div class="info">
             <div class="name">{{ trainer.firstname }} {{ trainer.lastname }}</div>
-            <div class="speciality">{{ trainer.sports | sportsListener }}</div>
+            <div class="speciality">
+              <span *ngFor="let sport of trainer.sports">
+                <em class="fa" [ngClass]="sport.icon"></em> {{sport.name}}
+              </span>
+            </div>
+
+            <div class="distance-status">
+              <div class="trainer-stats" title="Возраст тренера">
+                <em class="fas fa-id-card"></em>
+                {{trainer.age | age}}
+              </div>
+              <div class="trainer-stats" title="Стаж работы тренера">
+                <em class="fas fa-briefcase"></em>
+                {{trainer.experience | age}}
+              </div>
+              <div class="trainer-stats" title="Возраст спортсмена">
+                <em class="fas fa-child"></em>
+                {{ trainer.clientCategories | clientCategoriesListener }}
+              </div>
+              <div class="trainer-stats" title="Формат занятий">
+                <em class="fas fa-dumbbell"></em>
+                {{ trainer.trainingFormats | trainingFormatsListener }}
+              </div>
+              <div class="trainer-stats" title="Местоположение">
+                <em class="fas fa-map-marker-alt"></em>
+                {{trainer.settlement?.region}} {{trainer.settlement?.settlement}}
+              </div>
+            </div>
 
             <div class="rating-row">
-              <div class="trainer-rating">★ <span>{{ trainer.rating?.value }} ({{ trainer.rating?.reviewsCount }}
-                отзывов)</span></div>
+              <div class="trainer-rating">
+                <em class="fas fa-star"></em>
+                <span>{{ trainer.rating?.value }} ({{ trainer.rating?.reviewsCount | reviews }})</span>
+              </div>
             </div>
-
-            <div class="distance-status">
-              <div class="trainer-stats"><i class="fas fa-map-marker-alt"></i> 2,1 км от вас</div>
-            </div>
-
-            <div class="distance-status">
-              <div class="trainer-stats"><i class="fas fa-child"></i> {{ trainer.clientCategories | clientCategoriesListener }}</div>
+          </div>
+        </div>
+        <div class="card-bottom" *ngIf="trainer.description">
+          <div class="trainer-stats" title="Описания">
+            {{trainer.description}}
+          </div>
+        </div>
+        <div class="card-bottom" *ngIf="trainer.files">
+          <div class="landing-trainers-grid">
+            <div class="trainer-card" *ngFor="let file of trainer.files">
+              <div class="trainer-img-wrap">
+                <img src="{{file.url}}" alt="{{file.url}}" *ngIf="isImage(file)">
+                <div class="fas fa-file" *ngIf="isNotImage(file)">
+                  {{ file.url }}
+                </div>
+              </div>
+              <div class="trainer-body">
+                <div class="trainer-stats">{{file.type}}</div>
+              </div>
             </div>
           </div>
         </div>

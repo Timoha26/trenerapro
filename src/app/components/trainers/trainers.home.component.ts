@@ -8,6 +8,7 @@ import {FileTypeEnum} from "../../models/file.type.enum";
 import {BehaviorSubject, Subject, Subscription, switchMap} from "rxjs";
 import {SportsListenerPipe} from "../../pipes/sportsListener.pipe";
 import {PriceGradationPipe} from "../../pipes/priceGradation.pipe";
+import {ReviewsPipe} from "../../pipes/reviews.pipe";
 
 @Component({
   selector: 'landing-trainers-home',
@@ -19,7 +20,8 @@ import {PriceGradationPipe} from "../../pipes/priceGradation.pipe";
     NgIf,
     CurrencyPipe,
     SportsListenerPipe,
-    PriceGradationPipe
+    PriceGradationPipe,
+    ReviewsPipe
   ]
 })
 export class TrainersHomeComponent implements OnInit, OnDestroy{

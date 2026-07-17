@@ -37,6 +37,9 @@ import {SportsListenerPipe} from "./pipes/sportsListener.pipe";
 import {PriceGradationPipe} from "./pipes/priceGradation.pipe";
 import {ClientCategoriesListenerPipe} from "./pipes/clientCategoriesListener.pipe";
 import {ClientCategoriesService} from "./services/client.categories.service";
+import {AgePipe} from "./pipes/age.pipe";
+import {TrainingFormatsListenerPipe} from "./pipes/trainingFormatsListener.pipe";
+import {ReviewsPipe} from "./pipes/reviews.pipe";
 
 registerLocaleData(localeRu)
 
@@ -68,7 +71,10 @@ registerLocaleData(localeRu)
         NgOptimizedImage,
         SportsListenerPipe,
         PriceGradationPipe,
-        ClientCategoriesListenerPipe
+        ClientCategoriesListenerPipe,
+        AgePipe,
+        TrainingFormatsListenerPipe,
+        ReviewsPipe
     ],
   providers: [
     {provide: LOCALE_ID, useValue: 'ru-RU'},

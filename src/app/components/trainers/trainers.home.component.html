@@ -16,7 +16,8 @@
         <h3>{{ trainer.firstname }} {{ trainer.lastname }}</h3>
         <p class="sport">{{ trainer.sports | sportsListener }}</p>
         <div class="trainer-rating">
-          ★ <span>{{ trainer.rating?.value }} ({{ trainer.rating?.reviewsCount }} отзывов)</span>
+          <em class="fas fa-star"></em>
+          <span>{{ trainer.rating?.value }} ({{ trainer.rating?.reviewsCount | reviews }})</span>
         </div>
         <div class="trainer-stats">👤 2.1 км от вас</div>
         <span class="trainer-price">от {{ trainer.price | currency }}/{{ trainer.priceGradation | priceGradation }}</span>

@@ -1,4 +1,4 @@
-import {Component, OnInit, signal} from "@angular/core";
+import {Component, signal} from "@angular/core";
 import {TrainersService} from "../../services/trainers.service";
 import {TrainerModel} from "../../models/trainers/trainer.model";
 import {PageResultModel} from "../../models/page.result.model";
@@ -8,6 +8,7 @@ import {RestoreUrlService} from "../../services/restore.url.service";
 import {FileTypeEnum} from "../../models/file.type.enum";
 import {toObservable} from "@angular/core/rxjs-interop";
 import {distinctUntilChanged, switchMap} from "rxjs";
+import {SortByEnum} from "../../models/sortBy.enum";
 
 @Component({
   selector: 'landing-trainers',
@@ -17,7 +18,7 @@ export class TrainersComponent {
   public filters = signal<TrainerFiltersModel>({
     offset: 0,
     limit: 6,
-    sort: 'name',
+    sort: SortByEnum.Rating,
     desc: false,
     settlementIds: undefined,
     sportIds: undefined,

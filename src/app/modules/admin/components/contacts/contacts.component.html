@@ -1,0 +1,17 @@
+<div class="d-inline-block w-100">
+  <button type="button" class="btn btn-outline-success btn-sm float-end" (click)="addContact()"
+          title="Добавить контакт">
+    <em class="fa fa-plus"></em>
+  </button>
+</div>
+<div class="card border-dark" *ngFor="let contact of contacts">
+  <div class="card-body p-1">
+    <div class="float-start">
+      {{ contact.fullname }}
+      {{ contact.email }}
+      {{ contact.phone }}
+    </div>
+    <button type="button" class="btn-close btn-sm p-0 float-end" title="удалить"
+            (click)="removeContact(contact.id)"></button>
+  </div>
+</div>

@@ -3,10 +3,15 @@ import {BsModalRef} from "ngx-bootstrap/modal";
 import {ToastrService} from "ngx-toastr";
 import {ClientCategoryModel} from "../../../../models/client.category.model";
 import {ClientCategoriesService} from "../../../../services/client.categories.service";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'client-categories-create-modal',
-  templateUrl: 'client.categories.create.modal.component.html'
+  templateUrl: 'client.categories.create.modal.component.html',
+  imports: [
+    FormsModule
+  ],
+  standalone: true
 })
 export class ClientCategoriesCreateModalComponent {
   event: EventEmitter<ClientCategoryModel> = new EventEmitter<ClientCategoryModel>();

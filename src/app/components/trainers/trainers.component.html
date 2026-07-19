@@ -1,40 +1,23 @@
 <main class="container">
-  <!-- Page Header -->
   <div class="page-header">
     <h1>Тренеры <span>Найдено 128 тренеров</span></h1>
   </div>
 
-  <!-- Search & Sort -->
-  <div class="search-sort-bar">
-    <div class="search-wrapper">
-      <i class="fas fa-search"></i>
-      <input type="text" placeholder="Поиск тренера, вида спорта или клуба">
-    </div>
-    <select class="sort-select">
-      <option>Сначала популярные</option>
-      <option>Сначала дорогие</option>
-      <option>Сначала дешевые</option>
-      <option>По рейтингу</option>
-    </select>
-  </div>
+  <search-sort></search-sort>
 
-  <!-- Categories -->
   <sports (selectedSportId)="onSportIdChange($event)"></sports>
 
-  <!-- Main Layout -->
   <div class="content-grid">
 
-    <!-- Left Sidebar -->
     <trainers-filters></trainers-filters>
 
-    <!-- Middle Column (Cards) - ТЕПЕРЬ ЗДЕСЬ 3 КОЛОНКИ -->
     <section>
       <div class="trainers-grid">
         <div class="trainer-card" *ngFor="let trainer of trainers.items">
           <div class="trainer-img-wrap">
             <div class="card-badge" *ngIf="trainer.verified"><i class="fas fa-check-circle"></i> Проверен</div>
             <div class="card-fav"><i class="far fa-heart"></i></div>
-            <img src="{{trainer.logoUrl}}" alt="Trainer">
+            <img src="{{trainer.logoUrl}}" alt="Тренер">
           </div>
           <div class="trainer-body">
             <h3>{{ trainer.firstname }} {{ trainer.lastname }}</h3>
@@ -62,12 +45,9 @@
         </div>
       </div>
 
-      <!-- Pagination -->
       <tp-pagination [currentPage]="1" [totalItems]="trainers.count ?? 0" [itemsPerPage]="filters().limit ?? 0" (pageChange)="onPageChange($event)"></tp-pagination>
     </section>
 
-    <!-- Right Sidebar -->
     <rightSidebar></rightSidebar>
-
   </div>
 </main>

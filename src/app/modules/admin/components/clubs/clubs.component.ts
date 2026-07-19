@@ -3,55 +3,52 @@ import {PageChangedEvent} from "ngx-bootstrap/pagination";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {ConfirmationModalComponent} from "../confirmation.modal/confirmation.modal.component";
 import {PageResultModel} from "../../../../models/page.result.model";
-import {TrainerModel} from "../../../../models/trainers/trainer.model";
 import {TrainerFiltersModel} from "../../../../models/trainers/trainer.filters.model";
-import {TrainersService} from "../../../../services/trainers.service";
+import {ClubModel} from "../../../../models/clubs/club.model";
+import {ClubFiltersModel} from "../../../../models/clubs/club.filters.model";
+import {ClubsService} from "../../../../services/clubs.service";
 import {SortByEnum} from "../../../../models/sortBy.enum";
 
 @Component({
-  selector: 'admin-trainers',
-  templateUrl: 'trainers.component.html'
+  selector: 'admin-clubs',
+  templateUrl: 'clubs.component.html'
 })
-export class TrainersComponent {
+export class ClubsComponent {
   modalRef?: BsModalRef;
-  trainers: PageResultModel<TrainerModel> = {items: [], count: 0};
-  filters: TrainerFiltersModel = {
+  clubs: PageResultModel<ClubModel> = {items: [], count: 0};
+  filters: ClubFiltersModel = {
     offset: 0,
     limit: 10,
     sort: SortByEnum.Rating,
     desc: false,
     settlementIds: undefined,
     sportIds: undefined,
-    clientCategoryIds: undefined,
-    trainingFormatIds: undefined,
     verified: undefined,
-    minRating: undefined,
-    minPrice: undefined,
-    maxPrice: undefined
+    minRating: undefined
   };
 
-  constructor(private trainersService: TrainersService, private modalService: BsModalService) {
+  constructor(private clubsService: ClubsService, private modalService: BsModalService) {
   }
 
-  private getTrainers(filters: TrainerFiltersModel) {
-    this.trainersService.get(filters).subscribe({next: data => this.trainers = data});
+  private getClubs(filters: TrainerFiltersModel) {
+    this.clubsService.get(filters).subscribe({next: data => this.clubs = data});
   }
 
   private setOffset(page: number, itemsPerPage: number) {
     this.filters.offset = (page - 1) * itemsPerPage;
-    this.getTrainers(this.filters);
+    this.getClubs(this.filters);
   }
 
   setPage(event: PageChangedEvent) {
     this.setOffset(event.page, event.itemsPerPage);
   }
 
-  public(trainer: TrainerModel) {
+  public(club: ClubModel) {
     const confirmRemoveModalOptions: ModalOptions = {
       class: 'modal-dialog-centered modal-sm',
       initialState: {
         title: 'Вы уверены?',
-        text: 'Тренер <b>' + trainer.firstname + ' ' + trainer.lastname + '</b> будет ' + (trainer.public ? 'снят с публикации' : 'опубликован')
+        text: 'Клуб <b>' + club.name + '</b> будет ' + (club.public ? 'снят с публикации' : 'опубликован')
       }
     };
 
@@ -60,7 +57,7 @@ export class TrainersComponent {
     this.modalRef.content.event.subscribe({
       next: (isConfirmed: boolean) => {
         if (isConfirmed) {
-          trainer.public = !trainer.public;
+          club.public = !club.public;
 
           // this.trainersService.update(trainer).subscribe({
           //   next: data => {
@@ -79,12 +76,12 @@ export class TrainersComponent {
     });
   }
 
-  remove(trainer: TrainerModel) {
+  remove(club: ClubModel) {
     const confirmRemoveModalOptions: ModalOptions = {
       class: 'modal-dialog-centered modal-sm',
       initialState: {
         title: 'Вы уверены?',
-        text: 'Тренер <b>' + trainer.firstname + ' ' + trainer.lastname + '</b> будет удален'
+        text: 'Клуб <b>' + club.name  + '</b> будет удален'
       }
     };
 
@@ -93,12 +90,12 @@ export class TrainersComponent {
     this.modalRef.content.event.subscribe({
       next: (isConfirmed: boolean) => {
         if (isConfirmed)
-          this.trainersService.remove(trainer.id ?? 0).subscribe({next: data => this.setOffset(1, 10)});
+          this.clubsService.remove(club.id ?? 0).subscribe({next: data => this.setOffset(1, 10)});
       }
     });
   }
 
   ngOnInit() {
-    this.getTrainers(this.filters);
+    this.getClubs(this.filters);
   }
 }

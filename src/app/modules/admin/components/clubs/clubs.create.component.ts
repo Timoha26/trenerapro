@@ -1,57 +1,47 @@
 import {Component} from "@angular/core";
-import {createMask} from "@ngneat/input-mask";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
-import {TrainersService} from "../../../../services/trainers.service";
-import {TrainerCreateRequestModel} from "../../../../models/trainers/trainer.create.request.model";
-import {PriceGradationEnum} from "../../../../models/trainers/price.gradation.enum";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {FileModalComponent} from "../file.modal/file.modal.component";
 import {FileUploadModel} from "../../../../models/file.upload.model";
-import {FileTypeEnum} from "../../../../models/file.type.enum";
 import {RestoreUrlService} from "../../../../services/restore.url.service";
-import {GenderEnum} from "../../../../models/trainers/gender.enum";
+import {ClubsService} from "../../../../services/clubs.service";
+import {ClubCreateRequestModel} from "../../../../models/clubs/club.create.request.model";
 import {FileUploadService} from "../../../../services/file.upload.service";
 import {CommonService} from "../../../../services/common.service";
 
 @Component({
-  selector: 'admin-trainers-create',
-  templateUrl: 'trainers.create.component.html'
+  selector: 'admin-clubs-create',
+  templateUrl: 'clubs.create.component.html'
 })
-export class TrainersCreateComponent {
+export class ClubsCreateComponent {
   constructor(private router: Router,
               private modalService: BsModalService,
               private toastr: ToastrService,
-              private trainerService: TrainersService,
+              private clubsService: ClubsService,
               private restoreUrlService: RestoreUrlService,
               private fileUploadService: FileUploadService,
               private commonService: CommonService) {
   }
 
-  trainer = this.trainerService.getTrainerCreateRequestModel();
+  club = this.clubsService.getClubCreateRequestModel();
 
   files: FileUploadModel[] = [];
 
-  genderOptions = this.commonService.getGenderOptions();
-
-  priceGradationOptions = this.commonService.getPriceGradationOptions();
-
-  priceMask = this.commonService.getPriceMask();
-
   private modalRef?: BsModalRef;
 
-  private readonly modalOptions: ModalOptions = {
-    class: 'modal-dialog-centered modal-md'
-  };
-
   addFile() {
-    this.modalRef = this.modalService.show(FileModalComponent, this.modalOptions);
+    const modalOptions: ModalOptions = {
+      class: 'modal-dialog-centered modal-md'
+    };
+
+    this.modalRef = this.modalService.show(FileModalComponent, modalOptions);
 
     this.modalRef.content.event.subscribe({
       next: (file: FileUploadModel) => {
         if (file) {
           file.url = this.restoreUrlService.restoreUrl(file.url);
-          this.trainer.uploadedFileIds.push(file.id ?? 0);
+          this.club.uploadedFileIds.push(file.id ?? 0);
           this.files.push(file);
         }
       }
@@ -75,15 +65,12 @@ export class TrainersCreateComponent {
   }
 
   save() {
-    let trainer: TrainerCreateRequestModel = JSON.parse(JSON.stringify(this.trainer));
+    let club: ClubCreateRequestModel = JSON.parse(JSON.stringify(this.club));
 
-    if (trainer.createTrainer?.price)
-      trainer.createTrainer.price = parseFloat(trainer.createTrainer.price.toString().replace(/[^0-9.]/g, ''));
-
-    this.trainerService.create(trainer).subscribe({
+    this.clubsService.create(club).subscribe({
       next: data => {
-        this.toastr.success('тренер сохранен', 'Тренер');
-        this.router.navigate(['/admin/trainers/' + data.id + '/edit']);
+        this.toastr.success('клуб сохранен', 'Клуб');
+        this.router.navigate(['/admin/clubs/' + data.id + '/edit']);
       }
     });
   }

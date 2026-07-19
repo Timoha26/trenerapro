@@ -3,9 +3,9 @@
     <em class="fa fa-plus"></em>
   </button>
 </div>
-<div class="form-check form-check-inline" *ngFor="let sport of sports">
+<div class="form-check form-check-inline" *ngFor="let sport of allSports">
   <input type="checkbox" class="form-check-input" id="sport_{{sport.id}}" [checked]="isChecked(sport.id)"
-         (change)="checkboxChange(sport.id, $event)">
+         (change)="checkboxChange(sport, $event)">
   <label class="form-check-label" for="sport_{{sport.id}}">
     {{ sport.name }}
   </label>

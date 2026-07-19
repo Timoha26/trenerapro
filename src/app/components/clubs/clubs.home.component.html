@@ -12,9 +12,10 @@
       </div>
       <div class="club-body">
         <h3>{{ club.name }}</h3>
-        <p class="sport">{{ club.sports?.join(', ') }}</p>
+        <p class="sport">{{ club.sports | sportsListener }}</p>
         <div class="trainer-rating">
-          ★ <span>{{ club.rating?.value }} ({{ club.rating?.reviewsCount }} отзывов)</span>
+          <em class="fas fa-star"></em>
+          <span>{{ club.rating?.value }} ({{ club.rating?.reviewsCount }} отзывов)</span>
         </div>
         <p class="loc">{{ club.address }}</p>
       </div>

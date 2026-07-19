@@ -1,1 +1,46 @@
-<h1>clubs page</h1>
+<main class="container">
+  <div class="page-header">
+    <h1>Клубы <span>Найдено 100 клубов</span></h1>
+  </div>
+
+  <search-sort></search-sort>
+
+  <sports (selectedSportId)="onSportIdChange($event)"></sports>
+
+  <div class="content-grid">
+
+    <clubs-filters></clubs-filters>
+
+    <section>
+      <div class="trainers-grid">
+        <div class="trainer-card" *ngFor="let club of clubs.items">
+          <div class="trainer-img-wrap">
+            <div class="card-badge" *ngIf="club.verified"><i class="fas fa-check-circle"></i> Проверен</div>
+            <div class="card-fav"><i class="far fa-heart"></i></div>
+            <img src="{{club.logoUrl}}" alt="Клуб">
+          </div>
+          <div class="trainer-body">
+            <h3>{{ club.name }}</h3>
+            <p class="sport">{{ club.sports | sportsListener }}</p>
+            <div class="trainer-rating">
+              <em class="fas fa-star"></em>
+              <span>{{ club.rating?.value }} ({{ club.rating?.reviewsCount | reviews }})</span>
+            </div>
+            <div class="trainer-stats">
+              <em class="fas fa-map-marker-alt"></em>
+              2,1 км от вас
+            </div>
+            <div class="trainer-actions">
+              <button class="btn-outline" routerLink="/clubs/{{club.id}}">Подробнее</button>
+              <button class="btn-primary">Записаться</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <tp-pagination [currentPage]="1" [totalItems]="clubs.count ?? 0" [itemsPerPage]="filters().limit ?? 0" (pageChange)="onPageChange($event)"></tp-pagination>
+    </section>
+
+    <rightSidebar></rightSidebar>
+  </div>
+</main>

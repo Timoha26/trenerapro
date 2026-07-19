@@ -1,4 +1,4 @@
-export enum GenderEnum{
+export enum GenderEnum {
   Male = 'male',
   Female = 'female'
 }

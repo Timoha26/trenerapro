@@ -35,21 +35,25 @@ import {RestoreUrlService} from "../../services/restore.url.service";
 import {SettlementsService} from "../../services/settlements.service";
 import {SettlementSelectComponent} from "./components/settlement/settlement.select.component";
 import {SettlementCreateModalComponent} from "./components/settlement/settlement.create.modal.component";
+import {ClubsComponent} from "./components/clubs/clubs.component";
+import {ClubsCreateComponent} from "./components/clubs/clubs.create.component";
+import {ClubsEditComponent} from "./components/clubs/clubs.edit.component";
+import {ContactsService} from "../../services/contacts.service";
+import {CommonService} from "../../services/common.service";
+import {ContactsModalComponent} from "./components/contacts/contacts.modal.component";
+import {ContactsComponent} from "./components/contacts/contacts.component";
 
 
 @NgModule({
   declarations: [
     AdminComponent,
-    ConfirmationModalComponent,
     DashboardComponent,
     TrainersComponent,
     TrainersCreateComponent,
     TrainersEditComponent,
-    SportCreateModalComponent,
-    TrainingFormatsCreateModalComponent,
-    ClientCategoriesCreateModalComponent,
-    SettlementCreateModalComponent,
-    FileModalComponent
+    ClubsComponent,
+    ClubsCreateComponent,
+    ClubsEditComponent
   ],
   imports: [
     CommonModule,
@@ -63,7 +67,15 @@ import {SettlementCreateModalComponent} from "./components/settlement/settlement
     SportsSelectComponent,
     TrainingFormatsSelectComponent,
     ClientCategoriesSelectComponent,
-    SettlementSelectComponent
+    SettlementSelectComponent,
+    ConfirmationModalComponent,
+    SportCreateModalComponent,
+    TrainingFormatsCreateModalComponent,
+    ClientCategoriesCreateModalComponent,
+    SettlementCreateModalComponent,
+    FileModalComponent,
+    ContactsComponent,
+    ContactsModalComponent
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'ru-RU'},
@@ -77,7 +89,9 @@ import {SettlementCreateModalComponent} from "./components/settlement/settlement
     ClientCategoriesService,
     SportsService,
     RestoreUrlService,
-    SettlementsService
+    SettlementsService,
+    ContactsService,
+    CommonService
   ]
 })
 export class AdminModule {

@@ -1,1 +1,69 @@
-<h1>club details page</h1>
+<main class="container">
+  <div class="page-header">
+    <h1>Подробности о клубе</h1>
+  </div>
+
+  <div class="content-grid details-grid">
+    <section>
+      <div class="trainer-details-card">
+        <div class="card-top">
+          <div class="avatar">
+            <img src="{{club.logoUrl}}" alt="Клуб">
+          </div>
+          <div class="info">
+            <div class="name">{{ club.name }}</div>
+            <div class="speciality">
+              <span *ngFor="let sport of club.sports">
+                <em class="fa" [ngClass]="sport.icon"></em> {{sport.name}}
+              </span>
+            </div>
+
+            <div class="distance-status">
+              <div class="trainer-stats" title="Адрес">
+                <em class="fas fa-map-location"></em>
+                {{ club.address }}
+              </div>
+              <div class="trainer-stats" title="Местоположение">
+                <em class="fas fa-map-marker-alt"></em>
+                {{club.settlement?.region}} {{club.settlement?.settlement}}
+              </div>
+            </div>
+
+            <div class="rating-row">
+              <div class="trainer-rating">
+                <em class="fas fa-star"></em>
+                <span>{{ club.rating?.value }} ({{ club.rating?.reviewsCount | reviews }})</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-bottom" *ngIf="club.description">
+          <div class="trainer-stats" title="Описание">
+            {{club.description}}
+          </div>
+        </div>
+        <div class="card-bottom" *ngIf="club.files">
+          <div class="landing-trainers-grid">
+            <div class="trainer-card" *ngFor="let file of club.files">
+              <div class="trainer-img-wrap">
+                <img src="{{file.url}}" alt="{{file.url}}" *ngIf="isImage(file)">
+                <div class="fas fa-file" *ngIf="isNotImage(file)">
+                  {{ file.url }}
+                </div>
+              </div>
+              <div class="trainer-body">
+                <div class="trainer-stats">{{file.type}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <button class="btn-primary">Записаться</button>
+        </div>
+      </div>
+    </section>
+
+    <rightSidebar></rightSidebar>
+
+  </div>
+</main>

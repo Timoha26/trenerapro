@@ -21,7 +21,7 @@ import {TrainingFormatModel} from "../../../../models/training.format.model";
 import {ClientCategoryModel} from "../../../../models/client.category.model";
 
 @Component({
-  selector: 'admin-projects-edit',
+  selector: 'admin-trainers-edit',
   templateUrl: 'trainers.edit.component.html'
 })
 export class TrainersEditComponent {

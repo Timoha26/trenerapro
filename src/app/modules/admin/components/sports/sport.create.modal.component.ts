@@ -3,10 +3,15 @@ import {SportModel} from "../../../../models/sport.model";
 import {BsModalRef} from "ngx-bootstrap/modal";
 import {ToastrService} from "ngx-toastr";
 import {SportsService} from "../../../../services/sports.service";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'sport-create-modal',
-  templateUrl: 'sport.create.modal.component.html'
+  templateUrl: 'sport.create.modal.component.html',
+  imports: [
+    FormsModule
+  ],
+  standalone: true
 })
 export class SportCreateModalComponent {
   event: EventEmitter<SportModel> = new EventEmitter<SportModel>();

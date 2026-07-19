@@ -1,8 +1,13 @@
-import {Component} from "@angular/core";
+import {Component, Input, OnDestroy, OnInit} from "@angular/core";
 import {RouterLink} from "@angular/router";
 import {NgForOf, NgIf} from "@angular/common";
 import {ClubsService} from "../../services/clubs.service";
 import {ClubModel} from "../../models/clubs/club.model";
+import {SportsListenerPipe} from "../../pipes/sportsListener.pipe";
+import {BehaviorSubject, Subscription, switchMap} from "rxjs";
+import {FileTypeEnum} from "../../models/file.type.enum";
+import {RestoreUrlService} from "../../services/restore.url.service";
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'landing-clubs-home',
@@ -11,24 +16,46 @@ import {ClubModel} from "../../models/clubs/club.model";
   imports: [
     RouterLink,
     NgForOf,
-    NgIf
+    NgIf,
+    SportsListenerPipe
   ]
 })
-export class ClubsHomeComponent {
+export class ClubsHomeComponent implements OnInit, OnDestroy {
   public clubs: ClubModel[] = [];
+  private limit: number = 4;
+  private paramSource$: BehaviorSubject<number | undefined> = new BehaviorSubject<number | undefined>(undefined);
+  private subscription!: Subscription;
 
-  constructor(private clubsService: ClubsService) {
+  @Input() set filterParam(value: number | undefined) {
+    this.paramSource$.next(value);
   }
 
-  private getClubs() {
-    this.clubsService.get().subscribe({
-      next: data => {
-        this.clubs = data.items ?? [];
-      }
-    })
+  constructor(private clubsService: ClubsService, private restoreUrlService: RestoreUrlService, private commonService: CommonService) {
   }
 
   ngOnInit() {
-    this.getClubs();
+    this.subscription = this.paramSource$.pipe(
+      switchMap((param) => this.clubsService.getTop(this.limit, param))
+    ).subscribe({
+      next: data => {
+        let items = data ?? [];
+
+        items?.forEach(item =>
+          item.files?.forEach(file => {
+            file.url = this.restoreUrlService.restoreUrl(file.url);
+
+            if (this.commonService.isImage(file))
+              item.logoUrl = file.url;
+          })
+        );
+
+        this.clubs = items;
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription)
+      this.subscription.unsubscribe();
   }
 }

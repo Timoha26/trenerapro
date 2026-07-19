@@ -1,0 +1,67 @@
+<section id="admin_projects" class="py-5">
+  <div class="container">
+    <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between mb-4">
+      <div>
+        <h4 class="fw-bold mb-2">Клубы</h4>
+      </div>
+      <div class="btn-group float-end">
+        <a class="btn btn-outline-success mt-3 mt-md-0" routerLink="/admin">
+          <em class="fas fa-angle-left"></em>
+          к админке
+        </a>
+        <a class="btn btn-outline-success mt-3 mt-md-0" routerLink="create">
+          <em class="fas fa-plus"></em>
+          добавить
+        </a>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Имя</th>
+          <th>Адрес</th>
+          <th>Описание</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let club of clubs.items">
+          <td>{{ club.name }}</td>
+          <td>{{ club.address }}</td>
+          <td>{{ club.description }}</td>
+          <td class="text-end">
+            <div class="btn-group" role="group">
+              <button class="btn btn-sm" [ngClass]="{'btn-success': club.public, 'btn-secondary': !club.public}"
+                      (click)="public(club)" [title]="club.public ? 'Снять с публикации' : 'Опубликовать'">
+                <em class="fas" [ngClass]="{'fa-eye': club.public, 'fa-eye-slash': !club.public}"></em>
+              </button>
+              <button class="btn btn-warning btn-sm" routerLink="{{club.id}}/edit" title="Редактировать">
+                <em class="fas fa-pen-to-square"></em>
+              </button>
+              <button class="btn btn-danger btn-sm" (click)="remove(club)" title="Удалить">
+                <em class="fas fa-trash"></em>
+              </button>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="3">
+            <pagination
+              [totalItems]="clubs.count ?? 0"
+              (pageChanged)="setPage($event)"
+              [maxSize]="10"
+              [rotate]="true"
+              [boundaryLinks]="true"
+              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;" class="pagination-sm">
+            </pagination>
+          </td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>

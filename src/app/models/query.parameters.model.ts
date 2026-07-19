@@ -1,6 +1,8 @@
+import {SortByEnum} from "./sortBy.enum";
+
 export interface QueryParametersModel {
   offset?: number;
   limit?: number;
-  sort?: string;
+  sort?: SortByEnum;
   desc?: boolean;
 }

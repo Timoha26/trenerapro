@@ -3,7 +3,8 @@ import {BsModalRef} from "ngx-bootstrap/modal";
 
 @Component({
   templateUrl: 'confirmation.modal.component.html',
-  selector: 'admin-confirmation-modal'
+  selector: 'admin-confirmation-modal',
+  standalone: true
 })
 export class ConfirmationModalComponent {
   title?: string;

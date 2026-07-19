@@ -24,13 +24,13 @@ import {ReviewsPipe} from "../../pipes/reviews.pipe";
     ReviewsPipe
   ]
 })
-export class TrainersHomeComponent implements OnInit, OnDestroy{
+export class TrainersHomeComponent implements OnInit, OnDestroy {
   public trainers: TrainerModel[] = [];
   private limit: number = 4;
   private paramSource$: BehaviorSubject<number | undefined> = new BehaviorSubject<number | undefined>(undefined);
   private subscription!: Subscription;
 
-  @Input() set filterParam(value: number | undefined){
+  @Input() set filterParam(value: number | undefined) {
     this.paramSource$.next(value);
   }
 
@@ -48,7 +48,7 @@ export class TrainersHomeComponent implements OnInit, OnDestroy{
           item.files?.forEach(file => {
             file.url = this.restoreUrlService.restoreUrl(file.url);
 
-            if(file.type == FileTypeEnum.Avatar || file.type == FileTypeEnum.Photo)
+            if (file.type == FileTypeEnum.Avatar || file.type == FileTypeEnum.Photo)
               item.logoUrl = file.url;
           })
         );
@@ -59,7 +59,7 @@ export class TrainersHomeComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy() {
-    if(this.subscription)
+    if (this.subscription)
       this.subscription.unsubscribe();
   }
 }

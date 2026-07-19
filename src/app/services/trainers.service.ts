@@ -22,10 +22,10 @@ export class TrainersService {
       .set('offset', filters?.offset ?? 0)
       .set('limit', filters?.limit ?? 6)
       .set('sort_by', filters?.sort ?? 'name')
-      .set('is_desc', filters?.desc ?? false);
+      .set('asc', !filters?.desc ?? false);
 
 
-  let dataFilters: TrainerDataFilters = {
+    let dataFilters: TrainerDataFilters = {
       settlementIds: filters?.settlementIds,
       sportIds: filters?.sportIds,
       clientCategoryIds: filters?.clientCategoryIds,
@@ -45,7 +45,7 @@ export class TrainersService {
     let params: HttpParams = new HttpParams()
       .set('limit', limit ?? 4);
 
-    if(sportId)
+    if (sportId)
       params = params.set('sportId', sportId);
 
     return this.http.get<TrainerModel[]>(this.getUrl('/random'), {
@@ -63,5 +63,26 @@ export class TrainersService {
 
   public remove(id: number): Observable<TrainerModel> {
     return this.http.delete<TrainerModel>(this.getUrl('/' + id));
+  }
+
+  public getTrainerCreateRequestModel(): TrainerCreateRequestModel {
+    return {
+      createTrainer: {
+        firstname: undefined,
+        lastname: undefined,
+        patronymic: undefined,
+        age: undefined,
+        experience: undefined,
+        gender: undefined,
+        price: undefined,
+        priceGradation: undefined,
+        description: undefined,
+        settlementId: undefined
+      },
+      sportIds: [],
+      trainingFormatIds: [],
+      clientCategoryIds: [],
+      uploadedFileIds: []
+    };
   }
 }

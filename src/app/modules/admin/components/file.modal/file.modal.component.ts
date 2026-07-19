@@ -5,16 +5,34 @@ import {HttpEvent, HttpEventType} from "@angular/common/http";
 import {FileUploadService} from "../../../../services/file.upload.service";
 import {FileUploadModel} from "../../../../models/file.upload.model";
 import {FileTypeEnum} from "../../../../models/file.type.enum";
+import {FormsModule} from "@angular/forms";
+import {NgForOf} from "@angular/common";
 
 @Component({
   selector: 'admin-file-modal',
-  templateUrl: 'file.modal.component.html'
+  templateUrl: 'file.modal.component.html',
+  imports: [
+    FormsModule,
+    NgForOf
+  ],
+  standalone: true
 })
 export class FileModalComponent {
+  constructor(private modalRef: BsModalRef, private fileUploadService: FileUploadService, private toastr: ToastrService) {
+  }
+
+  trainerId?: number = undefined;
+
+  clubId?: number = undefined;
+
   event: EventEmitter<FileUploadModel> = new EventEmitter<FileUploadModel>();
+
   uploadProgress: number = 0;
+
   private file?: File = undefined;
+
   fileType?: FileTypeEnum = undefined;
+
   fileTypeOptions = [
     {key: FileTypeEnum.Avatar, name: "Аватарка"},
     {key: FileTypeEnum.Logo, name: "Логотип"},
@@ -22,9 +40,6 @@ export class FileModalComponent {
     {key: FileTypeEnum.Video, name: "Видео"},
     {key: FileTypeEnum.Document, name: "Документ"}
   ];
-
-  constructor(private modalRef: BsModalRef, private fileUploadService: FileUploadService, private toastr: ToastrService) {
-  }
 
   selectFile(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -43,28 +58,29 @@ export class FileModalComponent {
       return;
     }
 
-    this.fileUploadService.upload(this.file, this.fileType ?? FileTypeEnum.Avatar).subscribe({
-      next: (event: HttpEvent<any>) => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.uploadProgress = Math.round(100 * event.loaded / event.total!);
-        } else if (event.type === HttpEventType.Response) {
-          this.uploadProgress = 0;
-          const fileUpload: FileUploadModel = JSON.parse(JSON.stringify(event.body));
+    this.fileUploadService.upload(this.file, this.fileType ?? FileTypeEnum.Avatar, this.trainerId, this.clubId)
+      .subscribe({
+        next: (event: HttpEvent<any>) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.uploadProgress = Math.round(100 * event.loaded / event.total!);
+          } else if (event.type === HttpEventType.Response) {
+            this.uploadProgress = 0;
+            const fileUpload: FileUploadModel = JSON.parse(JSON.stringify(event.body));
 
-          if (fileUpload?.url) {
-            this.toastr.success('файл загружен', 'Загрузка файла');
-            this.event.emit(fileUpload);
-            this.modalRef.hide();
-          } else {
-            this.toastr.error('нет пути к файлу', 'Загрузка файла');
+            if (fileUpload?.url) {
+              this.toastr.success('файл загружен', 'Загрузка файла');
+              this.event.emit(fileUpload);
+              this.modalRef.hide();
+            } else {
+              this.toastr.error('нет пути к файлу', 'Загрузка файла');
+            }
           }
+        },
+        error: (error) => {
+          this.toastr.error('ошибка загрузки файла', 'Загрузка файла');
+          this.uploadProgress = 0;
         }
-      },
-      error: (error) => {
-        this.toastr.error('ошибка загрузки файла', 'Загрузка файла');
-        this.uploadProgress = 0;
-      }
-    });
+      });
   }
 
   cancel() {

@@ -88,7 +88,7 @@
             </div>
           </div>
           <div class="row mb-1">
-            <label for="price" class="form-label col-sm-4 col-md-3 col-lg-2">Цена за</label>
+            <label for="priceGradation" class="form-label col-sm-4 col-md-3 col-lg-2">Цена за</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
               <select id="priceGradation" name="priceGradation" #priceGradation="ngModel"
                       [(ngModel)]="trainer.createTrainer.priceGradation" required class="form-control form-control-sm">
@@ -98,25 +98,25 @@
             </div>
           </div>
           <div class="row mb-1">
-            <label for="price" class="form-label col-sm-4 col-md-3 col-lg-2">Локация</label>
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Локация</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
               <settlement-select [settlementId]="trainer.createTrainer.settlementId" (settlementIdChanged)="trainer.createTrainer.settlementId = $event"></settlement-select>
             </div>
           </div>
           <div class="row mb-1">
-            <label for="price" class="form-label col-sm-4 col-md-3 col-lg-2">Спортивные дисциплины</label>
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Спортивные дисциплины</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
               <sports-select [sportIds]="trainer.sportIds"></sports-select>
             </div>
           </div>
           <div class="row mb-1">
-            <label for="price" class="form-label col-sm-4 col-md-3 col-lg-2">Формат занятий</label>
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Формат занятий</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
               <training-formats-select [trainingFormatIds]="trainer.trainingFormatIds"></training-formats-select>
             </div>
           </div>
           <div class="row mb-1">
-            <label for="price" class="form-label col-sm-4 col-md-3 col-lg-2">Уровень подготовки</label>
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Уровень подготовки</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
               <client-categories-select [clientCategoryIds]="trainer.clientCategoryIds"></client-categories-select>
             </div>

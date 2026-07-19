@@ -27,7 +27,7 @@ import {NgOptimizedImage, registerLocaleData} from "@angular/common";
 import localeRu from "@angular/common/locales/ru";
 import {AuthInterceptor} from "./services/auth/auth.interceptor";
 import {ErrorInterceptor} from "./services/auth/error.interceptor";
-import { InputMaskModule } from '@ngneat/input-mask';
+import {InputMaskModule} from '@ngneat/input-mask';
 import {AuthService} from "./services/auth/auth.service";
 import {AuthGuardService} from "./services/auth/auth.guard.service";
 import {RestoreUrlService} from "./services/restore.url.service";
@@ -40,6 +40,10 @@ import {ClientCategoriesService} from "./services/client.categories.service";
 import {AgePipe} from "./pipes/age.pipe";
 import {TrainingFormatsListenerPipe} from "./pipes/trainingFormatsListener.pipe";
 import {ReviewsPipe} from "./pipes/reviews.pipe";
+import {SearchSortComponent} from "./components/search-sort/search-sort.component";
+import {ClubFiltersComponent} from "./components/clubs/club.filters.component";
+import {ContactsService} from "./services/contacts.service";
+import {CommonService} from "./services/common.service";
 
 registerLocaleData(localeRu)
 
@@ -53,29 +57,31 @@ registerLocaleData(localeRu)
     ClubsComponent,
     ClubsDetailsComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        TrainersHomeComponent,
-        ClubsHomeComponent,
-        ReviewsHomeComponent,
-        SportsHomeComponent,
-        WhyusHomeComponent,
-        TrainerFiltersComponent,
-        RightSidebarComponent,
-        BrowserAnimationsModule,
-        InputMaskModule,
-        PaginationComponent,
-        NgOptimizedImage,
-        SportsListenerPipe,
-        PriceGradationPipe,
-        ClientCategoriesListenerPipe,
-        AgePipe,
-        TrainingFormatsListenerPipe,
-        ReviewsPipe
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    TrainersHomeComponent,
+    ClubsHomeComponent,
+    ReviewsHomeComponent,
+    SportsHomeComponent,
+    WhyusHomeComponent,
+    TrainerFiltersComponent,
+    RightSidebarComponent,
+    BrowserAnimationsModule,
+    InputMaskModule,
+    PaginationComponent,
+    NgOptimizedImage,
+    SportsListenerPipe,
+    PriceGradationPipe,
+    ClientCategoriesListenerPipe,
+    AgePipe,
+    TrainingFormatsListenerPipe,
+    ReviewsPipe,
+    SearchSortComponent,
+    ClubFiltersComponent
+  ],
   providers: [
     {provide: LOCALE_ID, useValue: 'ru-RU'},
     {provide: DEFAULT_CURRENCY_CODE, useValue: 'RUB'},
@@ -89,7 +95,9 @@ registerLocaleData(localeRu)
     AuthGuardService,
     RestoreUrlService,
     SettlementsService,
-    ClientCategoriesService
+    ClientCategoriesService,
+    ContactsService,
+    CommonService
   ],
   bootstrap: [AppComponent]
 })

@@ -5,7 +5,7 @@
 </div>
 <div class="form-check form-check-inline" *ngFor="let format of formats">
   <input type="checkbox" class="form-check-input" id="format_{{format.id}}" [checked]="isChecked(format.id)"
-         (change)="checkboxChange(format.id, $event)">
+         (change)="checkboxChange(format, $event)">
   <label class="form-check-label" for="format_{{format.id}}">
     {{ format.name }}
   </label>

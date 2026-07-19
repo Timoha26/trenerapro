@@ -101,7 +101,7 @@ export class ClubsEditComponent {
     this.updateSports();
   }
 
-  private updateClub(){
+  private updateClub() {
     const club: ClubCreateModel = {
       name: this.club.name,
       address: this.club.address,
@@ -117,8 +117,8 @@ export class ClubsEditComponent {
     });
   }
 
-  private updateSports(){
-    if(!this.club.id || !this.club.sports) return;
+  private updateSports() {
+    if (!this.club.id || !this.club.sports) return;
 
     const sportIds = this.club.sports.map(sport => sport.id ?? 0);
 

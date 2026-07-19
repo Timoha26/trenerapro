@@ -19,6 +19,10 @@ import {RatingModel} from "../../../../models/rating.model";
 import {SportModel} from "../../../../models/sport.model";
 import {TrainingFormatModel} from "../../../../models/training.format.model";
 import {ClientCategoryModel} from "../../../../models/client.category.model";
+import {CommonService} from "../../../../services/common.service";
+import {FileUploadService} from "../../../../services/file.upload.service";
+import {ClubCreateModel} from "../../../../models/clubs/club.create.model";
+import {TrainerCreateModel} from "../../../../models/trainers/trainer.create.model";
 
 @Component({
   selector: 'admin-trainers-edit',
@@ -26,30 +30,7 @@ import {ClientCategoryModel} from "../../../../models/client.category.model";
 })
 export class TrainersEditComponent {
   id: number | undefined;
-  trainer: TrainerModel = {
-    id: undefined,
-    settlement: undefined,
-    firstname: undefined,
-    lastname: undefined,
-    patronymic: undefined,
-    age: undefined,
-    experience: undefined,
-    gender: undefined,
-    price: undefined,
-    priceGradation: undefined,
-    description: undefined,
-    club: undefined,
-    verified: undefined,
-    level: undefined,
-    logoUrl: undefined,
-    sports: undefined,
-    rating: undefined,
-    trainingFormats: undefined,
-    files: undefined,
-    clientCategories: undefined,
-    lessonAddresses: undefined,
-    public: undefined
-  };
+  trainer: TrainerModel = {};
 
   files: FileUploadModel[] = [];
 
@@ -74,7 +55,14 @@ export class TrainersEditComponent {
 
   private modalRef?: BsModalRef;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private modalService: BsModalService, private toastr: ToastrService, private trainerService: TrainersService, private restoreUrlService: RestoreUrlService) {
+  constructor(private activatedRoute: ActivatedRoute,
+              private router: Router,
+              private modalService: BsModalService,
+              private toastr: ToastrService,
+              private trainerService: TrainersService,
+              private restoreUrlService: RestoreUrlService,
+              private commonService: CommonService,
+              private fileUploadService: FileUploadService) {
     this.id = activatedRoute.snapshot.params['id'];
   }
 
@@ -93,55 +81,90 @@ export class TrainersEditComponent {
   }
 
   addFile() {
-    // const modalOptions: ModalOptions = {
-    //   class: 'modal-dialog-centered modal-md'
-    // };
-    //
-    // this.modalRef = this.modalService.show(FileModalComponent, modalOptions);
-    //
-    // this.modalRef.content.event.subscribe({
-    //   next: (file: FileUploadModel) => {
-    //     if (file) {
-    //       file.url = this.restoreUrlService.restoreUrl(file.url);
-    //       this.trainer.uploadedFileIds.push(file.id ?? 0);
-    //       this.files.push(file);
-    //     }
-    //   }
-    // });
+    const modalOptions: ModalOptions = {
+      class: 'modal-dialog-centered modal-md',
+      initialState: {
+        trainerId: this.trainer.id
+      }
+    };
+
+    this.modalRef = this.modalService.show(FileModalComponent, modalOptions);
+
+    this.modalRef.content.event.subscribe({
+      next: (file: FileUploadModel) => {
+        if (file) {
+          file.url = this.restoreUrlService.restoreUrl(file.url);
+
+          if (!this.trainer.files)
+            this.trainer.files = [];
+
+          this.trainer.files.push(file);
+        }
+      }
+    });
   }
 
   removeFile(fileId?: number) {
-    console.log('removing file');
+    if (!fileId) return;
+
+    this.fileUploadService.remove(fileId).subscribe({
+      next: data => {
+        if (!this.trainer.files)
+          this.trainer.files = [];
+
+        let index = this.commonService.getIndexInArrayById(fileId, this.trainer.files);
+        if (index > -1)
+          this.trainer.files.splice(index, 1);
+
+        this.toastr.success('файл удален', 'Загрузка файла');
+      }
+    });
   }
 
   isImage(file: FileUploadModel) {
-    if (file.type === undefined) return false;
-
-    const type = file.type as FileTypeEnum;
-
-    return type == FileTypeEnum.Avatar || type == FileTypeEnum.Logo || type == FileTypeEnum.Photo;
+    return this.commonService.isImage(file);
   }
 
   isNotImage(file: FileUploadModel) {
-    if (file.type === undefined) return false;
-
-    const type = file.type as FileTypeEnum;
-
-    return type == FileTypeEnum.Video || type == FileTypeEnum.Document;
+    return this.commonService.isNotImage(file);
   }
 
   save() {
-    // let trainer: TrainerCreateRequestModel = JSON.parse(JSON.stringify(this.trainer));
-    //
-    // if (trainer.createTrainer?.price)
-    //   trainer.createTrainer.price = parseFloat(trainer.createTrainer.price.toString().replace(/[^0-9.]/g, ''));
-    //
-    // this.trainerService.create(trainer).subscribe({
-    //   next: data => {
-    //     this.toastr.success('тренер сохранен', 'Тренер');
-    //     this.router.navigate(['/admin/trainers/' + data.id + '/edit']);
-    //   }
-    // });
+    this.updateTrainer();
+    this.updateSports();
+  }
+
+  private updateTrainer() {
+    const trainer: TrainerCreateModel = {
+      firstname: this.trainer.firstname,
+      lastname: this.trainer.lastname,
+      patronymic: this.trainer.patronymic,
+      age: this.trainer.age,
+      experience: this.trainer.experience,
+      gender: this.trainer.gender,
+      price: this.trainer.price,
+      priceGradation: this.trainer.priceGradation,
+      description: this.trainer.description,
+      settlementId: this.trainer.settlementId
+    };
+
+    this.trainerService.update(this.trainer.id, trainer).subscribe({
+      next: () => {
+        this.toastr.success('тренер сохранен', 'Тренер');
+        this.router.navigate(['/admin/trainers']);
+      }
+    });
+  }
+
+  private updateSports() {
+    if (!this.trainer.id || !this.trainer.sports) return;
+
+    const sportIds = this.trainer.sports.map(sport => sport.id ?? 0);
+
+    this.trainerService.updateRelationsSports(this.trainer.id ?? 0, sportIds)
+      .subscribe({
+        next: () => this.toastr.success('тренер сохранен', 'Клубы')
+      });
   }
 
   ngOnInit() {

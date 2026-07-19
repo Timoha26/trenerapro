@@ -1,10 +1,11 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from "@angular/core";
 import {NgForOf} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {TrainingFormatsCreateModalComponent} from "./training.formats.create.modal.component";
 import {TrainingFormatsService} from "../../../../services/training.formats.service";
 import {TrainingFormatModel} from "../../../../models/training.format.model";
+import {CommonService} from "../../../../services/common.service";
 
 @Component({
   selector: 'training-formats-select',
@@ -16,25 +17,33 @@ import {TrainingFormatModel} from "../../../../models/training.format.model";
   ],
   standalone: true
 })
-export class TrainingFormatsSelectComponent {
+export class TrainingFormatsSelectComponent implements OnInit, OnChanges {
   @Input() trainingFormatIds: number[] = [];
+  @Input() trainingFormats: TrainingFormatModel[] = [];
 
   formats: TrainingFormatModel[] = [];
 
   private modalRef?: BsModalRef;
 
-  constructor(private modalService: BsModalService, private trainingFormatsService: TrainingFormatsService) {
+  constructor(private modalService: BsModalService,
+              private trainingFormatsService: TrainingFormatsService,
+              private commonService: CommonService) {
   }
 
-  checkboxChange(formatId: number | undefined, event: any) {
-    if (formatId == undefined) return;
+  checkboxChange(format: TrainingFormatModel | undefined, event: any) {
+    if (format?.id == undefined) return;
 
     if (event.target.checked) {
-      this.trainingFormatIds.push(formatId);
+      this.trainingFormatIds.push(format.id);
+      this.trainingFormats.push(format);
     } else {
-      const index = this.trainingFormatIds.indexOf(formatId);
-      if (index > -1)
-        this.trainingFormatIds.splice(index, 1);
+      const indexId = this.trainingFormatIds.indexOf(format.id);
+      if (indexId > -1)
+        this.trainingFormatIds.splice(indexId, 1);
+
+      const indexFormat = this.commonService.getIndexInArrayById(format.id, this.trainingFormats);
+      if (indexFormat > -1)
+        this.trainingFormats.splice(indexFormat, 1);
     }
   }
 
@@ -63,5 +72,16 @@ export class TrainingFormatsSelectComponent {
 
   ngOnInit() {
     this.getFormats();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes['trainingFormats']){
+      const current = changes['trainingFormats'].currentValue as TrainingFormatModel[];
+
+      console.log(this.trainingFormatIds, this.trainingFormats, current);
+
+      if(this.trainingFormatIds.length < current.length)
+        this.trainingFormatIds = current.map(format => format.id ?? 0);
+    }
   }
 }

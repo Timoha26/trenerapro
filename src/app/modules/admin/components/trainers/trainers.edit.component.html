@@ -16,83 +16,109 @@
       <div class="col-lg-12">
         <form name="trainerForm" #trainerForm="ngForm" novalidate>
           <div class="row mb-1">
-            <label class="form-label col-sm-4 col-md-3 col-lg-2">Имя</label>
+            <label for="firstname" class="form-label col-sm-4 col-md-3 col-lg-2">Имя</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-              {{trainer.firstname}}
+              <input type="text" id="firstname" name="firstname" #firstname="ngModel"
+                     [(ngModel)]="trainer.firstname" placeholder="имя" required
+                     class="form-control form-control-sm"
+                     [ngClass]="{'is-invalid': firstname.invalid && (firstname.touched || firstname.dirty)}">
             </div>
           </div>
           <div class="row mb-1">
-            <label class="form-label col-sm-4 col-md-3 col-lg-2">Фамилия</label>
+            <label for="lastname" class="form-label col-sm-4 col-md-3 col-lg-2">Фамилия</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-              {{trainer.lastname}}
+              <input type="text" id="lastname" name="lastname" #lastname="ngModel"
+                     [(ngModel)]="trainer.lastname" placeholder="фамилия" required
+                     class="form-control form-control-sm"
+                     [ngClass]="{'is-invalid': lastname.invalid && (lastname.touched || lastname.dirty)}">
             </div>
           </div>
           <div class="row mb-1">
-            <label class="form-label col-sm-4 col-md-3 col-lg-2">Отчество</label>
+            <label for="patronymic" class="form-label col-sm-4 col-md-3 col-lg-2">Отчество</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-              {{trainer.patronymic}}
+              <input type="text" id="patronymic" name="patronymic" #patronymic="ngModel"
+                     [(ngModel)]="trainer.patronymic" placeholder="отчество" required
+                     class="form-control form-control-sm"
+                     [ngClass]="{'is-invalid': patronymic.invalid && (patronymic.touched || patronymic.dirty)}">
             </div>
           </div>
           <div class="row mb-1">
-            <label class="form-label col-sm-4 col-md-3 col-lg-2">Пол</label>
+            <label for="gender" class="form-label col-sm-4 col-md-3 col-lg-2">Пол</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-              {{trainer.gender}}
+              <select id="gender" name="gender" #gender="ngModel"
+                      [(ngModel)]="trainer.gender" required class="form-control form-control-sm">
+                <option [ngValue]="undefined" disabled>Выберите</option>
+                <option *ngFor="let option of genderOptions" [ngValue]="option.key">{{ option.name }}</option>
+              </select>
             </div>
           </div>
           <div class="row mb-1">
-            <label class="form-label col-sm-4 col-md-3 col-lg-2">Возраст</label>
+            <label for="age" class="form-label col-sm-4 col-md-3 col-lg-2">Возраст</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-              {{trainer.age}}
+              <input type="number" id="age" name="age" #age="ngModel"
+                     [(ngModel)]="trainer.age" placeholder="возраст" required
+                     class="form-control form-control-sm"
+                     [ngClass]="{'is-invalid': age.invalid && (age.touched || age.dirty)}">
             </div>
           </div>
           <div class="row mb-1">
-            <label class="form-label col-sm-4 col-md-3 col-lg-2">Стаж</label>
+            <label for="experience" class="form-label col-sm-4 col-md-3 col-lg-2">Стаж</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-              {{trainer.experience}}
+              <input type="number" id="experience" name="experience" #experience="ngModel"
+                     [(ngModel)]="trainer.experience" placeholder="стаж" required
+                     class="form-control form-control-sm"
+                     [ngClass]="{'is-invalid': experience.invalid && (experience.touched || experience.dirty)}">
             </div>
           </div>
           <div class="row mb-1">
-            <label class="form-label col-sm-4 col-md-3 col-lg-2">Описание</label>
+            <label for="description" class="form-label col-sm-4 col-md-3 col-lg-2">Описание</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-              {{trainer.description}}
+              <textarea id="description" name="description" #description="ngModel" rows="3"
+                        [(ngModel)]="trainer.description" placeholder="Описание" required
+                        class="form-control form-control-sm"
+                        [ngClass]="{'is-invalid': description.invalid && (description.touched || description.dirty)}"></textarea>
             </div>
           </div>
           <div class="row mb-1">
-            <label class="form-label col-sm-4 col-md-3 col-lg-2">Цена</label>
+            <label for="price" class="form-label col-sm-4 col-md-3 col-lg-2">Цена</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-              {{trainer.price}}
+              <input type="text" id="price" name="price" #price="ngModel" [(ngModel)]="trainer.price"
+                     [inputMask]="priceMask" placeholder="0.0" required class="form-control form-control-sm"
+                     [ngClass]="{'is-invalid': price.invalid && (price.touched || price.dirty)}">
             </div>
           </div>
           <div class="row mb-1">
-            <label class="form-label col-sm-4 col-md-3 col-lg-2">Цена за</label>
+            <label for="priceGradation" class="form-label col-sm-4 col-md-3 col-lg-2">Цена за</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-              {{trainer.priceGradation}}
+              <select id="priceGradation" name="priceGradation" #priceGradation="ngModel"
+                      [(ngModel)]="trainer.priceGradation" required class="form-control form-control-sm">
+                <option [ngValue]="undefined" disabled>Выберите</option>
+                <option *ngFor="let option of priceGradationOptions" [ngValue]="option.key">{{ option.name }}</option>
+              </select>
             </div>
           </div>
           <div class="row mb-1">
             <label class="form-label col-sm-4 col-md-3 col-lg-2">Локация</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-              {{trainer.settlement?.country}} {{trainer.settlement?.region}} {{trainer.settlement?.settlement}}
+              <settlement-select [settlementId]="trainer.settlementId" (settlementIdChanged)="trainer.settlementId = $event"></settlement-select>
             </div>
           </div>
           <div class="row mb-1">
             <label class="form-label col-sm-4 col-md-3 col-lg-2">Спортивные дисциплины</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-              <span *ngFor="let sport of trainer.sports">
-                <em class="fa" [ngClass]="sport.icon"></em> {{sport.name}}
-              </span>
+              <sports-select [sports]="trainer.sports ?? []"></sports-select>
             </div>
           </div>
           <div class="row mb-1">
             <label class="form-label col-sm-4 col-md-3 col-lg-2">Формат занятий</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-              <span *ngFor="let format of trainer.trainingFormats">{{format.name}}</span>
+              <training-formats-select [trainingFormats]="trainer.trainingFormats ?? []"></training-formats-select>
             </div>
           </div>
           <div class="row mb-1">
             <label class="form-label col-sm-4 col-md-3 col-lg-2">Уровень подготовки</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-              <span *ngFor="let category of trainer.clientCategories">{{category.name}}</span>
+              <client-categories-select [clientCategories]="trainer.clientCategories ?? []"></client-categories-select>
             </div>
           </div>
           <div class="row mb-1">

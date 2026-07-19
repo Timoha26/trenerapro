@@ -18,7 +18,7 @@ import {timeout} from "rxjs";
   ],
   standalone: true
 })
-export class SportsSelectComponent implements OnInit, OnChanges {
+export class SportsSelectComponent {
   @Input() sportIds: number[] = [];
   @Input() sports: SportModel[] = [];
 

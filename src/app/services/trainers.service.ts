@@ -1,12 +1,15 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {forkJoin, Observable} from "rxjs";
 import {PageResultModel} from "../models/page.result.model";
 import {TrainerModel} from "../models/trainers/trainer.model";
 import {TrainerFiltersModel} from "../models/trainers/trainer.filters.model";
 import {conf} from "../conf/conf";
 import {TrainerDataFilters} from "../models/trainers/trainer.data.filters";
 import {TrainerCreateRequestModel} from "../models/trainers/trainer.create.request.model";
+import {ClubCreateModel} from "../models/clubs/club.create.model";
+import {ClubModel} from "../models/clubs/club.model";
+import {TrainerCreateModel} from "../models/trainers/trainer.create.model";
 
 @Injectable()
 export class TrainersService {
@@ -53,16 +56,20 @@ export class TrainersService {
     });
   }
 
-  public getDetails(id: number): Observable<TrainerModel> {
-    return this.http.get<TrainerModel>(this.getUrl('/' + id));
+  public getDetails(trainerId: number): Observable<TrainerModel> {
+    return this.http.get<TrainerModel>(this.getUrl('/' + trainerId));
   }
 
   public create(data: TrainerCreateRequestModel): Observable<TrainerModel> {
     return this.http.post<TrainerModel>(this.getUrl(''), data);
   }
 
-  public remove(id: number): Observable<TrainerModel> {
-    return this.http.delete<TrainerModel>(this.getUrl('/' + id));
+  public update(trainerId?: number, trainer?: TrainerCreateModel): Observable<TrainerModel> {
+    return this.http.put(this.getUrl('/' + trainerId), trainer);
+  }
+
+  public remove(trainerId: number): Observable<TrainerModel> {
+    return this.http.delete<TrainerModel>(this.getUrl('/' + trainerId));
   }
 
   public getTrainerCreateRequestModel(): TrainerCreateRequestModel {
@@ -84,5 +91,84 @@ export class TrainersService {
       clientCategoryIds: [],
       uploadedFileIds: []
     };
+  }
+
+  // relations with sports
+  public updateRelationsSports(trainerId: number, sportIds: number[]): Observable<any> {
+    return new Observable<any>(subscriber => {
+      this.getRelationsSports(trainerId).subscribe({
+        next: (data) => {
+          const sportIdsFromServer = data.map(item => item.sportId);
+
+          let deleteIds: number[] = [];
+          let addIds: number[] = [];
+
+          // если в старом списке нет ид из нового списка то добавлять
+          sportIds.forEach(id => {
+            if (sportIdsFromServer.indexOf(id) == -1)
+              addIds.push(id);
+          });
+
+          // если в новом списке нет ид из старого списка то удалять
+          sportIdsFromServer.forEach(id => {
+            if (sportIds.indexOf(id) == -1)
+              deleteIds.push(id);
+          });
+
+          let requests: any[] = [];
+
+          if (addIds.length > 0)
+            requests.push(this.addRelationsSports(trainerId, addIds));
+
+          if (deleteIds.length > 0)
+            requests.push(this.deleteRelationsSports(trainerId, deleteIds));
+
+          forkJoin(requests).subscribe({
+            next: (results) => {
+              subscriber.next(results);
+              subscriber.complete();
+            },
+            error: (error) => subscriber.error(error)
+          });
+        },
+        error: (error) => subscriber.error(error)
+      });
+    });
+  }
+
+  private getRelationsSportsUrl(): string {
+    return conf.trainerProUrl + '/api/v1/trainers_sports';
+  }
+
+  private getRelationsSports(trainerId: number): Observable<{ trainerId: number, sportId: number }[]> {
+    const params: HttpParams = new HttpParams()
+      .set('trainerId', trainerId);
+
+    return this.http.get<{ trainerId: number, sportId: number }[]>(this.getRelationsSportsUrl(), {
+      params: params
+    });
+  }
+
+  private addRelationsSports(trainerId: number, sportIds: number[]): Observable<any[]> {
+    const requests = sportIds.map(sportId => this.http.post(this.getRelationsSportsUrl(), {
+      trainerId: trainerId,
+      sportId: sportId
+    }));
+
+    return forkJoin(requests);
+  }
+
+  private deleteRelationsSports(trainerId: number, sportIds: number[]): Observable<any[]> {
+    const requests = sportIds.map(sportId => {
+      const params: HttpParams = new HttpParams()
+        .set('trainerId', trainerId)
+        .set('sportId', sportId);
+
+      return this.http.delete(this.getRelationsSportsUrl(), {
+        params: params
+      });
+    });
+
+    return forkJoin(requests);
   }
 }

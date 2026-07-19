@@ -20,7 +20,6 @@ import {TrainersService} from "../../services/trainers.service";
 import {TrainingFormatsService} from "../../services/training.formats.service";
 import {ClientCategoriesService} from "../../services/client.categories.service";
 import {SportsService} from "../../services/sports.service";
-import {SportsSelectComponent} from "./components/sports/sports.select.component";
 import {SportCreateModalComponent} from "./components/sports/sport.create.modal.component";
 import {
   TrainingFormatsCreateModalComponent
@@ -42,6 +41,7 @@ import {ContactsService} from "../../services/contacts.service";
 import {CommonService} from "../../services/common.service";
 import {ContactsModalComponent} from "./components/contacts/contacts.modal.component";
 import {ContactsComponent} from "./components/contacts/contacts.component";
+import {SportsSelectComponent} from "./components/sports/sports.select.component";
 
 
 @NgModule({

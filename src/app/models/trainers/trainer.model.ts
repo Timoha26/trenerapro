@@ -11,6 +11,7 @@ import {ClientCategoryModel} from "../client.category.model";
 
 export interface TrainerModel {
   id?: number;
+  settlementId?: number;
   settlement?: SettlementModel;
   firstname?: string;
   lastname?: string;

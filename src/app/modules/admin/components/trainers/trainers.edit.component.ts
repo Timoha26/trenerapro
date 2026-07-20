@@ -23,6 +23,8 @@ import {CommonService} from "../../../../services/common.service";
 import {FileUploadService} from "../../../../services/file.upload.service";
 import {ClubCreateModel} from "../../../../models/clubs/club.create.model";
 import {TrainerCreateModel} from "../../../../models/trainers/trainer.create.model";
+import {TrainingFormatsService} from "../../../../services/training.formats.service";
+import {ClientCategoriesService} from "../../../../services/client.categories.service";
 
 @Component({
   selector: 'admin-trainers-edit',
@@ -132,6 +134,8 @@ export class TrainersEditComponent {
   save() {
     this.updateTrainer();
     this.updateSports();
+    this.updateTrainingFormats();
+    this.updateClientCategories();
   }
 
   private updateTrainer() {
@@ -164,6 +168,24 @@ export class TrainersEditComponent {
     this.trainerService.updateRelationsSports(this.trainer.id ?? 0, sportIds)
       .subscribe({
         next: () => this.toastr.success('тренер сохранен', 'Клубы')
+      });
+  }
+
+  private updateTrainingFormats(){
+    if (!this.trainer.id || !this.trainer.trainingFormats || this.trainer.trainingFormats?.length == 0) return;
+
+    this.trainerService.updateTrainingFormats(this.trainer.id, this.trainer.trainingFormats.map(format => format.id ?? 0))
+      .subscribe({
+        next: data => this.toastr.success('тренер сохранен', 'Клубы')
+      });
+  }
+
+  private updateClientCategories(){
+    if (!this.trainer.id || !this.trainer.clientCategories || this.trainer.clientCategories.length == 0) return;
+
+    this.trainerService.updateClientCategories(this.trainer.id, this.trainer.clientCategories.map(format => format.id ?? 0))
+      .subscribe({
+        next: data => this.toastr.success('тренер сохранен', 'Клубы')
       });
   }
 

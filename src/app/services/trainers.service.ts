@@ -93,6 +93,16 @@ export class TrainersService {
     };
   }
 
+  // update trainingFormats
+  public updateTrainingFormats(trainerId: number, trainingFormatIds: number[]): Observable<any> {
+    return this.http.put(this.getUrl('/' + trainerId + '/trainingFormats'), trainingFormatIds);
+  }
+
+  // update clientCategories
+  public updateClientCategories(trainerId: number, clientCategoryIds: number[]): Observable<any> {
+    return this.http.put(this.getUrl('/' + trainerId + '/clientCategories'), clientCategoryIds);
+  }
+
   // relations with sports
   public updateRelationsSports(trainerId: number, sportIds: number[]): Observable<any> {
     return new Observable<any>(subscriber => {

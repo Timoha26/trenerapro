@@ -1,16 +1,11 @@
 import {Component} from "@angular/core";
-import {createMask} from "@ngneat/input-mask";
 import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 import {TrainersService} from "../../../../services/trainers.service";
 import {TrainerCreateRequestModel} from "../../../../models/trainers/trainer.create.request.model";
-import {PriceGradationEnum} from "../../../../models/trainers/price.gradation.enum";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {FileModalComponent} from "../file.modal/file.modal.component";
 import {FileUploadModel} from "../../../../models/file.upload.model";
-import {FileTypeEnum} from "../../../../models/file.type.enum";
-import {RestoreUrlService} from "../../../../services/restore.url.service";
-import {GenderEnum} from "../../../../models/trainers/gender.enum";
 import {FileUploadService} from "../../../../services/file.upload.service";
 import {CommonService} from "../../../../services/common.service";
 
@@ -23,7 +18,6 @@ export class TrainersCreateComponent {
               private modalService: BsModalService,
               private toastr: ToastrService,
               private trainerService: TrainersService,
-              private restoreUrlService: RestoreUrlService,
               private fileUploadService: FileUploadService,
               private commonService: CommonService) {
   }
@@ -50,7 +44,7 @@ export class TrainersCreateComponent {
     this.modalRef.content.event.subscribe({
       next: (file: FileUploadModel) => {
         if (file) {
-          file.url = this.restoreUrlService.restoreUrl(file.url);
+          file.url = this.commonService.restoreUrl(file.url);
           this.trainer.uploadedFileIds.push(file.id ?? 0);
           this.files.push(file);
         }

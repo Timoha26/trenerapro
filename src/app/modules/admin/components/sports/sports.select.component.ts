@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from "@angular/core";
+import {Component, Input, SimpleChanges} from "@angular/core";
 import {SportsService} from "../../../../services/sports.service";
 import {NgForOf} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -6,7 +6,6 @@ import {SportModel} from "../../../../models/sport.model";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {SportCreateModalComponent} from "./sport.create.modal.component";
 import {CommonService} from "../../../../services/common.service";
-import {timeout} from "rxjs";
 
 @Component({
   selector: 'sports-select',

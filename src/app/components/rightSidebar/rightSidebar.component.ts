@@ -1,11 +1,10 @@
 import {Component} from "@angular/core";
 import {TrainersService} from "../../services/trainers.service";
 import {TrainerModel} from "../../models/trainers/trainer.model";
-import {RestoreUrlService} from "../../services/restore.url.service";
-import {FileTypeEnum} from "../../models/file.type.enum";
 import {NgForOf, NgIf} from "@angular/common";
 import {SportsListenerPipe} from "../../pipes/sportsListener.pipe";
 import {Router, RouterLink} from "@angular/router";
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'rightSidebar',
@@ -21,7 +20,9 @@ import {Router, RouterLink} from "@angular/router";
 export class RightSidebarComponent {
   trainers: TrainerModel[] = [];
 
-  constructor(private router: Router, private trainersService: TrainersService, private restoreUrlService: RestoreUrlService) {
+  constructor(private router: Router,
+              private trainersService: TrainersService,
+              private commonService: CommonService) {
   }
 
   private getTrainers() {
@@ -31,9 +32,9 @@ export class RightSidebarComponent {
 
         items?.forEach(item =>
           item.files?.forEach(file => {
-            file.url = this.restoreUrlService.restoreUrl(file.url);
+            file.url = this.commonService.restoreUrl(file.url);
 
-            if (file.type == FileTypeEnum.Avatar || file.type == FileTypeEnum.Photo)
+            if (this.commonService.isLogo(file))
               item.logoUrl = file.url;
           })
         );

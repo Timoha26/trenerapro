@@ -5,8 +5,6 @@ import {ClubsService} from "../../services/clubs.service";
 import {ClubModel} from "../../models/clubs/club.model";
 import {SportsListenerPipe} from "../../pipes/sportsListener.pipe";
 import {BehaviorSubject, Subscription, switchMap} from "rxjs";
-import {FileTypeEnum} from "../../models/file.type.enum";
-import {RestoreUrlService} from "../../services/restore.url.service";
 import {CommonService} from "../../services/common.service";
 
 @Component({
@@ -30,7 +28,8 @@ export class ClubsHomeComponent implements OnInit, OnDestroy {
     this.paramSource$.next(value);
   }
 
-  constructor(private clubsService: ClubsService, private restoreUrlService: RestoreUrlService, private commonService: CommonService) {
+  constructor(private clubsService: ClubsService,
+              private commonService: CommonService) {
   }
 
   ngOnInit() {
@@ -42,9 +41,9 @@ export class ClubsHomeComponent implements OnInit, OnDestroy {
 
         items?.forEach(item =>
           item.files?.forEach(file => {
-            file.url = this.restoreUrlService.restoreUrl(file.url);
+            file.url = this.commonService.restoreUrl(file.url);
 
-            if (this.commonService.isImage(file))
+            if (this.commonService.isLogo(file))
               item.logoUrl = file.url;
           })
         );

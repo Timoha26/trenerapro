@@ -3,7 +3,7 @@ import {AuthService} from "./services/auth/auth.service";
 import {AuthModel} from "./models/auth.model";
 import {NgForm} from "@angular/forms";
 import {TokenModel} from "./models/token.model";
-import {RestoreUrlService} from "./services/restore.url.service";
+import {CommonService} from "./services/common.service";
 
 @Component({
   selector: 'app-root',
@@ -20,7 +20,8 @@ export class AppComponent {
     password: undefined
   };
 
-  constructor(private authService: AuthService, private restoreUrlService: RestoreUrlService) {
+  constructor(private authService: AuthService,
+              private commonService: CommonService) {
   }
 
   isLogged() {
@@ -46,6 +47,6 @@ export class AppComponent {
   }
 
   ngOnInit(){
-    this.logoUrl = this.restoreUrlService.restoreUrl('/trainerpro/static/logo2.svg');
+    this.logoUrl = this.commonService.restoreUrl('/trainerpro/static/logo2.svg');
   }
 }

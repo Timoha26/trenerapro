@@ -25,7 +25,7 @@
   </section>
 
   <!-- Categories -->
-  <sports (selectedSportId)="selectedSportId = $event"></sports>
+  <sports (sportIdChange)="selectedSportId = $event"></sports>
 
   <!-- Trainers -->
   <landing-trainers-home [filterParam]="selectedSportId"></landing-trainers-home>

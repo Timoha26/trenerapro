@@ -3,12 +3,11 @@ import {RouterLink} from "@angular/router";
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {TrainersService} from "../../services/trainers.service";
 import {TrainerModel} from "../../models/trainers/trainer.model";
-import {RestoreUrlService} from "../../services/restore.url.service";
-import {FileTypeEnum} from "../../models/file.type.enum";
-import {BehaviorSubject, Subject, Subscription, switchMap} from "rxjs";
+import {BehaviorSubject, Subscription, switchMap} from "rxjs";
 import {SportsListenerPipe} from "../../pipes/sportsListener.pipe";
 import {PriceGradationPipe} from "../../pipes/priceGradation.pipe";
 import {ReviewsPipe} from "../../pipes/reviews.pipe";
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'landing-trainers-home',
@@ -34,7 +33,8 @@ export class TrainersHomeComponent implements OnInit, OnDestroy {
     this.paramSource$.next(value);
   }
 
-  constructor(private trainersService: TrainersService, private restoreUrlService: RestoreUrlService) {
+  constructor(private trainersService: TrainersService,
+              private commonService: CommonService) {
   }
 
   ngOnInit() {
@@ -46,9 +46,9 @@ export class TrainersHomeComponent implements OnInit, OnDestroy {
 
         items?.forEach(item =>
           item.files?.forEach(file => {
-            file.url = this.restoreUrlService.restoreUrl(file.url);
+            file.url = this.commonService.restoreUrl(file.url);
 
-            if (file.type == FileTypeEnum.Avatar || file.type == FileTypeEnum.Photo)
+            if (this.commonService.isLogo(file))
               item.logoUrl = file.url;
           })
         );

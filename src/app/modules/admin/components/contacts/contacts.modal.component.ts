@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit} from "@angular/core";
+import {Component, EventEmitter, OnInit} from "@angular/core";
 import {BsModalRef} from "ngx-bootstrap/modal";
 import {ToastrService} from "ngx-toastr";
 import {ContactModel} from "../../../../models/contact.model";

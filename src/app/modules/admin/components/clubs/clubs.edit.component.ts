@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {ToastrService} from "ngx-toastr";
 import {FileUploadModel} from "../../../../models/file.upload.model";
-import {RestoreUrlService} from "../../../../services/restore.url.service";
 import {ClubModel} from "../../../../models/clubs/club.model";
 import {ClubsService} from "../../../../services/clubs.service";
 import {CommonService} from "../../../../services/common.service";
@@ -27,7 +26,6 @@ export class ClubsEditComponent {
               private modalService: BsModalService,
               private toastr: ToastrService,
               private clubsService: ClubsService,
-              private restoreUrlService: RestoreUrlService,
               private fileUploadService: FileUploadService,
               private commonService: CommonService) {
     this.id = activatedRoute.snapshot.params['id'];
@@ -38,7 +36,7 @@ export class ClubsEditComponent {
       next: data => {
         if (data.files) {
           data.files.forEach(file => {
-            file.url = this.restoreUrlService.restoreUrl(file.url);
+            file.url = this.commonService.restoreUrl(file.url);
           });
         }
 
@@ -60,7 +58,7 @@ export class ClubsEditComponent {
     this.modalRef.content.event.subscribe({
       next: (file: FileUploadModel) => {
         if (file) {
-          file.url = this.restoreUrlService.restoreUrl(file.url);
+          file.url = this.commonService.restoreUrl(file.url);
 
           if (!this.club.files)
             this.club.files = [];

@@ -1,6 +1,5 @@
 import {Component} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {RestoreUrlService} from "../../services/restore.url.service";
 import {FileUploadModel} from "../../models/file.upload.model";
 import {ClubModel} from "../../models/clubs/club.model";
 import {ClubsService} from "../../services/clubs.service";
@@ -25,7 +24,10 @@ export class ClubsDetailsComponent {
     public: undefined
   };
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private clubsService: ClubsService, private restoreUrlService: RestoreUrlService, private commonService: CommonService) {
+  constructor(private activatedRoute: ActivatedRoute,
+              private router: Router,
+              private clubsService: ClubsService,
+              private commonService: CommonService) {
     this.id = activatedRoute.snapshot.params['id'];
   }
 
@@ -34,9 +36,9 @@ export class ClubsDetailsComponent {
       next: data => {
         if (data.files) {
           data.files.forEach(file => {
-            file.url = this.restoreUrlService.restoreUrl(file.url);
+            file.url = this.commonService.restoreUrl(file.url);
 
-            if(this.commonService.isImage(file))
+            if(this.commonService.isLogo(file))
               data.logoUrl = file.url;
           });
         }

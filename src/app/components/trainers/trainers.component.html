@@ -3,9 +3,9 @@
     <h1>Тренеры <span>Найдено 128 тренеров</span></h1>
   </div>
 
-  <search-sort></search-sort>
+  <search-sort (sortChange)="onSortChange($event)"></search-sort>
 
-  <sports (selectedSportId)="onSportIdChange($event)"></sports>
+  <sports (sportIdChange)="onSportIdChange($event)"></sports>
 
   <div class="content-grid">
 

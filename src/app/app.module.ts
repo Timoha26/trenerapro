@@ -30,7 +30,6 @@ import {ErrorInterceptor} from "./services/auth/error.interceptor";
 import {InputMaskModule} from '@ngneat/input-mask';
 import {AuthService} from "./services/auth/auth.service";
 import {AuthGuardService} from "./services/auth/auth.guard.service";
-import {RestoreUrlService} from "./services/restore.url.service";
 import {SettlementsService} from "./services/settlements.service";
 import {PaginationComponent} from "./components/pagination/pagination.component";
 import {SportsListenerPipe} from "./pipes/sportsListener.pipe";
@@ -93,7 +92,6 @@ registerLocaleData(localeRu)
     ReviewsService,
     AuthService,
     AuthGuardService,
-    RestoreUrlService,
     SettlementsService,
     ClientCategoriesService,
     ContactsService,

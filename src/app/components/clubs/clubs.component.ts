@@ -1,7 +1,6 @@
 import {Component, signal} from "@angular/core";
 import {SortByEnum} from "../../models/sortBy.enum";
 import {PageResultModel} from "../../models/page.result.model";
-import {RestoreUrlService} from "../../services/restore.url.service";
 import {toObservable} from "@angular/core/rxjs-interop";
 import {distinctUntilChanged, switchMap} from "rxjs";
 import {PageStateEvent} from "../../models/page.state.event";
@@ -28,7 +27,8 @@ export class ClubsComponent {
 
   public clubs: PageResultModel<ClubModel> = {count: 0, items: []};
 
-  constructor(private clubsService: ClubsService, private restoreUrlService: RestoreUrlService, private commonService: CommonService) {
+  constructor(private clubsService: ClubsService,
+              private commonService: CommonService) {
   }
 
   private dataSubscription = toObservable(this.filters).pipe(
@@ -38,9 +38,9 @@ export class ClubsComponent {
     next: data => {
       data.items?.forEach(item =>
         item.files?.forEach(file => {
-          file.url = this.restoreUrlService.restoreUrl(file.url);
+          file.url = this.commonService.restoreUrl(file.url);
 
-          if (this.commonService.isImage(item))
+          if (this.commonService.isLogo(item))
             item.logoUrl = file.url;
         })
       );

@@ -30,7 +30,6 @@ import {
 } from "./components/client.categories/client.categories.create.modal.component";
 import {ClientCategoriesSelectComponent} from "./components/client.categories/client.categories.select.component";
 import {FileModalComponent} from "./components/file.modal/file.modal.component";
-import {RestoreUrlService} from "../../services/restore.url.service";
 import {SettlementsService} from "../../services/settlements.service";
 import {SettlementSelectComponent} from "./components/settlement/settlement.select.component";
 import {SettlementCreateModalComponent} from "./components/settlement/settlement.create.modal.component";
@@ -88,7 +87,6 @@ import {SportsSelectComponent} from "./components/sports/sports.select.component
     TrainingFormatsService,
     ClientCategoriesService,
     SportsService,
-    RestoreUrlService,
     SettlementsService,
     ContactsService,
     CommonService

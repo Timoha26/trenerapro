@@ -4,7 +4,6 @@ import {Router} from "@angular/router";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {FileModalComponent} from "../file.modal/file.modal.component";
 import {FileUploadModel} from "../../../../models/file.upload.model";
-import {RestoreUrlService} from "../../../../services/restore.url.service";
 import {ClubsService} from "../../../../services/clubs.service";
 import {ClubCreateRequestModel} from "../../../../models/clubs/club.create.request.model";
 import {FileUploadService} from "../../../../services/file.upload.service";
@@ -19,7 +18,6 @@ export class ClubsCreateComponent {
               private modalService: BsModalService,
               private toastr: ToastrService,
               private clubsService: ClubsService,
-              private restoreUrlService: RestoreUrlService,
               private fileUploadService: FileUploadService,
               private commonService: CommonService) {
   }
@@ -40,7 +38,7 @@ export class ClubsCreateComponent {
     this.modalRef.content.event.subscribe({
       next: (file: FileUploadModel) => {
         if (file) {
-          file.url = this.restoreUrlService.restoreUrl(file.url);
+          file.url = this.commonService.restoreUrl(file.url);
           this.club.uploadedFileIds.push(file.id ?? 0);
           this.files.push(file);
         }

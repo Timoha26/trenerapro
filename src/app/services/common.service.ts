@@ -4,7 +4,7 @@ import {PriceGradationEnum} from "../models/trainers/price.gradation.enum";
 import {createMask, InputmaskOptions} from "@ngneat/input-mask";
 import {FileUploadModel} from "../models/file.upload.model";
 import {FileTypeEnum} from "../models/file.type.enum";
-import {SportModel} from "../models/sport.model";
+import {conf} from "../conf/conf";
 
 @Injectable()
 export class CommonService {
@@ -34,6 +34,18 @@ export class CommonService {
       suffix: ' ₽',
       unmaskAsNumber: true
     });
+  }
+
+  public restoreUrl(path?: string): string {
+    return conf.filesUrl + path;
+  }
+
+  public isLogo(file: FileUploadModel): boolean {
+    if (file.type === undefined) return false;
+
+    const type = file.type as FileTypeEnum;
+
+    return type == FileTypeEnum.Avatar || type == FileTypeEnum.Logo;
   }
 
   public isImage(file: FileUploadModel): boolean {

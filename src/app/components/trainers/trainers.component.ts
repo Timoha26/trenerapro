@@ -4,11 +4,11 @@ import {TrainerModel} from "../../models/trainers/trainer.model";
 import {PageResultModel} from "../../models/page.result.model";
 import {TrainerFiltersModel} from "../../models/trainers/trainer.filters.model";
 import {PageStateEvent} from "../../models/page.state.event";
-import {RestoreUrlService} from "../../services/restore.url.service";
-import {FileTypeEnum} from "../../models/file.type.enum";
 import {toObservable} from "@angular/core/rxjs-interop";
 import {distinctUntilChanged, switchMap} from "rxjs";
 import {SortByEnum} from "../../models/sortBy.enum";
+import {CommonService} from "../../services/common.service";
+import {SortOptionModel} from "../../models/sort.option.model";
 
 @Component({
   selector: 'landing-trainers',
@@ -32,7 +32,8 @@ export class TrainersComponent {
 
   public trainers: PageResultModel<TrainerModel> = {count: 0, items: []};
 
-  constructor(private trainersService: TrainersService, private restoreUrlService: RestoreUrlService) {
+  constructor(private trainersService: TrainersService,
+              private commonService: CommonService) {
   }
 
   private dataSubscription = toObservable(this.filters).pipe(
@@ -42,9 +43,9 @@ export class TrainersComponent {
     next: data => {
       data.items?.forEach(item =>
         item.files?.forEach(file => {
-          file.url = this.restoreUrlService.restoreUrl(file.url);
+          file.url = this.commonService.restoreUrl(file.url);
 
-          if (file.type == FileTypeEnum.Avatar || file.type == FileTypeEnum.Photo)
+          if (this.commonService.isLogo(file))
             item.logoUrl = file.url;
         })
       );
@@ -65,6 +66,15 @@ export class TrainersComponent {
     this.filters.update(prev => ({
       ...prev,
       offset: (event.page - 1) * event.itemsPerPage
+    }));
+  }
+
+  onSortChange(event: SortOptionModel) {
+    this.filters.update(prev => ({
+      ...prev,
+      sort: event.sort,
+      desc: event.desc,
+      offset: 0
     }));
   }
 }

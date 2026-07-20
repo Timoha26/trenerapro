@@ -15,7 +15,7 @@ export class DashboardComponent {
   ngOnInit(){
     this.isLogged = this.authService.isLogged();
 
-    //if(!this.isLogged)
-    //  this.router.navigate(['/admin/login']);
+    if(!this.isLogged)
+      this.router.navigate(['/']);
   }
 }

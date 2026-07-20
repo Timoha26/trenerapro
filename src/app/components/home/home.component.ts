@@ -1,5 +1,4 @@
 import {Component} from "@angular/core";
-import {RestoreUrlService} from "../../services/restore.url.service";
 
 @Component({
   selector: 'landing-home',
@@ -8,6 +7,6 @@ import {RestoreUrlService} from "../../services/restore.url.service";
 export class HomeComponent {
   selectedSportId?: number = undefined;
 
-  constructor(private restoreUrlService: RestoreUrlService) {
+  constructor() {
   }
 }

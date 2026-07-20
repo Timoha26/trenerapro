@@ -3,10 +3,7 @@
     <i class="fas fa-search"></i>
     <input type="text" placeholder="Поиск тренера, вида спорта или клуба">
   </div>
-  <select class="sort-select">
-    <option>Сначала популярные</option>
-    <option>Сначала дорогие</option>
-    <option>Сначала дешевые</option>
-    <option>По рейтингу</option>
+  <select class="sort-select" [(ngModel)]="selectedSort" (change)="onChangeSort(selectedSort)">
+    <option *ngFor="let option of sortOptions" [ngValue]="option.sort">{{option.name}}</option>
   </select>
 </div>

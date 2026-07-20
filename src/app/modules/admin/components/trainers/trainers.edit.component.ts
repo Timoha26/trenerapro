@@ -8,23 +8,10 @@ import {TrainersService} from "../../../../services/trainers.service";
 import {FileUploadModel} from "../../../../models/file.upload.model";
 import {GenderEnum} from "../../../../models/trainers/gender.enum";
 import {PriceGradationEnum} from "../../../../models/trainers/price.gradation.enum";
-import {RestoreUrlService} from "../../../../services/restore.url.service";
 import {FileModalComponent} from "../file.modal/file.modal.component";
-import {FileTypeEnum} from "../../../../models/file.type.enum";
-import {TrainerCreateRequestModel} from "../../../../models/trainers/trainer.create.request.model";
-import {SettlementModel} from "../../../../models/settlement.model";
-import {ClubModel} from "../../../../models/clubs/club.model";
-import {TrainerLevelEnum} from "../../../../models/trainers/trainer.level.enum";
-import {RatingModel} from "../../../../models/rating.model";
-import {SportModel} from "../../../../models/sport.model";
-import {TrainingFormatModel} from "../../../../models/training.format.model";
-import {ClientCategoryModel} from "../../../../models/client.category.model";
 import {CommonService} from "../../../../services/common.service";
 import {FileUploadService} from "../../../../services/file.upload.service";
-import {ClubCreateModel} from "../../../../models/clubs/club.create.model";
 import {TrainerCreateModel} from "../../../../models/trainers/trainer.create.model";
-import {TrainingFormatsService} from "../../../../services/training.formats.service";
-import {ClientCategoriesService} from "../../../../services/client.categories.service";
 
 @Component({
   selector: 'admin-trainers-edit',
@@ -62,7 +49,6 @@ export class TrainersEditComponent {
               private modalService: BsModalService,
               private toastr: ToastrService,
               private trainerService: TrainersService,
-              private restoreUrlService: RestoreUrlService,
               private commonService: CommonService,
               private fileUploadService: FileUploadService) {
     this.id = activatedRoute.snapshot.params['id'];
@@ -73,7 +59,7 @@ export class TrainersEditComponent {
       next: data => {
         if(data.files) {
           data.files.forEach(file => {
-            file.url = this.restoreUrlService.restoreUrl(file.url);
+            file.url = this.commonService.restoreUrl(file.url);
           });
         }
 
@@ -95,7 +81,7 @@ export class TrainersEditComponent {
     this.modalRef.content.event.subscribe({
       next: (file: FileUploadModel) => {
         if (file) {
-          file.url = this.restoreUrlService.restoreUrl(file.url);
+          file.url = this.commonService.restoreUrl(file.url);
 
           if (!this.trainer.files)
             this.trainer.files = [];

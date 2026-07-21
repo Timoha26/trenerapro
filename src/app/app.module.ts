@@ -43,6 +43,7 @@ import {SearchSortComponent} from "./components/search-sort/search-sort.componen
 import {ClubFiltersComponent} from "./components/clubs/club.filters.component";
 import {ContactsService} from "./services/contacts.service";
 import {CommonService} from "./services/common.service";
+import {TrainingFormatsService} from "./services/training.formats.service";
 
 registerLocaleData(localeRu)
 
@@ -95,7 +96,8 @@ registerLocaleData(localeRu)
     SettlementsService,
     ClientCategoriesService,
     ContactsService,
-    CommonService
+    CommonService,
+    TrainingFormatsService
   ],
   bootstrap: [AppComponent]
 })

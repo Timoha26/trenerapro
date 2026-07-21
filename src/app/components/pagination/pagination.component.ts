@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {PageStateEvent} from "../../models/page.state.event";
 
@@ -8,7 +8,7 @@ import {PageStateEvent} from "../../models/page.state.event";
   templateUrl: 'pagination.component.html',
   imports: [CommonModule]
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent implements OnInit, OnChanges {
   @Input() currentPage: number = 1;
   @Input() totalItems: number = 0;
   @Input() itemsPerPage: number = 6;

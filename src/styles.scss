@@ -14,6 +14,7 @@
   --text-dark: #1A1A1A;
   --text-gray: #6B7280;
   --text-light: #9CA3AF;
+  --text-gold: #F59E0B;
   --bg-light: #F9FAFB;
   --bg-white: #FFFFFF;
   --bg-dark: #F6F6F6;
@@ -1540,6 +1541,10 @@ footer {
     text-overflow: ellipsis;
     max-width: 100px;
   }
+}
+
+.text-gold {
+  color: var(--text-gold);
 }
 
 /* Neighborhood Stats */

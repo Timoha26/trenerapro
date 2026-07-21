@@ -1,4 +1,4 @@
-import {Component, signal} from "@angular/core";
+import {Component, effect, signal, untracked} from "@angular/core";
 import {TrainersService} from "../../services/trainers.service";
 import {TrainerModel} from "../../models/trainers/trainer.model";
 import {PageResultModel} from "../../models/page.result.model";
@@ -9,12 +9,15 @@ import {distinctUntilChanged, switchMap} from "rxjs";
 import {SortByEnum} from "../../models/sortBy.enum";
 import {CommonService} from "../../services/common.service";
 import {SortOptionModel} from "../../models/sort.option.model";
+import {TrainerDataFilters} from "../../models/trainers/trainer.data.filters";
 
 @Component({
   selector: 'landing-trainers',
   templateUrl: './trainers.component.html'
 })
 export class TrainersComponent {
+  private debounceTimer: any;
+
   public filters = signal<TrainerFiltersModel>({
     offset: 0,
     limit: 6,
@@ -34,7 +37,31 @@ export class TrainersComponent {
 
   constructor(private trainersService: TrainersService,
               private commonService: CommonService) {
+    effect((onCleanup) => {
+      const filters = this.dataFilters();
+
+      clearTimeout(this.debounceTimer);
+
+      this.debounceTimer = setTimeout(() => {
+        untracked(() => this.filters.update(prev => ({
+          ...prev,
+          settlementIds: filters.settlementIds,
+          sportIds: filters.sportIds,
+          clientCategoryIds: filters.clientCategoryIds,
+          trainingFormatIds: filters.trainingFormatIds,
+          verified: filters.verified,
+          minRating: filters.minRating,
+          minPrice: filters.minPrice,
+          maxPrice: filters.maxPrice,
+          offset: 0
+        })));
+      }, 500);
+
+      onCleanup(() => clearTimeout(this.debounceTimer));
+    });
   }
+
+  dataFilters = signal<TrainerDataFilters>({});
 
   private dataSubscription = toObservable(this.filters).pipe(
     distinctUntilChanged(),

@@ -1,0 +1,63 @@
+:host ::ng-deep {
+  .filter-block {
+    .ngx-slider {
+      .ngx-slider-bar {
+        background: var(--border);
+        height: 4px;
+        border-radius: 2px;
+      }
+
+      .ngx-slider-selection {
+        background: var(--primary);
+      }
+
+      .ngx-slider-pointer {
+        width: 16px;
+        height: 16px;
+        top: -6px;
+        bottom: 0;
+        background-color: var(--primary);
+        border-radius: 50%;
+        border: 3px solid #ffffff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .ngx-slider-pointer:after {
+        display: none;
+      }
+
+      .ngx-slider-bubble {
+        bottom: 14px;
+        font-size: 14px;
+        color: var(--text-gray);
+      }
+
+      .ngx-slider-bubble.ngx-slider-limit {
+        font-size: 14px;
+        color: var(--text-gray);
+      }
+
+      .ngx-slider-tick {
+        width: 1px;
+        height: 10px;
+        margin-left: 4px;
+        border-radius: 0;
+        background: #ffe4d1;
+        top: -1px;
+      }
+
+      .ngx-slider-tick.ngx-slider-selected {
+        background: var(--primary);
+      }
+
+      .ngx-slider-floor,
+      .ngx-slider-ceil {
+        display: none;
+      }
+    }
+
+    .range-labels {
+      margin: 0;
+    }
+  }
+}

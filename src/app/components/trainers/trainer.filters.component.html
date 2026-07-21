@@ -2,28 +2,32 @@
   <div class="filter-block">
     <div class="filter-header">
       <h3>Фильтры</h3>
-      <a href="#">Сбросить</a>
+      <a href="#" (click)="clearFilters($event)">Сбросить</a>
+    </div>
+  </div>
+
+  <div class="filter-block">
+    <div class="filter-checkbox">
+      <input type="checkbox" id="verified" [checked]="dataFilters().verified" (change)="toggleVerified($event)">
+      <label for="verified">Только проверенные
+        <i class="far fa-question-circle" style="font-size: 12px; color: #ccc;"></i>
+      </label>
     </div>
   </div>
 
   <div class="filter-block">
     <h3 style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Возраст ребёнка</h3>
-    <div class="filter-options-row">
-      <button class="filter-btn" [ngClass]="{'active': false}" *ngFor="let category of clientCategories">
-        {{category.name}}
-      </button>
-<!--      <button class="filter-btn active">3–6 лет</button>-->
-<!--      <button class="filter-btn">7–10 лет</button>-->
-<!--      <button class="filter-btn">11–14 лет</button>-->
-<!--      <button class="filter-btn">15+ лет</button>-->
+    <div class="filter-checkbox" *ngFor="let category of clientCategories">
+      <input type="checkbox" id="client_category_{{category.id}}" [checked]="category.checked" (change)="toggleClientCategory(category.id)">
+      <label for="client_category_{{category.id}}">{{category.name}}</label>
     </div>
   </div>
 
   <div class="filter-block">
     <h3 style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Вид спорта</h3>
-    <select class="filter-dropdown">
+    <select class="filter-dropdown" [value]="getSportId()" (change)="setSport($event)">
       <option>Выбрать вид спорта</option>
-      <option *ngFor="let sport of sports" [ngValue]="sport.id">
+      <option *ngFor="let sport of sports" value="{{sport.id}}">
         {{sport.name}}
       </option>
     </select>
@@ -31,40 +35,32 @@
 
   <div class="filter-block">
     <h3 style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Цена за занятие</h3>
-    <div class="range-slider">
-      <div class="range-fill"></div>
-      <div class="range-thumb" style="left: 10%;"></div>
-      <div class="range-thumb" style="left: 80%;"></div>
-    </div>
+    <ngx-slider [(value)]="range.minValue" [(highValue)]="range.maxValue" [options]="range.options" (valueChange)="setMinPrice()" (highValueChange)="setMaxPrice()"></ngx-slider>
     <div class="range-labels">
-      <span>от 500 ₽</span>
-      <span>до 5 000 ₽</span>
+      <span>от {{range.options.floor | currency:'RUB':'symbol':'1.0-0'}}</span>
+      <span>до {{range.options.ceil | currency:'RUB':'symbol':'1.0-0'}}</span>
     </div>
   </div>
 
   <div class="filter-block">
     <h3 style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Рейтинг</h3>
     <div class="filter-options-row" style="flex-direction: column; gap: 8px;">
-      <button class="filter-btn" style="text-align: left; width: 100%; display: flex; justify-content: space-between; align-items: center;">⭐ и выше <i class="fas fa-chevron-down" style="font-size: 10px; color: #ccc;"></i></button>
-      <button class="filter-btn" style="text-align: left; width: 100%; display: flex; justify-content: space-between; align-items: center;">⭐⭐ и выше <i class="fas fa-chevron-down" style="font-size: 10px; color: #ccc;"></i></button>
-      <button class="filter-btn" style="text-align: left; width: 100%; display: flex; justify-content: space-between; align-items: center;">⭐⭐⭐ и выше <i class="fas fa-chevron-down" style="font-size: 10px; color: #ccc;"></i></button>
+      <button class="filter-btn" style="text-align: left; width: 100%; display: flex; justify-content: space-between; align-items: center;" *ngFor="let rating of ratings" [ngClass]="{'active': dataFilters().minRating == rating.stars.length}" (click)="setRating(rating.stars.length)">
+        <span>
+          <em class="fas fa-star text-gold" *ngFor="let star of rating.stars"></em>
+          и выше
+        </span>
+      </button>
     </div>
   </div>
 
   <div class="filter-block">
-    <div class="filter-checkbox">
-      <input type="checkbox" id="check1">
-      <label for="check1">Только проверенные <i class="far fa-question-circle" style="font-size: 12px; color: #ccc;"></i></label>
-    </div>
-    <div class="filter-checkbox">
-      <input type="checkbox" id="check2">
-      <label for="check2">Рядом со мной</label>
-    </div>
-    <div class="filter-checkbox">
-      <input type="checkbox" id="check3">
-      <label for="check3">Онлайн тренировки</label>
+    <h3 style="font-size: 15px; font-weight: 600; margin-bottom: 12px;">Формат занятий</h3>
+    <div class="filter-checkbox" *ngFor="let format of trainingFormats">
+      <input type="checkbox" id="training_format_{{format.id}}" [checked]="format.checked" (change)="toggleTrainingFormat(format.id)">
+      <label for="training_format_{{format.id}}">{{format.name}}</label>
     </div>
   </div>
 
-  <button class="btn-primary sidebar-submit">Показать 128 тренеров</button>
+<!--  <button class="btn-primary sidebar-submit">Показать</button>-->
 </aside>

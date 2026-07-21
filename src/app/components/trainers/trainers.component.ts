@@ -9,7 +9,7 @@ import {distinctUntilChanged, switchMap} from "rxjs";
 import {SortByEnum} from "../../models/sortBy.enum";
 import {CommonService} from "../../services/common.service";
 import {SortOptionModel} from "../../models/sort.option.model";
-import {TrainerDataFilters} from "../../models/trainers/trainer.data.filters";
+import {TrainerDataFiltersModel} from "../../models/trainers/trainer.data.filters.model";
 
 @Component({
   selector: 'landing-trainers',
@@ -61,7 +61,7 @@ export class TrainersComponent {
     });
   }
 
-  dataFilters = signal<TrainerDataFilters>({});
+  dataFilters = signal<TrainerDataFiltersModel>({});
 
   private dataSubscription = toObservable(this.filters).pipe(
     distinctUntilChanged(),

@@ -5,7 +5,7 @@ import {PageResultModel} from "../models/page.result.model";
 import {TrainerModel} from "../models/trainers/trainer.model";
 import {TrainerFiltersModel} from "../models/trainers/trainer.filters.model";
 import {conf} from "../conf/conf";
-import {TrainerDataFilters} from "../models/trainers/trainer.data.filters";
+import {TrainerDataFiltersModel} from "../models/trainers/trainer.data.filters.model";
 import {TrainerCreateRequestModel} from "../models/trainers/trainer.create.request.model";
 import {ClubCreateModel} from "../models/clubs/club.create.model";
 import {ClubModel} from "../models/clubs/club.model";
@@ -28,7 +28,7 @@ export class TrainersService {
       .set('asc', !filters?.desc ?? false);
 
 
-    let dataFilters: TrainerDataFilters = {
+    let dataFilters: TrainerDataFiltersModel = {
       settlementIds: filters?.settlementIds,
       sportIds: filters?.sportIds,
       clientCategoryIds: filters?.clientCategoryIds,

@@ -3,13 +3,13 @@
     <h1>Клубы <span>Найдено 100 клубов</span></h1>
   </div>
 
-  <search-sort></search-sort>
+  <search-sort (sortChange)="onSortChange($event)"></search-sort>
 
   <sports (sportIdChange)="onSportIdChange($event)"></sports>
 
   <div class="content-grid">
 
-    <clubs-filters></clubs-filters>
+    <clubs-filters [dataFilters]="dataFilters"></clubs-filters>
 
     <section>
       <div class="trainers-grid">

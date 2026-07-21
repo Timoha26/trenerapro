@@ -1,4 +1,4 @@
-export interface TrainerDataFilters {
+export interface TrainerDataFiltersModel {
   settlementIds?: number[];
   sportIds?: number[];
   clientCategoryIds?: number[];

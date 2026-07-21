@@ -4,7 +4,7 @@ import {FormsModule} from "@angular/forms";
 import {SportsService} from "../../services/sports.service";
 import {SportModel} from "../../models/sport.model";
 import {ClientCategoriesService} from "../../services/client.categories.service";
-import {TrainerDataFilters} from "../../models/trainers/trainer.data.filters";
+import {TrainerDataFiltersModel} from "../../models/trainers/trainer.data.filters.model";
 import {TrainingFormatsService} from "../../services/training.formats.service";
 import {NgxSliderModule, Options} from "@angular-slider/ngx-slider";
 
@@ -27,7 +27,7 @@ export class TrainerFiltersComponent implements OnInit {
               private trainingFormatsService: TrainingFormatsService) {
   }
 
-  @Input() dataFilters = signal<TrainerDataFilters>({});
+  @Input() dataFilters = signal<TrainerDataFiltersModel>({});
 
   ratings = [
     {stars: [1]},

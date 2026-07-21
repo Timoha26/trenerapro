@@ -126,23 +126,6 @@ button {
   }
 }
 
-.btn-secondary {
-  background-color: var(--bg-dark);
-  color: var(--text-gray);
-  border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 14px;
-  text-align: center;
-
-  &:hover {
-    background-color: var(--secondary-hover);
-  }
-}
-
 .btn-outline {
   background: transparent;
   border: 1px solid var(--border);
@@ -1392,14 +1375,14 @@ footer {
 }
 
 /* --- Pagination --- */
-.pagination {
+.tp-pagination {
   display: flex;
   justify-content: center;
   gap: 8px;
   margin-top: 40px;
 }
 
-.page-item {
+.tp-page-item {
   width: 40px;
   height: 40px;
   display: flex;

@@ -1,13 +1,13 @@
-<div class="pagination">
-  <div class="page-item" [class.disabled]="currentPage === 1" (click)="prevPage()">
+<div class="tp-pagination">
+  <div class="tp-page-item" [class.disabled]="currentPage === 1" (click)="prevPage()">
     <i class="fas fa-chevron-left"></i>
   </div>
 
-  <div *ngFor="let page of pages" class="page-item" (click)="onPageChange(page)" [class.active]="page === currentPage"
+  <div *ngFor="let page of pages" class="tp-page-item" (click)="onPageChange(page)" [class.active]="page === currentPage"
        [class.ellipsis]="page === '...'">{{ page }}
   </div>
 
-  <div class="page-item" [class.disabled]="currentPage === totalPages" (click)="nextPage()">
+  <div class="tp-page-item" [class.disabled]="currentPage === totalPages" (click)="nextPage()">
     <i class="fas fa-chevron-right"></i>
   </div>
 </div>

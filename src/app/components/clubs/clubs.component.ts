@@ -40,7 +40,7 @@ export class ClubsComponent {
         item.files?.forEach(file => {
           file.url = this.commonService.restoreUrl(file.url);
 
-          if (this.commonService.isLogo(item))
+          if (this.commonService.isLogo(file))
             item.logoUrl = file.url;
         })
       );

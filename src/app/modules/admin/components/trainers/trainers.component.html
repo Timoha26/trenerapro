@@ -23,7 +23,7 @@
           <th>Имя</th>
           <th>Цена</th>
           <th>Описание</th>
-          <th></th>
+          <th class="w-auto"></th>
         </tr>
         </thead>
         <tbody>
@@ -31,11 +31,15 @@
           <td>{{ trainer.firstname }} {{ trainer.lastname }}</td>
           <td>{{ trainer.price | currency }}</td>
           <td>{{ trainer.description }}</td>
-          <td class="text-end">
+          <td class="w-auto text-nowrap text-end">
             <div class="btn-group" role="group">
-              <button class="btn btn-sm" [ngClass]="{'btn-success': trainer.public, 'btn-secondary': !trainer.public}"
-                      (click)="public(trainer)" [title]="trainer.public ? 'Снять с публикации' : 'Опубликовать'">
-                <em class="fas" [ngClass]="{'fa-eye': trainer.public, 'fa-eye-slash': !trainer.public}"></em>
+<!--              <button class="btn btn-sm" [ngClass]="{'btn-success': trainer.public, 'btn-secondary': !trainer.public}"-->
+<!--                      (click)="public(trainer)" [title]="trainer.public ? 'Снять с публикации' : 'Опубликовать'">-->
+<!--                <em class="fas" [ngClass]="{'fa-eye': trainer.public, 'fa-eye-slash': !trainer.public}"></em>-->
+<!--              </button>-->
+              <button class="btn btn-sm" [ngClass]="{'btn-success': trainer.verified, 'btn-secondary': !trainer.verified}"
+                      (click)="verifiedToggle(trainer, !trainer.verified)" [title]="trainer.verified ? 'Снять флаг &laquo;проверен&raquo;' : 'Отметить флагом &laquo;проверен&raquo;'">
+                <em class="fas fa-check"></em>
               </button>
               <button class="btn btn-warning btn-sm" routerLink="{{trainer.id}}/edit" title="Редактировать">
                 <em class="fas fa-pen-to-square"></em>
@@ -49,7 +53,7 @@
         </tbody>
         <tfoot>
         <tr>
-          <td colspan="3">
+          <td colspan="4">
             <pagination
               [totalItems]="trainers.count ?? 0"
               (pageChanged)="setPage($event)"

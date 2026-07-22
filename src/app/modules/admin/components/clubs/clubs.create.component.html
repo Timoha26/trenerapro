@@ -42,19 +42,19 @@
                         [ngClass]="{'is-invalid': description.invalid && (description.touched || description.dirty)}"></textarea>
             </div>
           </div>
-          <div class="row mb-1">
+          <div class="row mb-1 border-bottom">
             <label class="form-label col-sm-4 col-md-3 col-lg-2">Локация</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
               <settlement-select [settlementId]="club.createClub.settlementId" (settlementIdChanged)="club.createClub.settlementId = $event"></settlement-select>
             </div>
           </div>
-          <div class="row mb-1">
+          <div class="row mb-1 border-bottom">
             <label class="form-label col-sm-4 col-md-3 col-lg-2">Спортивные дисциплины</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
               <sports-select [sportIds]="club.sportIds"></sports-select>
             </div>
           </div>
-          <div class="row mb-1">
+          <div class="row mb-1 border-bottom">
             <label class="form-label col-sm-4 col-md-3 col-lg-2">Контакты</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
               <contacts [clubId]="undefined" [contactIds]="club.contactIds"></contacts>
@@ -70,7 +70,7 @@
               </button>
             </div>
           </div>
-          <div class="row mb-1">
+          <div class="row mb-1 border-bottom">
             <div class="col-sm-6 col-md-4 col-lg-2 pb-2" *ngFor="let file of files">
               <div class="card h-100 border-dark">
                 <div class="card-header">

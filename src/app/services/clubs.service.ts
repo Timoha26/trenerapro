@@ -65,6 +65,24 @@ export class ClubsService {
     return this.http.delete<any>(this.getUrl('/' + clubId));
   }
 
+  public approve(clubId: number): Observable<any> {
+    const params: HttpParams = new HttpParams()
+      .set('clubId', clubId);
+
+    return this.http.put(this.getUrl('/approve'), null, {
+      params: params
+    });
+  }
+
+  public unapprove(clubId: number): Observable<any> {
+    const params: HttpParams = new HttpParams()
+      .set('clubId', clubId);
+
+    return this.http.put(this.getUrl('/unapprove'), null, {
+      params: params
+    });
+  }
+
   public getClubCreateRequestModel(): ClubCreateRequestModel {
     return {
       createClub: {

@@ -42,16 +42,59 @@ export class TrainersComponent {
     this.getTrainers(this.filters);
   }
 
+  private searchAndUpdateTrainer(updatedTrainer: TrainerModel) {
+    if (!this.trainers.items) return;
+
+    for (let trainer of this.trainers.items)
+      if (trainer.id == updatedTrainer.id) {
+        trainer = updatedTrainer;
+        break;
+      }
+  }
+
   setPage(event: PageChangedEvent) {
     this.setOffset(event.page, event.itemsPerPage);
   }
 
-  public(trainer: TrainerModel) {
+  // public(trainer: TrainerModel) {
+  //   const confirmRemoveModalOptions: ModalOptions = {
+  //     class: 'modal-dialog-centered modal-sm',
+  //     initialState: {
+  //       title: 'Вы уверены?',
+  //       text: 'Тренер <b>' + trainer.firstname + ' ' + trainer.lastname + '</b> будет ' + (trainer.public ? 'снят с публикации' : 'опубликован')
+  //     }
+  //   };
+  //
+  //   this.modalRef = this.modalService.show(ConfirmationModalComponent, confirmRemoveModalOptions);
+  //
+  //   this.modalRef.content.event.subscribe({
+  //     next: (isConfirmed: boolean) => {
+  //       if (isConfirmed) {
+  //         trainer.public = !trainer.public;
+  //
+  //         this.trainersService.update(trainer).subscribe({
+  //           next: data => {
+  //             if (!this.trainers.items) return;
+  //
+  //             for (let i = 0; i < this.trainers.items.length; i++) {
+  //               if (this.trainers.items[i].id === trainer.id) {
+  //                 this.trainers.items[i] = data;
+  //                 break;
+  //               }
+  //             }
+  //           }
+  //         });
+  //       }
+  //     }
+  //   });
+  // }
+
+  verifiedToggle(trainer: TrainerModel, verified: boolean) {
     const confirmRemoveModalOptions: ModalOptions = {
       class: 'modal-dialog-centered modal-sm',
       initialState: {
         title: 'Вы уверены?',
-        text: 'Тренер <b>' + trainer.firstname + ' ' + trainer.lastname + '</b> будет ' + (trainer.public ? 'снят с публикации' : 'опубликован')
+        text: 'Для тренера <b>' + trainer.firstname + ' ' + trainer.lastname + '</b> будет ' + (!verified ? 'снят' : 'добавлен') + ' флаг &laquo;проверен&raquo;'
       }
     };
 
@@ -60,20 +103,16 @@ export class TrainersComponent {
     this.modalRef.content.event.subscribe({
       next: (isConfirmed: boolean) => {
         if (isConfirmed) {
-          trainer.public = !trainer.public;
+          trainer.verified = verified;
 
-          // this.trainersService.update(trainer).subscribe({
-          //   next: data => {
-          //     if (!this.trainers.items) return;
-          //
-          //     for (let i = 0; i < this.trainers.items.length; i++) {
-          //       if (this.trainers.items[i].id === trainer.id) {
-          //         this.trainers.items[i] = data;
-          //         break;
-          //       }
-          //     }
-          //   }
-          // });
+          if (verified)
+            this.trainersService.approve(trainer.id ?? 0).subscribe({
+              next: data => this.searchAndUpdateTrainer(trainer)
+            });
+          else
+            this.trainersService.unapprove(trainer.id ?? 0).subscribe({
+              next: data => this.searchAndUpdateTrainer(trainer)
+            });
         }
       }
     });

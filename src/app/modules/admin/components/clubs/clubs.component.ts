@@ -39,16 +39,59 @@ export class ClubsComponent {
     this.getClubs(this.filters);
   }
 
+  private searchAndUpdateClub(updatedClub: ClubModel) {
+    if (!this.clubs.items) return;
+
+    for (let club of this.clubs.items)
+      if (club.id == updatedClub.id) {
+        club = updatedClub;
+        break;
+      }
+  }
+
   setPage(event: PageChangedEvent) {
     this.setOffset(event.page, event.itemsPerPage);
   }
 
-  public(club: ClubModel) {
+  // public(club: ClubModel) {
+  //   const confirmRemoveModalOptions: ModalOptions = {
+  //     class: 'modal-dialog-centered modal-sm',
+  //     initialState: {
+  //       title: 'Вы уверены?',
+  //       text: 'Клуб <b>' + club.name + '</b> будет ' + (club.public ? 'снят с публикации' : 'опубликован')
+  //     }
+  //   };
+  //
+  //   this.modalRef = this.modalService.show(ConfirmationModalComponent, confirmRemoveModalOptions);
+  //
+  //   this.modalRef.content.event.subscribe({
+  //     next: (isConfirmed: boolean) => {
+  //       if (isConfirmed) {
+  //         club.public = !club.public;
+  //
+  //         this.trainersService.update(trainer).subscribe({
+  //           next: data => {
+  //             if (!this.trainers.items) return;
+  //
+  //             for (let i = 0; i < this.trainers.items.length; i++) {
+  //               if (this.trainers.items[i].id === trainer.id) {
+  //                 this.trainers.items[i] = data;
+  //                 break;
+  //               }
+  //             }
+  //           }
+  //         });
+  //       }
+  //     }
+  //   });
+  // }
+
+  verifiedToggle(club: ClubModel, verified: boolean) {
     const confirmRemoveModalOptions: ModalOptions = {
       class: 'modal-dialog-centered modal-sm',
       initialState: {
         title: 'Вы уверены?',
-        text: 'Клуб <b>' + club.name + '</b> будет ' + (club.public ? 'снят с публикации' : 'опубликован')
+        text: 'Для клуба <b>' + club.name + '</b> будет ' + (!verified ? 'снят' : 'добавлен') + ' флаг &laquo;проверен&raquo;'
       }
     };
 
@@ -57,20 +100,16 @@ export class ClubsComponent {
     this.modalRef.content.event.subscribe({
       next: (isConfirmed: boolean) => {
         if (isConfirmed) {
-          club.public = !club.public;
+          club.verified = verified;
 
-          // this.trainersService.update(trainer).subscribe({
-          //   next: data => {
-          //     if (!this.trainers.items) return;
-          //
-          //     for (let i = 0; i < this.trainers.items.length; i++) {
-          //       if (this.trainers.items[i].id === trainer.id) {
-          //         this.trainers.items[i] = data;
-          //         break;
-          //       }
-          //     }
-          //   }
-          // });
+          if (verified)
+            this.clubsService.approve(club.id ?? 0).subscribe({
+              next: data => this.searchAndUpdateClub(club)
+            });
+          else
+            this.clubsService.unapprove(club.id ?? 0).subscribe({
+              next: data => this.searchAndUpdateClub(club)
+            });
         }
       }
     });
@@ -81,7 +120,7 @@ export class ClubsComponent {
       class: 'modal-dialog-centered modal-sm',
       initialState: {
         title: 'Вы уверены?',
-        text: 'Клуб <b>' + club.name  + '</b> будет удален'
+        text: 'Клуб <b>' + club.name + '</b> будет удален'
       }
     };
 

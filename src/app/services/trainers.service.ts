@@ -72,6 +72,24 @@ export class TrainersService {
     return this.http.delete<TrainerModel>(this.getUrl('/' + trainerId));
   }
 
+  public approve(trainerId: number): Observable<any> {
+    const params: HttpParams = new HttpParams()
+      .set('trainerId', trainerId);
+
+    return this.http.put(this.getUrl('/approve'), null, {
+      params: params
+    });
+  }
+
+  public unapprove(trainerId: number): Observable<any> {
+    const params: HttpParams = new HttpParams()
+      .set('trainerId', trainerId);
+
+    return this.http.put(this.getUrl('/unapprove'), null, {
+      params: params
+    });
+  }
+
   public getTrainerCreateRequestModel(): TrainerCreateRequestModel {
     return {
       createTrainer: {

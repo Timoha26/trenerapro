@@ -23,7 +23,7 @@
           <th>Имя</th>
           <th>Адрес</th>
           <th>Описание</th>
-          <th></th>
+          <th class="w-auto"></th>
         </tr>
         </thead>
         <tbody>
@@ -31,11 +31,15 @@
           <td>{{ club.name }}</td>
           <td>{{ club.address }}</td>
           <td>{{ club.description }}</td>
-          <td class="text-end">
+          <td class="w-auto text-nowrap text-end">
             <div class="btn-group" role="group">
-              <button class="btn btn-sm" [ngClass]="{'btn-success': club.public, 'btn-secondary': !club.public}"
-                      (click)="public(club)" [title]="club.public ? 'Снять с публикации' : 'Опубликовать'">
-                <em class="fas" [ngClass]="{'fa-eye': club.public, 'fa-eye-slash': !club.public}"></em>
+<!--              <button class="btn btn-sm" [ngClass]="{'btn-success': club.public, 'btn-secondary': !club.public}"-->
+<!--                      (click)="public(club)" [title]="club.public ? 'Снять с публикации' : 'Опубликовать'">-->
+<!--                <em class="fas" [ngClass]="{'fa-eye': club.public, 'fa-eye-slash': !club.public}"></em>-->
+<!--              </button>-->
+              <button class="btn btn-sm" [ngClass]="{'btn-success': club.verified, 'btn-secondary': !club.verified}"
+                      (click)="verifiedToggle(club, !club.verified)" [title]="club.verified ? 'Снять флаг &laquo;проверен&raquo;' : 'Отметить флагом &laquo;проверен&raquo;'">
+                <em class="fas fa-check"></em>
               </button>
               <button class="btn btn-warning btn-sm" routerLink="{{club.id}}/edit" title="Редактировать">
                 <em class="fas fa-pen-to-square"></em>
@@ -49,7 +53,7 @@
         </tbody>
         <tfoot>
         <tr>
-          <td colspan="3">
+          <td colspan="4">
             <pagination
               [totalItems]="clubs.count ?? 0"
               (pageChanged)="setPage($event)"

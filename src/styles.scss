@@ -222,11 +222,12 @@ header {
     color: var(--text-dark);
     font-weight: 500;
     font-size: 14px;
+    padding-bottom: 7px;
 
     &.active {
       color: var(--text-dark);
       border-bottom: 2px solid var(--primary);
-      padding-bottom: 20px;
+      padding-bottom: 5px;
     }
   }
 }
@@ -834,6 +835,7 @@ header {
 }
 
 .club-img {
+  position: relative;
   height: 140px;
   background: #eee;
   flex-shrink: 0;

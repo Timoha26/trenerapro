@@ -8,6 +8,8 @@
   <div class="clubs-grid" *ngIf="clubs.length > 0">
     <div class="club-card" *ngFor="let club of clubs" routerLink="/clubs/{{club.id}}">
       <div class="club-img">
+        <div class="card-badge" *ngIf="club.verified"><i class="fas fa-check-circle"></i> Проверен</div>
+        <div class="card-fav"><i class="far fa-heart"></i></div>
         <img src="{{club.logoUrl}}" alt="Клуб">
       </div>
       <div class="club-body">

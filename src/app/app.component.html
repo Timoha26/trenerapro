@@ -8,12 +8,10 @@
       </div>
     </div>
     <nav class="nav-links">
-      <a routerLink="/trainers">Тренеры</a>
-      <a href="/clubs">Клубы</a>
-<!--      <a href="#">Виды спорта</a>-->
-<!--      <a href="#">Цены</a>-->
-      <a href="#">Для тренеров</a>
-      <a routerLink="/admin" class="primary" *ngIf="isLogged()">Админка</a>
+      <a routerLink="/trainers" routerLinkActive="active">Тренеры</a>
+      <a routerLink="/clubs" routerLinkActive="active">Клубы</a>
+<!--      <a routerLink="/" routerLinkActive="active">Для тренеров</a>-->
+      <a routerLink="/admin" class="text-warning" routerLinkActive="active" *ngIf="isLogged()">Админка</a>
     </nav>
     <div class="user-actions">
       <div class="location-select">

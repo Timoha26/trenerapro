@@ -6,10 +6,15 @@
     </button>
   </div>
   <div class="clubs-grid" *ngIf="clubs.length > 0">
-    <div class="club-card" *ngFor="let club of clubs" routerLink="/clubs/{{club.id}}">
+    <div class="club-card" *ngFor="let club of clubs">
       <div class="club-img">
-        <div class="card-badge" *ngIf="club.verified"><i class="fas fa-check-circle"></i> Проверен</div>
-        <div class="card-fav" (click)="addReview(undefined, club.id)"><i class="far fa-heart"></i></div>
+        <div class="card-badge" *ngIf="club.verified">
+          <em class="fas fa-check-circle"></em>
+          Проверен
+        </div>
+        <div class="card-fav" (click)="addReview(club.id)">
+          <em class="far fa-heart"></em>
+        </div>
         <img src="{{club.logoUrl}}" alt="Клуб">
       </div>
       <div class="club-body">
@@ -20,6 +25,7 @@
           <span>{{ club.rating?.rating }} ({{ club.rating?.reviewsCount }} отзывов)</span>
         </div>
         <p class="loc">{{ club.address }}</p>
+        <button class="btn-primary" routerLink="/clubs/{{club.id}}">Подробнее</button>
       </div>
     </div>
   </div>

@@ -61,9 +61,39 @@
           <button class="btn-primary">Записаться</button>
         </div>
       </div>
+
+      <div class="sub-section-title">
+        <h4>Отзывы</h4>
+        <a href="#" (click)="addReview($event, club.id)">оставить отзыв</a>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card" *ngFor="let review of reviews()">
+          <div class="review-header">
+            <div class="review-avatar">
+              <img src="{{review.user?.avatarUrl}}" alt="User">
+            </div>
+            <div class="review-meta">
+              <h4>{{ review.user?.firstName }} {{ review.user?.lastName }}</h4>
+              <span>{{ review.createdAt | date:'dd.MM.yyyy' }}</span>
+            </div>
+          </div>
+          <div class="review-stars">
+            <rating [customTemplate]="ratingStars" [(ngModel)]="review.rating" [max]="ratingMax"
+                    [readonly]="true"></rating>
+          </div>
+          <p class="review-text">{{ review.text }}</p>
+        </div>
+      </div>
+      <tp-pagination *ngIf="allReviews().length > reviewFilters().limit" [currentPage]="1"
+                     [totalItems]="allReviews().length" [itemsPerPage]="reviewFilters().limit"
+                     (pageChange)="onPageChange($event)"></tp-pagination>
     </section>
 
     <rightSidebar></rightSidebar>
 
   </div>
 </main>
+
+<ng-template #ratingStars let-index="index" let-value="value">
+  <em class="fas fa-star {{index < value ? 'text-gold' : 'text-gray'}}"></em>
+</ng-template>

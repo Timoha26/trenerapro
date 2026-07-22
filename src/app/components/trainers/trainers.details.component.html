@@ -14,18 +14,18 @@
             <div class="name">{{ trainer.firstname }} {{ trainer.lastname }}</div>
             <div class="speciality">
               <span *ngFor="let sport of trainer.sports">
-                <em class="fa" [ngClass]="sport.icon"></em> {{sport.name}}
+                <em class="fa" [ngClass]="sport.icon"></em> {{ sport.name }}
               </span>
             </div>
 
             <div class="distance-status">
               <div class="trainer-stats" title="Возраст тренера">
                 <em class="fas fa-id-card"></em>
-                {{trainer.age | age}}
+                {{ trainer.age | age }}
               </div>
               <div class="trainer-stats" title="Стаж работы тренера">
                 <em class="fas fa-briefcase"></em>
-                {{trainer.experience | age}}
+                {{ trainer.experience | age }}
               </div>
               <div class="trainer-stats" title="Возраст спортсмена">
                 <em class="fas fa-child"></em>
@@ -37,7 +37,7 @@
               </div>
               <div class="trainer-stats" title="Местоположение">
                 <em class="fas fa-map-marker-alt"></em>
-                {{trainer.settlement?.region}} {{trainer.settlement?.settlement}}
+                {{ trainer.settlement?.region }} {{ trainer.settlement?.settlement }}
               </div>
             </div>
 
@@ -51,7 +51,7 @@
         </div>
         <div class="card-bottom" *ngIf="trainer.description">
           <div class="trainer-stats" title="Описания">
-            {{trainer.description}}
+            {{ trainer.description }}
           </div>
         </div>
         <div class="card-bottom" *ngIf="trainer.files">
@@ -64,7 +64,7 @@
                 </div>
               </div>
               <div class="trainer-body">
-                <div class="trainer-stats">{{file.type}}</div>
+                <div class="trainer-stats">{{ file.type }}</div>
               </div>
             </div>
           </div>
@@ -76,9 +76,39 @@
           <button class="btn-primary">Записаться</button>
         </div>
       </div>
+
+      <div class="sub-section-title">
+        <h4>Отзывы</h4>
+        <a href="#" (click)="addReview($event, trainer.id)">оставить отзыв</a>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card" *ngFor="let review of reviews()">
+          <div class="review-header">
+            <div class="review-avatar">
+              <img src="{{review.user?.avatarUrl}}" alt="User">
+            </div>
+            <div class="review-meta">
+              <h4>{{ review.user?.firstName }} {{ review.user?.lastName }}</h4>
+              <span>{{ review.createdAt | date:'dd.MM.yyyy' }}</span>
+            </div>
+          </div>
+          <div class="review-stars">
+            <rating [customTemplate]="ratingStars" [(ngModel)]="review.rating" [max]="ratingMax"
+                    [readonly]="true"></rating>
+          </div>
+          <p class="review-text">{{ review.text }}</p>
+        </div>
+      </div>
+      <tp-pagination *ngIf="allReviews().length > reviewFilters().limit" [currentPage]="1"
+                     [totalItems]="allReviews().length" [itemsPerPage]="reviewFilters().limit"
+                     (pageChange)="onPageChange($event)"></tp-pagination>
     </section>
 
     <rightSidebar></rightSidebar>
 
   </div>
 </main>
+
+<ng-template #ratingStars let-index="index" let-value="value">
+  <em class="fas fa-star {{index < value ? 'text-gold' : 'text-gray'}}"></em>
+</ng-template>

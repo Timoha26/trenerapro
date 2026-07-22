@@ -1,28 +1,35 @@
 <section class="reviews container">
   <div class="section-title">
-    <h2>Отзывы о тренерах</h2>
-    <button type="button" class="btn-outline" routerLink="/reviews">
-      Смотреть все
-    </button>
+    <h2>Отзывы</h2>
   </div>
-  <div class="reviews-grid">
-    <div class="review-card" *ngFor="let review of reviews.items">
-      <div class="review-header">
-        <div class="review-avatar">
-          <img src="{{review.user?.avatarUrl}}" alt="User">
+  <div class="reviews-grid-scroll">
+    <button class="btn-slide btn-slide-prev" (click)="scrollSlider(-1)">
+      <em class="fas fa-angle-left"></em>
+    </button>
+    <button class="btn-slide btn-slide-next" (click)="scrollSlider(1)">
+      <em class="fas fa-angle-right"></em>
+    </button>
+
+    <div class="reviews-grid-wrapper" #slider>
+      <div class="review-card" *ngFor="let review of reviews.items">
+        <div class="review-header">
+          <div class="review-avatar">
+            <img src="{{review.user?.avatarUrl}}" alt="User">
+          </div>
+          <div class="review-meta">
+            <h4>{{ review.user?.firstName }} {{ review.user?.lastName }}</h4>
+            <span>{{ review.createdAt | date:'dd.MM.yyyy' }}</span>
+          </div>
         </div>
-        <div class="review-meta">
-          <h4>{{review.user?.firstName}} {{review.user?.lastName}}</h4>
-          <span>{{review.createdAt | date:'dd.MM.yyyy'}}</span>
+        <div class="review-stars">
+          <rating [customTemplate]="ratingStars" [(ngModel)]="review.rating" [max]="ratingMax" [readonly]="true"></rating>
         </div>
+        <p class="review-text">{{ review.text }}</p>
       </div>
-      <div class="review-stars">
-        <span *ngFor="let r of review.rating | ratingRepeat">
-          <span *ngIf="r">★</span>
-          <span *ngIf="!r">☆</span>
-        </span>
-      </div>
-      <p class="review-text">{{review.text}}</p>
     </div>
   </div>
 </section>
+
+<ng-template #ratingStars let-index="index" let-value="value">
+  <em class="fas fa-star {{index < value ? 'text-gold' : 'text-gray'}}"></em>
+</ng-template>

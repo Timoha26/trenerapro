@@ -8,6 +8,7 @@ import {SportModel} from "../sport.model";
 import {TrainingFormatModel} from "../training.format.model";
 import {FileUploadModel} from "../file.upload.model";
 import {ClientCategoryModel} from "../client.category.model";
+import {ReviewModel} from "../reviews/review.model";
 
 export interface TrainerModel {
   id?: number;
@@ -33,4 +34,5 @@ export interface TrainerModel {
   clientCategories?: ClientCategoryModel[];
   lessonAddresses?: any[];
   public?: boolean;
+  reviews?: ReviewModel[];
 }

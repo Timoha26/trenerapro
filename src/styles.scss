@@ -171,6 +171,28 @@ button {
   }
 }
 
+.sub-section-title {
+  margin: 20px 0 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h4 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  a {
+    color: var(--text-gray);
+    font-size: 14px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 /* --- Header --- */
 header {
   border-bottom: 1px solid var(--border);
@@ -369,7 +391,7 @@ header {
 
 /* --- Categories --- */
 .categories {
-  padding: 20px 0 40px;
+  padding: 20px;
 }
 
 .cat-grid {
@@ -462,7 +484,7 @@ header {
 
 /* --- Popular Trainers (4 колонки на широком экране) --- */
 .popular {
-  padding: 20px 0 40px;
+  padding: 20px;
 }
 
 .landing-trainers-grid {
@@ -587,7 +609,7 @@ header {
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
-        align-items: start;
+        align-items: flex-start;
         gap: 8px 16px;
         margin: 6px 0 2px;
 
@@ -818,7 +840,7 @@ header {
 
 /* --- Popular Clubs (4 колонки) --- */
 .clubs {
-  padding: 40px 0;
+  padding: 20px;
 }
 
 .clubs-grid {
@@ -872,7 +894,7 @@ header {
 
 /* --- Reviews --- */
 .reviews {
-  padding: 40px 0;
+  padding: 20px;
 }
 
 .reviews-grid {
@@ -928,6 +950,69 @@ header {
   font-size: 14px;
   color: var(--text-dark);
   line-height: 1.6;
+}
+
+.reviews-grid-scroll {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+
+  .reviews-grid-wrapper {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 20px;
+    padding: 20px 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+
+  .reviews-grid-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .review-card {
+    display: flex;
+    flex: 0 0 300px;
+    flex-direction: column;
+    scroll-snap-align: start;
+    border: 1px solid var(--border);
+    padding: 20px;
+    border-radius: var(--radius);
+
+    .review-text {
+      font-size: 14px;
+      color: var(--text-dark);
+      line-height: 1.6;
+      margin: 0;
+    }
+  }
+
+  .btn-slide {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 18px;
+    transition: background 0.3s;
+  }
+
+  .btn-slide-prev {
+    left: -20px;
+  }
+
+  .btn-slide-next {
+    right: -20px;
+  }
 }
 
 /* --- Become Trainer CTA --- */

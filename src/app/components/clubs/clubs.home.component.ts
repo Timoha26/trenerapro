@@ -63,11 +63,10 @@ export class ClubsHomeComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
   }
 
-  addReview(trainerId?: number, clubId?: number) {
+  addReview(clubId?: number) {
     const modalOptions: ModalOptions = {
       class: 'modal-dialog-centered modal-md',
       initialState: {
-        trainerId: trainerId,
         clubId: clubId
       }
     };

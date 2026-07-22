@@ -5,6 +5,9 @@ import {createMask, InputmaskOptions} from "@ngneat/input-mask";
 import {FileUploadModel} from "../models/file.upload.model";
 import {FileTypeEnum} from "../models/file.type.enum";
 import {conf} from "../conf/conf";
+import {UserModel} from "../models/users/user.model";
+import {fakerRU as faker, SexType} from "@faker-js/faker";
+import {RoleEnum} from "../models/users/role.enum";
 
 @Injectable()
 export class CommonService {
@@ -72,5 +75,20 @@ export class CommonService {
         return i;
 
     return -1;
+  }
+
+  public getFakeUser(): UserModel {
+    const createFakeUser = (): UserModel => {
+      const sex = faker.person.sex() as SexType;
+      return ({
+        id: faker.number.int(),
+        firstName: faker.person.firstName(sex),
+        lastName: faker.person.lastName(sex),
+        avatarUrl: faker.image.avatar(),
+        role: RoleEnum.guest
+      })
+    };
+
+    return createFakeUser();
   }
 }

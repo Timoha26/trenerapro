@@ -46,6 +46,7 @@ import {CommonService} from "./services/common.service";
 import {TrainingFormatsService} from "./services/training.formats.service";
 import {ModalModule} from "ngx-bootstrap/modal";
 import {ToastrModule} from "ngx-toastr";
+import {RatingModule} from "ngx-bootstrap/rating";
 
 registerLocaleData(localeRu)
 
@@ -84,7 +85,8 @@ registerLocaleData(localeRu)
     TrainingFormatsListenerPipe,
     ReviewsPipe,
     SearchSortComponent,
-    ClubFiltersComponent
+    ClubFiltersComponent,
+    RatingModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'ru-RU'},

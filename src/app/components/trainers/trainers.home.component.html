@@ -12,7 +12,7 @@
           <em class="fas fa-check-circle"></em>
           Проверен
         </div>
-        <div class="card-fav">
+        <div class="card-fav" (click)="addReview(trainer.id, undefined)">
           <em class="far fa-heart"></em>
         </div>
         <img src="{{trainer.logoUrl}}" alt="Trainer">
@@ -22,7 +22,7 @@
         <p class="sport">{{ trainer.sports | sportsListener }}</p>
         <div class="trainer-rating">
           <em class="fas fa-star"></em>
-          <span>{{ trainer.rating?.value }} ({{ trainer.rating?.reviewsCount | reviews }})</span>
+          <span>{{ trainer.rating?.rating }} ({{ trainer.rating?.reviewsCount | reviews }})</span>
         </div>
         <div class="trainer-stats">
           <em class="fas fa-map-marker-alt"></em>

@@ -1,0 +1,33 @@
+<div class="tp-modal-header">
+  <h4 class="">Отзыв{{ entityText }}</h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="cancel()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<form name="reviewForm" #reviewForm="ngForm" novalidate>
+  <div class="tp-modal-body">
+    <div class="row">
+      <label for="rating" class="">Ваша оценка</label>
+      <div class="">
+        <rating id="rating" name="rating" #rating="ngModel" required [customTemplate]="ratingStars" [(ngModel)]="newReview.rating" [max]="ratingMax"></rating>
+      </div>
+    </div>
+    <div class="row">
+      <label for="text" class="w-100">Напишите что вы думаете{{entityText}}</label>
+      <div class="w-100">
+        <textarea id="text" name="text" #text="ngModel" rows="3"
+                  [(ngModel)]="newReview.text" placeholder="Напишите что вы думаете{{entityText}}"
+                  [ngClass]="{'is-invalid': text.invalid && (text.touched || text.dirty)}"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="tp-modal-footer">
+    <button type="button" class="btn-primary" (click)="save()" [disabled]="reviewForm.invalid">
+      Добавить
+    </button>
+  </div>
+</form>
+
+<ng-template #ratingStars let-index="index" let-value="value">
+  <em class="fas fa-star {{index < value ? 'text-gold' : 'text-gray'}}"></em>
+</ng-template>

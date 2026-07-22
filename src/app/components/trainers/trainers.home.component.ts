@@ -8,6 +8,9 @@ import {SportsListenerPipe} from "../../pipes/sportsListener.pipe";
 import {PriceGradationPipe} from "../../pipes/priceGradation.pipe";
 import {ReviewsPipe} from "../../pipes/reviews.pipe";
 import {CommonService} from "../../services/common.service";
+import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
+import {ReviewCreateModalComponent} from "../reviews/review.create.modal.component";
+import {ReviewModel} from "../../models/reviews/review.model";
 
 @Component({
   selector: 'landing-trainers-home',
@@ -28,13 +31,15 @@ export class TrainersHomeComponent implements OnInit, OnDestroy {
   private limit: number = 4;
   private paramSource$: BehaviorSubject<number | undefined> = new BehaviorSubject<number | undefined>(undefined);
   private subscription!: Subscription;
+  private modalRef?: BsModalRef;
 
   @Input() set filterParam(value: number | undefined) {
     this.paramSource$.next(value);
   }
 
   constructor(private trainersService: TrainersService,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private modalService: BsModalService) {
   }
 
   ngOnInit() {
@@ -61,5 +66,23 @@ export class TrainersHomeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
+  }
+
+  addReview(trainerId?: number, clubId?: number) {
+    const modalOptions: ModalOptions = {
+      class: 'modal-dialog-centered modal-md',
+      initialState: {
+        trainerId: trainerId,
+        clubId: clubId
+      }
+    };
+
+    this.modalRef = this.modalService.show(ReviewCreateModalComponent, modalOptions);
+
+    this.modalRef.content.event.subscribe({
+      next: (review: ReviewModel) => {
+        console.log('review added');
+      }
+    });
   }
 }

@@ -10,6 +10,9 @@ import {SortByEnum} from "../../models/sortBy.enum";
 import {CommonService} from "../../services/common.service";
 import {SortOptionModel} from "../../models/sort.option.model";
 import {TrainerDataFiltersModel} from "../../models/trainers/trainer.data.filters.model";
+import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
+import {ReviewCreateModalComponent} from "../reviews/review.create.modal.component";
+import {ReviewModel} from "../../models/reviews/review.model";
 
 @Component({
   selector: 'landing-trainers',
@@ -34,9 +37,11 @@ export class TrainersComponent {
   });
 
   public trainers: PageResultModel<TrainerModel> = {count: 0, items: []};
+  private modalRef?: BsModalRef;
 
   constructor(private trainersService: TrainersService,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private modalService: BsModalService) {
     effect((onCleanup) => {
       const filters = this.dataFilters();
 
@@ -103,5 +108,23 @@ export class TrainersComponent {
       desc: event.desc,
       offset: 0
     }));
+  }
+
+  addReview(trainerId?: number, clubId?: number) {
+    const modalOptions: ModalOptions = {
+      class: 'modal-dialog-centered modal-md',
+      initialState: {
+        trainerId: trainerId,
+        clubId: clubId
+      }
+    };
+
+    this.modalRef = this.modalService.show(ReviewCreateModalComponent, modalOptions);
+
+    this.modalRef.content.event.subscribe({
+      next: (review: ReviewModel) => {
+        console.log('review added');
+      }
+    });
   }
 }

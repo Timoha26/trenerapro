@@ -16,7 +16,7 @@
         <div class="trainer-card" *ngFor="let trainer of trainers.items">
           <div class="trainer-img-wrap">
             <div class="card-badge" *ngIf="trainer.verified"><i class="fas fa-check-circle"></i> Проверен</div>
-            <div class="card-fav"><i class="far fa-heart"></i></div>
+            <div class="card-fav" (click)="addReview(trainer.id, undefined)"><i class="far fa-heart"></i></div>
             <img src="{{trainer.logoUrl}}" alt="Тренер">
           </div>
           <div class="trainer-body">
@@ -24,7 +24,7 @@
             <p class="sport">{{ trainer.sports | sportsListener }}</p>
             <div class="trainer-rating">
               <em class="fas fa-star"></em>
-              <span>{{ trainer.rating?.value }} ({{ trainer.rating?.reviewsCount | reviews }})</span>
+              <span>{{ trainer.rating?.rating }} ({{ trainer.rating?.reviewsCount | reviews }})</span>
             </div>
             <div class="trainer-stats">
               <em class="fas fa-map-marker-alt"></em>

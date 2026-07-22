@@ -44,6 +44,8 @@ import {ClubFiltersComponent} from "./components/clubs/club.filters.component";
 import {ContactsService} from "./services/contacts.service";
 import {CommonService} from "./services/common.service";
 import {TrainingFormatsService} from "./services/training.formats.service";
+import {ModalModule} from "ngx-bootstrap/modal";
+import {ToastrModule} from "ngx-toastr";
 
 registerLocaleData(localeRu)
 
@@ -58,6 +60,8 @@ registerLocaleData(localeRu)
     ClubsDetailsComponent
   ],
   imports: [
+    ModalModule.forRoot(),
+    ToastrModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

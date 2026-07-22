@@ -21,6 +21,7 @@
   --border: #E5E7EB;
   --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   --radius: 12px;
+  --btn-radius: 8px;
   --container: 1300px;
 }
 
@@ -114,7 +115,7 @@ button {
   color: white;
   border: none;
   padding: 12px 24px;
-  border-radius: 8px;
+  border-radius: var(--btn-radius);
   font-weight: 600;
   cursor: pointer;
   transition: 0.3s;
@@ -131,7 +132,7 @@ button {
   border: 1px solid var(--border);
   color: var(--text-dark);
   padding: 12px 24px;
-  border-radius: 8px;
+  border-radius: var(--btn-radius);
   font-weight: 600;
   cursor: pointer;
   transition: 0.3s;
@@ -148,7 +149,7 @@ button {
   color: var(--primary);
   padding: 10px 20px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--btn-radius);
   font-weight: 600;
   font-size: 14px;
 }
@@ -384,7 +385,7 @@ header {
   flex-direction: column;
   align-items: center;
   padding: 10px;
-  border-radius: 8px;
+  border-radius: var(--btn-radius);
   transition: 0.2s;
   cursor: pointer;
   color: var(--text-gray);
@@ -422,7 +423,7 @@ header {
   min-width: 160px;
   vertical-align: middle;
   border: 1px solid var(--text-dark);
-  border-radius: 8px;
+  border-radius: var(--btn-radius);
   z-index: 999;
   background-color: var(--bg-white);
 }
@@ -1042,7 +1043,7 @@ footer {
   display: flex;
   align-items: center;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--btn-radius);
   padding: 0 16px;
   background: white;
 
@@ -1062,7 +1063,7 @@ footer {
 .sort-select {
   padding: 14px 16px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--btn-radius);
   background: white;
   font-size: 14px;
   min-width: 180px;
@@ -1390,7 +1391,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 8px;
+  border-radius: var(--btn-radius);
   border: 1px solid var(--border);
   font-size: 14px;
   font-weight: 500;
@@ -1526,6 +1527,18 @@ footer {
     text-overflow: ellipsis;
     max-width: 100px;
   }
+}
+
+.text-dark {
+  color: var(--text-dark);
+}
+
+.text-gray {
+  color: var(--text-gray);
+}
+
+.text-light {
+  color: var(--text-light);
 }
 
 .text-gold {

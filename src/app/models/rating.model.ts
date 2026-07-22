@@ -1,4 +1,4 @@
 export interface RatingModel {
-  value?: number;
+  rating?: number;
   reviewsCount?: number;
 }

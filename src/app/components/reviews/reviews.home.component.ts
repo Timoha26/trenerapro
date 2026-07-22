@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {RouterLink} from "@angular/router";
 import {DatePipe, NgForOf, NgIf} from "@angular/common";
 import {ReviewsService} from "../../services/reviews.service";
@@ -18,7 +18,7 @@ import {RatingRepeatPipe} from "../../pipes/ratingRepeat.pipe";
     RatingRepeatPipe
   ]
 })
-export class ReviewsHomeComponent {
+export class ReviewsHomeComponent implements OnInit {
   constructor(private reviewsService: ReviewsService) {
   }
 

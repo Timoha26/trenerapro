@@ -19,6 +19,7 @@
     "@angular/platform-browser": "^16.1.0",
     "@angular/platform-browser-dynamic": "^16.1.0",
     "@angular/router": "^16.1.0",
+    "@faker-js/faker": "^10.5.0",
     "@ngneat/input-mask": "^6.1.0",
     "bootstrap": "^5.2.3",
     "inputmask": "^5.0.7",

@@ -6,6 +6,9 @@ import {ClubModel} from "../../models/clubs/club.model";
 import {SportsListenerPipe} from "../../pipes/sportsListener.pipe";
 import {BehaviorSubject, Subscription, switchMap} from "rxjs";
 import {CommonService} from "../../services/common.service";
+import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
+import {ReviewCreateModalComponent} from "../reviews/review.create.modal.component";
+import {ReviewModel} from "../../models/reviews/review.model";
 
 @Component({
   selector: 'landing-clubs-home',
@@ -23,13 +26,15 @@ export class ClubsHomeComponent implements OnInit, OnDestroy {
   private limit: number = 4;
   private paramSource$: BehaviorSubject<number | undefined> = new BehaviorSubject<number | undefined>(undefined);
   private subscription!: Subscription;
+  private modalRef?: BsModalRef;
 
   @Input() set filterParam(value: number | undefined) {
     this.paramSource$.next(value);
   }
 
   constructor(private clubsService: ClubsService,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private modalService: BsModalService) {
   }
 
   ngOnInit() {
@@ -56,5 +61,23 @@ export class ClubsHomeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.subscription)
       this.subscription.unsubscribe();
+  }
+
+  addReview(trainerId?: number, clubId?: number) {
+    const modalOptions: ModalOptions = {
+      class: 'modal-dialog-centered modal-md',
+      initialState: {
+        trainerId: trainerId,
+        clubId: clubId
+      }
+    };
+
+    this.modalRef = this.modalService.show(ReviewCreateModalComponent, modalOptions);
+
+    this.modalRef.content.event.subscribe({
+      next: (review: ReviewModel) => {
+        console.log('review added');
+      }
+    });
   }
 }

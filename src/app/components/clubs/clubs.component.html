@@ -16,7 +16,7 @@
         <div class="trainer-card" *ngFor="let club of clubs.items">
           <div class="trainer-img-wrap">
             <div class="card-badge" *ngIf="club.verified"><i class="fas fa-check-circle"></i> Проверен</div>
-            <div class="card-fav"><i class="far fa-heart"></i></div>
+            <div class="card-fav" (click)="addReview(undefined, club.id)"><i class="far fa-heart"></i></div>
             <img src="{{club.logoUrl}}" alt="Клуб">
           </div>
           <div class="trainer-body">
@@ -24,7 +24,7 @@
             <p class="sport">{{ club.sports | sportsListener }}</p>
             <div class="trainer-rating">
               <em class="fas fa-star"></em>
-              <span>{{ club.rating?.value }} ({{ club.rating?.reviewsCount | reviews }})</span>
+              <span>{{ club.rating?.rating }} ({{ club.rating?.reviewsCount | reviews }})</span>
             </div>
             <div class="trainer-stats">
               <em class="fas fa-map-marker-alt"></em>

@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <tp-pagination [currentPage]="1" [totalItems]="clubs.count ?? 0" [itemsPerPage]="filters().limit ?? 0" (pageChange)="onPageChange($event)"></tp-pagination>
+      <tp-pagination [currentPage]="1" [totalItems]="clubs.count ?? 0" [itemsPerPage]="filters().limit" (pageChange)="onPageChange($event)"></tp-pagination>
     </section>
 
     <rightSidebar></rightSidebar>

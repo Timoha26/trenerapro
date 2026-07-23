@@ -8,10 +8,12 @@ import {RatingRepeatPipe} from "../../pipes/ratingRepeat.pipe";
 import {RatingModule} from "ngx-bootstrap/rating";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonService} from "../../services/common.service";
+import {ReviewFiltersModel} from "../../models/reviews/review.filters.model";
 
 @Component({
   selector: 'landing-reviews-home',
   templateUrl: './reviews.home.component.html',
+  styleUrls: ['./reviews.home.component.scss'],
   standalone: true,
   imports: [
     RouterLink,
@@ -30,10 +32,61 @@ export class ReviewsHomeComponent implements OnInit {
   }
 
   @ViewChild('slider', {read: ElementRef}) slider!: ElementRef<HTMLDivElement>;
+  reviews: PageResultModel<ReviewModel> = {count: 0, items: []};
+  ratingMax = 5;
+  private loading = false;
+  private hasMore: boolean = true;
+  private page: number = 1;
+  private itemsPerPage: number = 5;
 
-  public reviews: PageResultModel<ReviewModel> = {count: 0, items: []};
+  ngOnInit() {
+    this.getReviews();
+  }
 
-  public ratingMax = 5;
+  onScroll(): void {
+    const element = this.slider.nativeElement;
+    const scrollRight = element.scrollLeft + element.clientWidth;
+    const totalWidth = element.scrollWidth;
+    const threshold = 300;
+
+    if (totalWidth - scrollRight < threshold) {
+      this.getReviews();
+    }
+  }
+
+  private getReviews() {
+    if (this.loading || !this.hasMore) return;
+
+    this.loading = true;
+
+    const filters: ReviewFiltersModel = {
+      offset: (this.page - 1) * this.itemsPerPage,
+      limit: this.itemsPerPage
+    };
+
+    this.reviewsService.get(filters).subscribe({
+      next: data => {
+        if (data.items && data.items.length > 0) {
+          data.items.forEach(review => {
+            review.user = this.commonService.getFakeUser();
+          });
+
+          this.reviews.items = [...this.reviews.items ?? [], ...data.items];
+          this.reviews.count = data.count;
+
+          if (this.reviews.items.length >= (this.reviews.count ?? 0))
+            this.hasMore = false;
+          else
+            this.page++;
+        } else {
+          this.hasMore = false;
+        }
+
+        this.loading = false;
+      },
+      error: () => this.loading = false
+    });
+  }
 
   scrollSlider(direction: number): void {
     const element = this.slider.nativeElement;
@@ -50,21 +103,5 @@ export class ReviewsHomeComponent implements OnInit {
         behavior: 'smooth'
       });
     }
-  }
-
-  private getReviews() {
-    this.reviewsService.get().subscribe({
-      next: data => {
-        data.items?.forEach(review => {
-          review.user = this.commonService.getFakeUser();
-        });
-
-        this.reviews = data;
-      }
-    });
-  }
-
-  ngOnInit() {
-    this.getReviews();
   }
 }

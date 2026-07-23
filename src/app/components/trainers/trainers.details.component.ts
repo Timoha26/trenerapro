@@ -8,7 +8,6 @@ import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {ReviewCreateModalComponent} from "../reviews/review.create.modal.component";
 import {ReviewModel} from "../../models/reviews/review.model";
 import {PageStateEvent} from "../../models/page.state.event";
-import {th} from "@faker-js/faker";
 
 @Component({
   selector: 'landing-trainers-details',

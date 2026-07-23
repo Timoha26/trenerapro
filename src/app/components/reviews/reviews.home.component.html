@@ -10,7 +10,7 @@
       <em class="fas fa-angle-right"></em>
     </button>
 
-    <div class="reviews-grid-wrapper" #slider>
+    <div class="reviews-grid-wrapper" #slider (scroll)="onScroll()">
       <div class="review-card" *ngFor="let review of reviews.items">
         <div class="review-header">
           <div class="review-avatar">

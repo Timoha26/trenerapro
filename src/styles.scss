@@ -509,14 +509,6 @@ header {
 }
 
 .trainer-details-card {
-  //background: white;
-  //border: 1px solid var(--border);
-  //border-radius: var(--radius);
-  //overflow: hidden;
-  //transition: 0.3s;
-  //display: flex;
-  //flex-direction: column;
-
   display: flex;
   flex-direction: column;
   border: 1px solid var(--border);
@@ -584,8 +576,6 @@ header {
 
         .stars {
           color: var(--text-gray);
-          //font-size: 0.95rem;
-          //letter-spacing: 1px;
           display: flex;
           align-items: center;
 
@@ -700,7 +690,6 @@ header {
     }
 
     .btn {
-      background: #0b1f33;
       color: white;
       border: none;
       border-radius: 60px;
@@ -950,69 +939,6 @@ header {
   font-size: 14px;
   color: var(--text-dark);
   line-height: 1.6;
-}
-
-.reviews-grid-scroll {
-  position: relative;
-  width: 100%;
-  margin: 0 auto;
-
-  .reviews-grid-wrapper {
-    display: flex;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    gap: 20px;
-    padding: 20px 0;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-  }
-
-  .reviews-grid-wrapper::-webkit-scrollbar {
-    display: none;
-  }
-
-  .review-card {
-    display: flex;
-    flex: 0 0 300px;
-    flex-direction: column;
-    scroll-snap-align: start;
-    border: 1px solid var(--border);
-    padding: 20px;
-    border-radius: var(--radius);
-
-    .review-text {
-      font-size: 14px;
-      color: var(--text-dark);
-      line-height: 1.6;
-      margin: 0;
-    }
-  }
-
-  .btn-slide {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 10;
-    font-size: 18px;
-    transition: background 0.3s;
-  }
-
-  .btn-slide-prev {
-    left: -20px;
-  }
-
-  .btn-slide-next {
-    right: -20px;
-  }
 }
 
 /* --- Become Trainer CTA --- */

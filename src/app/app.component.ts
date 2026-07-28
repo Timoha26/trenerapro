@@ -58,7 +58,8 @@ export class AppComponent {
     const modalOptions: ModalOptions = {
       class: 'modal-dialog-centered modal-md',
       initialState: {
-        clubId: 0
+        selectedCity: this.currentCity?.name,
+        chosenCity: this.currentCity
       }
     };
 

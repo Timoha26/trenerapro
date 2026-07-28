@@ -3,7 +3,6 @@ import {HttpClient} from "@angular/common/http";
 import {conf} from "../conf/conf";
 import {Observable} from "rxjs";
 import {CityModel} from "../models/cities/city.model";
-import {RegionModel} from "../models/cities/region.model";
 
 @Injectable({providedIn: 'root'})
 export class GeoService {

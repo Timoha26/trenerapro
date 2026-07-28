@@ -4,6 +4,10 @@ import {AuthModel} from "./models/auth.model";
 import {NgForm} from "@angular/forms";
 import {TokenModel} from "./models/token.model";
 import {CommonService} from "./services/common.service";
+import {GeoService} from "./services/geo.service";
+import {CityModel} from "./models/cities/city.model";
+import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
+import {SelectCityModalComponent} from "./components/city/select.city.modal.component";
 
 @Component({
   selector: 'app-root',
@@ -19,9 +23,13 @@ export class AppComponent {
     username: undefined,
     password: undefined
   };
+  currentCity?: CityModel = undefined;
+  modalRef?: BsModalRef;
 
   constructor(private authService: AuthService,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private geoService: GeoService,
+              private modalService: BsModalService) {
   }
 
   isLogged() {
@@ -46,7 +54,33 @@ export class AppComponent {
     this.authService.logout();
   }
 
-  ngOnInit(){
+  selectCity() {
+    const modalOptions: ModalOptions = {
+      class: 'modal-dialog-centered modal-md',
+      initialState: {
+        clubId: 0
+      }
+    };
+
+    this.modalRef = this.modalService.show(SelectCityModalComponent, modalOptions);
+
+    this.modalRef.content.event.subscribe({
+      next: (city: CityModel) => {
+        if(city)
+          this.geoService.selectCity(city);
+
+        this.currentCity = this.geoService.currentCity();
+      }
+    });
+  }
+
+  ngOnInit() {
     this.logoUrl = this.commonService.restoreUrl('/trainerpro/static/logo2.svg');
+
+    this.geoService.getCities().subscribe({
+      next: () => {
+        this.currentCity = this.geoService.currentCity();
+      }
+    });
   }
 }

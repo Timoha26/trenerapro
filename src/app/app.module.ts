@@ -47,6 +47,9 @@ import {TrainingFormatsService} from "./services/training.formats.service";
 import {ModalModule} from "ngx-bootstrap/modal";
 import {ToastrModule} from "ngx-toastr";
 import {RatingModule} from "ngx-bootstrap/rating";
+import {GeoService} from "./services/geo.service";
+import {BsDropdownModule} from "ngx-bootstrap/dropdown";
+import {TypeaheadModule} from "ngx-bootstrap/typeahead";
 
 registerLocaleData(localeRu)
 
@@ -86,7 +89,9 @@ registerLocaleData(localeRu)
     ReviewsPipe,
     SearchSortComponent,
     ClubFiltersComponent,
-    RatingModule
+    RatingModule,
+    BsDropdownModule,
+    TypeaheadModule.forRoot()
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'ru-RU'},
@@ -103,7 +108,8 @@ registerLocaleData(localeRu)
     ClientCategoriesService,
     ContactsService,
     CommonService,
-    TrainingFormatsService
+    TrainingFormatsService,
+    GeoService
   ],
   bootstrap: [AppComponent]
 })

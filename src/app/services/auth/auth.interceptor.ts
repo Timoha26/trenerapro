@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {AuthService} from "./auth.service";
 import {Observable} from "rxjs";
+import {conf} from "../../conf/conf"
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -14,7 +15,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     let cloned: HttpRequest<any> | null = null;
 
-    if (token)
+    if (token && !request.url.includes(conf.filesUrl))
       cloned = request.clone({
         headers: request.headers.set('Authorization', tokenType + ' ' + token)
       });

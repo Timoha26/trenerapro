@@ -1,0 +1,30 @@
+<div class="tp-modal-header">
+  <h4 class="">Выберите город</h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="cancel()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<form name="reviewForm" #cityForm="ngForm" novalidate>
+  <div class="tp-modal-body">
+    <div class="row">
+      <div class="w-100 tp-typeahead-container">
+        <input type="text" id="city" name="city" #city="ngModel"
+               [(ngModel)]="selectedCity"
+               [typeahead]="cities"
+               typeaheadOptionField="name"
+               typeaheadGroupField="regionName"
+               [typeaheadMinLength]="0"
+               [typeaheadScrollable]="true"
+               [typeaheadOptionsInScrollableView]="8"
+               (typeaheadOnSelect)="onSelect($event)"
+               placeholder="начните ввод для поиска"
+               autocomplete="off">
+      </div>
+    </div>
+  </div>
+  <div class="tp-modal-footer">
+    <button type="button" class="btn-primary" (click)="save()" [disabled]="cityForm.invalid">
+      Выбрать
+    </button>
+  </div>
+</form>

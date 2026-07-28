@@ -7,7 +7,7 @@
       <i class="fas" [ngClass]="sport.icon"></i> {{ sport.name }}
     </div>
     <div class="cat-dropdown-wrapper" *ngIf="hiddenSports().length > 0" (click)="$event.stopPropagation()">
-      <div class="cat-item" #toggleBtn (click)="toggleDropdown()">
+      <div class="cat-item" (click)="toggleDropdown()">
         <i class="fas fa-ellipsis-h"></i> Еще
       </div>
       <div class="cat-dropdown" *ngIf="isDropdownOpen()">

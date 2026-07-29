@@ -4,7 +4,7 @@ import {conf} from "../conf/conf";
 import {Observable} from "rxjs";
 import {ClientCategoryModel} from "../models/client.category.model";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ClientCategoriesService {
   constructor(private http: HttpClient) {
   }

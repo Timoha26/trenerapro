@@ -5,6 +5,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {SportsListenerPipe} from "../../pipes/sportsListener.pipe";
 import {Router, RouterLink} from "@angular/router";
 import {CommonService} from "../../services/common.service";
+import {GlobalFiltersModel} from "../../models/global.filters.model";
 
 @Component({
   selector: 'rightSidebar',
@@ -25,8 +26,12 @@ export class RightSidebarComponent {
               private commonService: CommonService) {
   }
 
+  private readonly filters: GlobalFiltersModel = {
+    limit: 3
+  };
+
   private getTrainers() {
-    this.trainersService.getTop(3).subscribe({
+    this.trainersService.getTop(this.filters).subscribe({
       next: data => {
         let items = data ?? [];
 

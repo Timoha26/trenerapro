@@ -4,7 +4,7 @@ import {conf} from "../conf/conf";
 import {Observable} from "rxjs";
 import {SettlementModel} from "../models/settlement.model";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class SettlementsService {
   constructor(private http: HttpClient) {
   }

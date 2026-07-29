@@ -4,7 +4,7 @@ import {AuthService} from "./auth.service";
 import {Observable} from "rxjs";
 import {conf} from "../../conf/conf"
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {
   }

@@ -71,6 +71,7 @@ export class AppComponent {
           this.geoService.selectCity(city);
 
         this.currentCity = this.geoService.currentCity();
+        this.commonService.onChangeGlobalCoords(this.currentCity?.coords.lat, this.currentCity?.coords.lon);
       }
     });
   }
@@ -81,6 +82,7 @@ export class AppComponent {
     this.geoService.getCities().subscribe({
       next: () => {
         this.currentCity = this.geoService.currentCity();
+        this.commonService.onChangeGlobalCoords(this.currentCity?.coords.lat, this.currentCity?.coords.lon);
       }
     });
   }

@@ -7,7 +7,7 @@ import {ReviewFiltersModel} from "../models/reviews/review.filters.model";
 import {ReviewModel} from "../models/reviews/review.model";
 import {ReviewCreateModel} from "../models/reviews/review.create.model";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ReviewsService {
   constructor(private http: HttpClient) {
   }

@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable, signal} from "@angular/core";
 import {GenderEnum} from "../models/trainers/gender.enum";
 import {PriceGradationEnum} from "../models/trainers/price.gradation.enum";
 import {createMask, InputmaskOptions} from "@ngneat/input-mask";
@@ -8,10 +8,53 @@ import {conf} from "../conf/conf";
 import {UserModel} from "../models/users/user.model";
 import {fakerRU as faker, SexType} from "@faker-js/faker";
 import {RoleEnum} from "../models/users/role.enum";
+import {GlobalFiltersModel} from "../models/global.filters.model";
+import {CoordsModel} from "../models/cities/coords.model";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class CommonService {
   constructor() {
+  }
+
+  public globalFilters = signal<GlobalFiltersModel>({limit: 4, distance: 10});
+
+  public onChangeSportId(sportId?: number){
+    this.globalFilters.update(state => ({
+      ...state,
+      sportId: sportId
+    }));
+  }
+
+  public onChangeGlobalCoords(lat?: number, lon?: number){
+    let coords: CoordsModel | undefined = undefined;
+
+    if(lat && lon)
+      coords = {lat: lat, lon: lon};
+
+    this.globalFilters.update(state => ({
+      ...state,
+      coords: coords
+    }));
+  }
+
+  public onChangeGlobalLimit(limit?: number){
+    if(!limit)
+      limit = 4;
+
+    this.globalFilters.update(state => ({
+      ...state,
+      limit: limit
+    }));
+  }
+
+  public onChangeGlobalDistance(distance?: number){
+    if(!distance)
+      distance = 10;
+
+    this.globalFilters.update(state => ({
+      ...state,
+      distance: distance
+    }));
   }
 
   public getGenderOptions(): any {

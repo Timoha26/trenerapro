@@ -4,7 +4,7 @@ import {Observable} from "rxjs";
 import {conf} from "../conf/conf";
 import {FileTypeEnum} from "../models/file.type.enum";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class FileUploadService {
 
   constructor(private http: HttpClient) {

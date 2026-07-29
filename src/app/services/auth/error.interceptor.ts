@@ -3,7 +3,7 @@ import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/com
 import {AuthService} from "./auth.service";
 import {catchError, Observable, throwError} from "rxjs";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ErrorInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {
   }

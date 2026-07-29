@@ -8,8 +8,9 @@ import {ClubFiltersModel} from "../models/clubs/club.filters.model";
 import {ClubDataFiltersModel} from "../models/clubs/club.data.filters.model";
 import {ClubCreateRequestModel} from "../models/clubs/club.create.request.model";
 import {ClubCreateModel} from "../models/clubs/club.create.model";
+import {GlobalFiltersModel} from "../models/global.filters.model";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ClubsService {
   constructor(private http: HttpClient) {
   }
@@ -37,12 +38,19 @@ export class ClubsService {
     });
   }
 
-  public getTop(limit?: number, sportId?: number): Observable<ClubModel[]> {
+  public getTop(filters: GlobalFiltersModel): Observable<ClubModel[]> {
     let params: HttpParams = new HttpParams()
-      .set('limit', limit ?? 4);
+      .set('limit', filters.limit ?? 4);
 
-    if (sportId)
-      params = params.set('sportId', sportId);
+    if (filters.sportId)
+      params = params.set('sportId', filters.sportId);
+
+    if(filters.coords && filters.distance){
+      params = params
+        .set('userLatitude', filters.coords.lat)
+        .set('userLongitude', filters.coords.lon)
+        .set('radiusKm', filters.distance)
+    }
 
     return this.http.get<ClubModel[]>(this.getUrl('/random'), {
       params: params

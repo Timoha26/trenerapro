@@ -4,7 +4,7 @@ import {conf} from "../conf/conf";
 import {ContactModel} from "../models/contact.model";
 import {Observable} from "rxjs";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ContactsService {
   constructor(private http: HttpClient) {
   }

@@ -4,7 +4,7 @@ import {Observable} from "rxjs";
 import {SportModel} from "../models/sport.model";
 import {conf} from "../conf/conf";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class SportsService {
   constructor(private http: HttpClient) {
   }

@@ -1,8 +1,9 @@
-import {Component, effect, ElementRef, EventEmitter, NgZone, OnDestroy, Output, signal, ViewChild} from "@angular/core";
+import {Component, effect, ElementRef, NgZone, OnDestroy, signal, ViewChild} from "@angular/core";
 import {RouterLink} from "@angular/router";
 import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {SportModel} from "../../models/sport.model";
 import {SportsService} from "../../services/sports.service";
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'sports',
@@ -18,7 +19,6 @@ import {SportsService} from "../../services/sports.service";
 export class SportsHomeComponent implements OnDestroy {
   @ViewChild('container') container!: ElementRef<HTMLElement>;
   @ViewChild('ghostWrapper') ghostWrapper!: ElementRef<HTMLElement>;
-  @Output() sportIdChange: EventEmitter<number | undefined> = new EventEmitter<number | undefined>();
 
   public currentSportId?: number = undefined;
 
@@ -33,7 +33,9 @@ export class SportsHomeComponent implements OnDestroy {
   isDropdownOpen = signal<boolean>(false);
   isLoading = signal<boolean>(true);
 
-  constructor(private zone: NgZone, private sportsService: SportsService) {
+  constructor(private zone: NgZone,
+              private sportsService: SportsService,
+              private commonService: CommonService) {
     effect(() => {
       const sports = this.allSports();
       if (sports.length > 0)
@@ -117,7 +119,7 @@ export class SportsHomeComponent implements OnDestroy {
   }
 
   selectSport(sport?: SportModel) {
-    this.sportIdChange.emit(sport?.id);
+    this.commonService.onChangeSportId(sport?.id);
     this.currentSportId = sport?.id;
   }
 
@@ -126,7 +128,7 @@ export class SportsHomeComponent implements OnDestroy {
   }
 
   ngOnInit() {
-    this.sportIdChange.emit(undefined);
+    this.commonService.onChangeSportId(undefined);
     this.getSports();
   }
 }

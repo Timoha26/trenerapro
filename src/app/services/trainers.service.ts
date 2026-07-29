@@ -7,11 +7,10 @@ import {TrainerFiltersModel} from "../models/trainers/trainer.filters.model";
 import {conf} from "../conf/conf";
 import {TrainerDataFiltersModel} from "../models/trainers/trainer.data.filters.model";
 import {TrainerCreateRequestModel} from "../models/trainers/trainer.create.request.model";
-import {ClubCreateModel} from "../models/clubs/club.create.model";
-import {ClubModel} from "../models/clubs/club.model";
 import {TrainerCreateModel} from "../models/trainers/trainer.create.model";
+import {GlobalFiltersModel} from "../models/global.filters.model";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class TrainersService {
   constructor(private http: HttpClient) {
   }
@@ -44,12 +43,19 @@ export class TrainersService {
     });
   }
 
-  public getTop(limit?: number, sportId?: number): Observable<TrainerModel[]> {
+  public getTop(filters: GlobalFiltersModel): Observable<TrainerModel[]> {
     let params: HttpParams = new HttpParams()
-      .set('limit', limit ?? 4);
+      .set('limit', filters.limit ?? 4);
 
-    if (sportId)
-      params = params.set('sportId', sportId);
+    if (filters.sportId)
+      params = params.set('sportId', filters.sportId);
+
+    if(filters.coords && filters.distance){
+      params = params
+        .set('userLatitude', filters.coords.lat)
+        .set('userLongitude', filters.coords.lon)
+        .set('radiusKm', filters.distance)
+    }
 
     return this.http.get<TrainerModel[]>(this.getUrl('/random'), {
       params: params

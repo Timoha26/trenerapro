@@ -6,7 +6,7 @@ import {Router} from "@angular/router";
 import {Injectable} from "@angular/core";
 import {conf} from "../../conf/conf"
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class AuthService {
   constructor(private http: HttpClient, private router: Router) {
   }

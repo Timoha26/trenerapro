@@ -4,7 +4,7 @@ import {conf} from "../conf/conf";
 import {Observable} from "rxjs";
 import {TrainingFormatModel} from "../models/training.format.model";
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class TrainingFormatsService {
   constructor(private http: HttpClient) {
   }

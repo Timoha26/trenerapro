@@ -19,30 +19,11 @@ import {ReviewModel} from "../../models/reviews/review.model";
   templateUrl: './trainers.component.html'
 })
 export class TrainersComponent {
-  private debounceTimer: any;
-
-  public filters = signal<TrainerFiltersModel>({
-    offset: 0,
-    limit: 6,
-    sort: SortByEnum.Rating,
-    desc: false,
-    settlementIds: undefined,
-    sportIds: undefined,
-    clientCategoryIds: undefined,
-    trainingFormatIds: undefined,
-    verified: undefined,
-    minRating: undefined,
-    minPrice: undefined,
-    maxPrice: undefined
-  });
-
-  public trainers: PageResultModel<TrainerModel> = {count: 0, items: []};
-  private modalRef?: BsModalRef;
-
   constructor(private trainersService: TrainersService,
               private commonService: CommonService,
               private modalService: BsModalService) {
     effect((onCleanup) => {
+      const globalFilters = this.commonService.globalFilters();
       const filters = this.dataFilters();
 
       clearTimeout(this.debounceTimer);
@@ -50,8 +31,10 @@ export class TrainersComponent {
       this.debounceTimer = setTimeout(() => {
         untracked(() => this.filters.update(prev => ({
           ...prev,
+          coords: globalFilters.coords,
+          distance: globalFilters.distance,
           settlementIds: filters.settlementIds,
-          sportIds: filters.sportIds,
+          sportIds: globalFilters.sportId ? [globalFilters.sportId] : undefined,
           clientCategoryIds: filters.clientCategoryIds,
           trainingFormatIds: filters.trainingFormatIds,
           verified: filters.verified,
@@ -60,11 +43,24 @@ export class TrainersComponent {
           maxPrice: filters.maxPrice,
           offset: 0
         })));
+        console.log(this.filters());
       }, 500);
 
       onCleanup(() => clearTimeout(this.debounceTimer));
     });
   }
+
+  private debounceTimer: any;
+
+  public filters = signal<TrainerFiltersModel>({
+    offset: 0,
+    limit: 6,
+    sort: SortByEnum.Rating,
+    desc: false
+  });
+
+  public trainers: PageResultModel<TrainerModel> = {count: 0, items: []};
+  private modalRef?: BsModalRef;
 
   dataFilters = signal<TrainerDataFiltersModel>({});
 
@@ -85,14 +81,6 @@ export class TrainersComponent {
       this.trainers = data;
     }
   });
-
-  onSportIdChange(sportId?: number) {
-    this.filters.update(prev => ({
-      ...prev,
-      sportIds: sportId ? [sportId] : undefined,
-      offset: 0
-    }));
-  }
 
   onPageChange(event: PageStateEvent): void {
     this.filters.update(prev => ({

@@ -5,6 +5,9 @@
       Смотреть все
     </button>
   </div>
+  <div class="clubs-grid" *ngIf="clubs.length < 1">
+    В Вашем городе клубы не найдены
+  </div>
   <div class="clubs-grid" *ngIf="clubs.length > 0">
     <div class="club-card" *ngFor="let club of clubs">
       <div class="club-img">

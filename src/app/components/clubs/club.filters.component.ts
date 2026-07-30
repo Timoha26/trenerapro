@@ -4,6 +4,7 @@ import {FormsModule} from "@angular/forms";
 import {SportsService} from "../../services/sports.service";
 import {SportModel} from "../../models/sport.model";
 import {ClubDataFiltersModel} from "../../models/clubs/club.data.filters.model";
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'clubs-filters',
@@ -16,7 +17,8 @@ import {ClubDataFiltersModel} from "../../models/clubs/club.data.filters.model";
   ]
 })
 export class ClubFiltersComponent {
-  constructor(private sportsService: SportsService) {
+  constructor(private sportsService: SportsService,
+              private commonService: CommonService) {
   }
 
   @Input() dataFilters = signal<ClubDataFiltersModel>({});
@@ -30,6 +32,8 @@ export class ClubFiltersComponent {
   clearFilters(event: Event) {
     event.preventDefault();
 
+    this.commonService.onChangeSportId(undefined);
+
     this.dataFilters.set({});
   }
 
@@ -39,18 +43,11 @@ export class ClubFiltersComponent {
 
     const sportId = parseInt(select.value);
 
-    this.dataFilters.update(state => ({
-      ...state,
-      sportIds: sportId ? [sportId] : undefined
-    }));
+    this.commonService.onChangeSportId(sportId);
   }
 
   getSportId() {
-    const sportIds = this.dataFilters().sportIds;
-    if (!sportIds || sportIds.length == 0 || !sportIds[0])
-      return undefined;
-
-    return sportIds[0];
+    return this.commonService.globalFilters().sportId;
   }
 
   // rating

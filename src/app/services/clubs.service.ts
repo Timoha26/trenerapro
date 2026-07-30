@@ -20,11 +20,18 @@ export class ClubsService {
   }
 
   public get(filters?: ClubFiltersModel): Observable<PageResultModel<ClubModel>> {
-    const params: HttpParams = new HttpParams()
+    let params: HttpParams = new HttpParams()
       .set('offset', filters?.offset ?? 0)
       .set('limit', filters?.limit ?? 6)
       .set('sort_by', filters?.sort ?? 6)
       .set('asc', !filters?.desc ?? 6);
+
+    if(filters?.coords && filters.distance){
+      params = params
+        .set('userLatitude', filters.coords.lat)
+        .set('userLongitude', filters.coords.lon)
+        .set('radiusKm', filters.distance);
+    }
 
     let dataFilters: ClubDataFiltersModel = {
       settlementIds: filters?.settlementIds,

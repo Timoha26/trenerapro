@@ -43,6 +43,9 @@ export class SportsHomeComponent implements OnDestroy {
           this.calculateInitialWidths();
           this.initResizeObserver();
         }, 0);
+
+      const globalFilters = this.commonService.globalFilters();
+      this.currentSportId = globalFilters.sportId;
     });
   }
 
@@ -120,7 +123,7 @@ export class SportsHomeComponent implements OnDestroy {
 
   selectSport(sport?: SportModel) {
     this.commonService.onChangeSportId(sport?.id);
-    this.currentSportId = sport?.id;
+    //this.currentSportId = sport?.id;
   }
 
   ngOnDestroy() {

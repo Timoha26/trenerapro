@@ -5,6 +5,9 @@
       Смотреть все
     </button>
   </div>
+  <div class="landing-trainers-grid" *ngIf="trainers.length < 1">
+    В Вашем городе тренеры не найдены
+  </div>
   <div class="landing-trainers-grid" *ngIf="trainers.length > 0">
     <div class="trainer-card" *ngFor="let trainer of trainers">
       <div class="trainer-img-wrap">

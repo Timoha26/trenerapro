@@ -19,26 +19,11 @@ import {ReviewModel} from "../../models/reviews/review.model";
   templateUrl: './clubs.component.html'
 })
 export class ClubsComponent {
-  private debounceTimer: any;
-
-  public filters = signal<ClubFiltersModel>({
-    offset: 0,
-    limit: 6,
-    sort: SortByEnum.Rating,
-    desc: false,
-    settlementIds: undefined,
-    sportIds: undefined,
-    verified: undefined,
-    minRating: undefined
-  });
-
-  public clubs: PageResultModel<ClubModel> = {count: 0, items: []};
-  private modalRef?: BsModalRef;
-
   constructor(private clubsService: ClubsService,
               private commonService: CommonService,
               private modalService: BsModalService) {
     effect((onCleanup) => {
+      const globalFilters = this.commonService.globalFilters();
       const filters = this.dataFilters();
 
       clearTimeout(this.debounceTimer);
@@ -46,8 +31,10 @@ export class ClubsComponent {
       this.debounceTimer = setTimeout(() => {
         untracked(() => this.filters.update(prev => ({
           ...prev,
+          coords: globalFilters.coords,
+          distance: globalFilters.distance,
           settlementIds: filters.settlementIds,
-          sportIds: filters.sportIds,
+          sportIds: globalFilters.sportId ? [globalFilters.sportId] : undefined,
           verified: filters.verified,
           minRating: filters.minRating,
           offset: 0
@@ -57,6 +44,18 @@ export class ClubsComponent {
       onCleanup(() => clearTimeout(this.debounceTimer));
     });
   }
+
+  private debounceTimer: any;
+
+  public filters = signal<ClubFiltersModel>({
+    offset: 0,
+    limit: 6,
+    sort: SortByEnum.Rating,
+    desc: false
+  });
+
+  public clubs: PageResultModel<ClubModel> = {count: 0, items: []};
+  private modalRef?: BsModalRef;
 
   dataFilters = signal<ClubDataFiltersModel>({});
 
@@ -77,14 +76,6 @@ export class ClubsComponent {
       this.clubs = data;
     }
   });
-
-  onSportIdChange(sportId?: number) {
-    this.filters.update(prev => ({
-      ...prev,
-      sportIds: sportId ? [sportId] : undefined,
-      offset: 0
-    }));
-  }
 
   onPageChange(event: PageStateEvent): void {
     this.filters.update(prev => ({

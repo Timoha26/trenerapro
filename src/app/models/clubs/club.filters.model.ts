@@ -1,6 +1,9 @@
 import {QueryParametersModel} from "../query.parameters.model";
+import {CoordsModel} from "../cities/coords.model";
 
 export interface ClubFiltersModel extends QueryParametersModel {
+  coords?: CoordsModel;
+  distance?: number;
   settlementIds?: number[],
   sportIds?: number[],
   verified?: boolean,

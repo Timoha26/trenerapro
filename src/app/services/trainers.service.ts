@@ -20,12 +20,18 @@ export class TrainersService {
   }
 
   public get(filters?: TrainerFiltersModel): Observable<PageResultModel<TrainerModel>> {
-    const params: HttpParams = new HttpParams()
+    let params: HttpParams = new HttpParams()
       .set('offset', filters?.offset ?? 0)
       .set('limit', filters?.limit ?? 6)
       .set('sort_by', filters?.sort ?? 'name')
       .set('asc', !filters?.desc ?? false);
 
+    if(filters?.coords && filters.distance){
+      params = params
+        .set('userLatitude', filters.coords.lat)
+        .set('userLongitude', filters.coords.lon)
+        .set('radiusKm', filters.distance);
+    }
 
     let dataFilters: TrainerDataFiltersModel = {
       settlementIds: filters?.settlementIds,

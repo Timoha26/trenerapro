@@ -7,6 +7,7 @@ import {ClientCategoriesService} from "../../services/client.categories.service"
 import {TrainerDataFiltersModel} from "../../models/trainers/trainer.data.filters.model";
 import {TrainingFormatsService} from "../../services/training.formats.service";
 import {NgxSliderModule, Options} from "@angular-slider/ngx-slider";
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'trainers-filters',
@@ -24,7 +25,8 @@ import {NgxSliderModule, Options} from "@angular-slider/ngx-slider";
 export class TrainerFiltersComponent implements OnInit {
   constructor(private sportsService: SportsService,
               private clientCategoriesService: ClientCategoriesService,
-              private trainingFormatsService: TrainingFormatsService) {
+              private trainingFormatsService: TrainingFormatsService,
+              private commonService: CommonService) {
   }
 
   @Input() dataFilters = signal<TrainerDataFiltersModel>({});
@@ -50,6 +52,8 @@ export class TrainerFiltersComponent implements OnInit {
 
     for(let format of this.trainingFormats)
       format.checked = false;
+
+    this.commonService.onChangeSportId(undefined);
 
     this.dataFilters.set({});
   }
@@ -85,18 +89,11 @@ export class TrainerFiltersComponent implements OnInit {
 
     const sportId = parseInt(select.value);
 
-    this.dataFilters.update(state => ({
-      ...state,
-      sportIds: sportId ? [sportId] : undefined
-    }));
+    this.commonService.onChangeSportId(sportId);
   }
 
   getSportId() {
-    const sportIds = this.dataFilters().sportIds;
-    if (!sportIds || sportIds.length == 0 || !sportIds[0])
-      return undefined;
-
-    return sportIds[0];
+    return this.commonService.globalFilters().sportId;
   }
 
   // rating

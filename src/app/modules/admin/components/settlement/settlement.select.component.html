@@ -1,11 +1,17 @@
 <div class="input-group">
-  <select id="settlement" name="settlement" #settlement="ngModel" [(ngModel)]="settlementId"
-          (ngModelChange)="onValueChange($event)" required class="form-control form-control-sm">
-    <option [ngValue]="undefined" disabled>Выберите</option>
-    <option *ngFor="let option of settlements" [ngValue]="option.id">{{ option.region }}, {{ option.settlement }}
-    </option>
-  </select>
-  <button type="button" class="btn btn-outline-success btn-sm" (click)="addSettlement()" title="Добавить локацию">
-    <em class="fa fa-plus"></em>
-  </button>
+  <input type="text" id="settlement" name="settlement" #settlement="ngModel"
+         [(ngModel)]="selectedSettlement"
+         [typeahead]="settlements"
+         typeaheadOptionField="settlement"
+         typeaheadGroupField="region"
+         [typeaheadMinLength]="0"
+         [typeaheadScrollable]="true"
+         [typeaheadOptionsInScrollableView]="8"
+         (typeaheadOnSelect)="onSelect($event)"
+         placeholder="начните ввод для поиска"
+         autocomplete="off"
+         class="form-control form-control-sm">
+  <!--  <button type="button" class="btn btn-outline-success btn-sm" (click)="addSettlement()" title="Добавить локацию">-->
+  <!--    <em class="fa fa-plus"></em>-->
+  <!--  </button>-->
 </div>

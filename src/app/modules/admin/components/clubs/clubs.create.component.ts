@@ -8,6 +8,10 @@ import {ClubsService} from "../../../../services/clubs.service";
 import {FileUploadService} from "../../../../services/file.upload.service";
 import {CommonService} from "../../../../services/common.service";
 import {ClubCreateModel} from "../../../../models/clubs/club.create.model";
+import {LocationCreateModel} from "../../../../models/locations/location.create.model";
+import {LocationCreateModalComponent} from "../location/location.create.modal.component";
+import {LocationModel} from "../../../../models/locations/location.model";
+import {LocationsService} from "../../../../services/locations.service";
 
 @Component({
   selector: 'admin-clubs-create',
@@ -19,12 +23,14 @@ export class ClubsCreateComponent {
               private toastr: ToastrService,
               private clubsService: ClubsService,
               private fileUploadService: FileUploadService,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private locationsService: LocationsService) {
   }
 
   club = this.clubsService.getClubCreateRequestModel();
 
   files: FileUploadModel[] = [];
+  locations: LocationCreateModel[] = [];
 
   private modalRef?: BsModalRef;
 
@@ -57,6 +63,29 @@ export class ClubsCreateComponent {
     });
   }
 
+  addLocation() {
+    const modalOptions: ModalOptions = {
+      class: 'modal-dialog-centered modal-md'
+    };
+
+    this.modalRef = this.modalService.show(LocationCreateModalComponent, modalOptions);
+
+    this.modalRef.content.event.subscribe({
+      next: (location: LocationCreateModel) => {
+        if (location)
+          this.locations.push(location);
+      }
+    });
+  }
+
+  removeLocation(location: LocationModel) {
+    const index = this.locations.findIndex(item => item.address == location.address);
+
+    if (index < 0) return;
+
+    this.locations?.splice(index, 1);
+  }
+
   isImage(file: FileUploadModel) {
     return this.commonService.isImage(file);
   }
@@ -73,6 +102,20 @@ export class ClubsCreateComponent {
         this.toastr.success('клуб сохранен', 'Клуб');
         this.router.navigate(['/admin/clubs/' + data.id + '/edit']);
       }
+    });
+  }
+
+  private saveLocations(clubId: number) {
+    if (this.locations.length == 0) return;
+
+    this.locations.forEach(location => {
+      location.clubId = clubId;
+
+      this.locationsService.create(location).subscribe({
+        next: data => {
+          this.toastr.success('локация добавлена', 'Клуб');
+        }
+      });
     });
   }
 }

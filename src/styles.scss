@@ -1581,6 +1581,13 @@ footer {
   }
 }
 
+.btn-xs, .btn-group-xs > .btn {
+  --bs-btn-padding-y: 0.1rem;
+  --bs-btn-padding-x: 0.3rem;
+  --bs-btn-font-size: 0.7rem;
+  --bs-btn-border-radius: var(--bs-border-radius-sm);
+}
+
 /* --- Responsive --- */
 @media (max-width: 1200px) {
   .landing-trainers-grid {

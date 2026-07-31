@@ -9,6 +9,10 @@ import {CommonService} from "../../../../services/common.service";
 import {ClubCreateModel} from "../../../../models/clubs/club.create.model";
 import {FileModalComponent} from "../file.modal/file.modal.component";
 import {FileUploadService} from "../../../../services/file.upload.service";
+import {LocationsService} from "../../../../services/locations.service";
+import {LocationCreateModalComponent} from "../location/location.create.modal.component";
+import {LocationCreateModel} from "../../../../models/locations/location.create.model";
+import {LocationModel} from "../../../../models/locations/location.model";
 
 @Component({
   selector: 'admin-projects-edit',
@@ -20,6 +24,7 @@ export class ClubsEditComponent {
   club: ClubModel = {};
 
   private modalRef?: BsModalRef;
+  private deleteLocations: number[] = [];
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
@@ -27,7 +32,8 @@ export class ClubsEditComponent {
               private toastr: ToastrService,
               private clubsService: ClubsService,
               private fileUploadService: FileUploadService,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private locationsService: LocationsService) {
     this.id = activatedRoute.snapshot.params['id'];
   }
 
@@ -86,6 +92,33 @@ export class ClubsEditComponent {
     });
   }
 
+  addLocation() {
+    const modalOptions: ModalOptions = {
+      class: 'modal-dialog-centered modal-md'
+    };
+
+    this.modalRef = this.modalService.show(LocationCreateModalComponent, modalOptions);
+
+    this.modalRef.content.event.subscribe({
+      next: (location: LocationCreateModel) => {
+        if (location)
+          this.club.locations?.push(location);
+      }
+    });
+  }
+
+  removeLocation(location: LocationModel) {
+    const index = this.club.locations?.findIndex(item => item.address == location.address) ?? -1;
+
+    if (index < 0) return;
+
+    this.club.locations?.splice(index, 1);
+
+    if (!location.id) return;
+
+    this.deleteLocations.push(location.id);
+  }
+
   isImage(file: FileUploadModel) {
     return this.commonService.isImage(file);
   }
@@ -97,6 +130,7 @@ export class ClubsEditComponent {
   save() {
     this.updateClub();
     this.updateSports();
+    this.updateLocations();
   }
 
   private updateClub() {
@@ -107,7 +141,7 @@ export class ClubsEditComponent {
 
     this.clubsService.update(this.club.id, club).subscribe({
       next: () => {
-        this.toastr.success('клуб сохранен', 'Клубы');
+        this.toastr.success('клуб сохранен', 'Клуб');
         this.router.navigate(['/admin/clubs']);
       }
     });
@@ -120,8 +154,32 @@ export class ClubsEditComponent {
 
     this.clubsService.updateRelationsSports(this.club.id ?? 0, sportIds)
       .subscribe({
-        next: () => this.toastr.success('клуб сохранен', 'Клубы')
+        next: () => this.toastr.success('клуб сохранен', 'Клуб')
       });
+  }
+
+  private updateLocations() {
+    if (!this.club.locations || this.club.locations.length == 0) return;
+
+    const newLocations = this.club.locations.filter(location => !location.id);
+
+    newLocations.forEach(location => {
+      location.clubId = this.club.id;
+
+      this.locationsService.create(location).subscribe({
+        next: data => {
+          this.toastr.success('локация добавлена', 'Клуб');
+        }
+      });
+    });
+
+    this.deleteLocations.forEach(locationId => {
+      this.locationsService.remove(locationId).subscribe({
+        next: () => {
+          this.toastr.success('локация удалена', 'Клуб');
+        }
+      });
+    });
   }
 
   ngOnInit() {

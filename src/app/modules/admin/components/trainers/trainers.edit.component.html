@@ -100,7 +100,21 @@
           <div class="row mb-1 border-bottom">
             <label class="form-label col-sm-4 col-md-3 col-lg-2">Локация</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-<!--              <settlement-select [settlementId]="trainer.settlementId" (settlementIdChanged)="trainer.settlementId = $event"></settlement-select>-->
+              <div class="d-inline-block w-100">
+                <button type="button" class="btn btn-outline-success btn-sm float-end" (click)="addLocation()" title="Добавить локацию">
+                  <em class="fa fa-plus"></em>
+                </button>
+              </div>
+              <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center p-1" *ngFor="let location of trainer.locations">
+                  {{location.settlement?.region}},
+                  {{location.settlement?.settlement}},
+                  {{location.address}}
+                  <button type="button" class="btn btn-outline-danger btn-xs float-end" (click)="removeLocation(location)" title="Удалить локацию">
+                    <em class="fa fa-close"></em>
+                  </button>
+                </li>
+              </ul>
             </div>
           </div>
           <div class="row mb-1 border-bottom">

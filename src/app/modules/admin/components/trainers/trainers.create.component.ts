@@ -8,6 +8,10 @@ import {FileModalComponent} from "../file.modal/file.modal.component";
 import {FileUploadModel} from "../../../../models/file.upload.model";
 import {FileUploadService} from "../../../../services/file.upload.service";
 import {CommonService} from "../../../../services/common.service";
+import {LocationCreateModalComponent} from "../location/location.create.modal.component";
+import {LocationCreateModel} from "../../../../models/locations/location.create.model";
+import {LocationsService} from "../../../../services/locations.service";
+import {LocationModel} from "../../../../models/locations/location.model";
 
 @Component({
   selector: 'admin-trainers-create',
@@ -19,12 +23,14 @@ export class TrainersCreateComponent {
               private toastr: ToastrService,
               private trainerService: TrainersService,
               private fileUploadService: FileUploadService,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private locationsService: LocationsService) {
   }
 
   trainer = this.trainerService.getTrainerCreateRequestModel();
 
   files: FileUploadModel[] = [];
+  locations: LocationCreateModel[] = [];
 
   genderOptions = this.commonService.getGenderOptions();
 
@@ -60,6 +66,25 @@ export class TrainersCreateComponent {
     });
   }
 
+  addLocation() {
+    this.modalRef = this.modalService.show(LocationCreateModalComponent, this.modalOptions);
+
+    this.modalRef.content.event.subscribe({
+      next: (location: LocationCreateModel) => {
+        if (location)
+          this.locations.push(location);
+      }
+    });
+  }
+
+  removeLocation(location: LocationModel) {
+    const index = this.locations.findIndex(item => item.address == location.address);
+
+    if (index < 0) return;
+
+    this.locations?.splice(index, 1);
+  }
+
   isImage(file: FileUploadModel) {
     return this.commonService.isImage(file);
   }
@@ -76,9 +101,24 @@ export class TrainersCreateComponent {
 
     this.trainerService.create(trainer).subscribe({
       next: data => {
+        this.saveLocations(data.id ?? 0);
         this.toastr.success('тренер сохранен', 'Тренер');
         this.router.navigate(['/admin/trainers/' + data.id + '/edit']);
       }
+    });
+  }
+
+  private saveLocations(trainerId: number) {
+    if (this.locations.length == 0) return;
+
+    this.locations.forEach(location => {
+      location.trainerId = trainerId;
+
+      this.locationsService.create(location).subscribe({
+        next: data => {
+          this.toastr.success('локация добавлена', 'Тренер');
+        }
+      });
     });
   }
 }

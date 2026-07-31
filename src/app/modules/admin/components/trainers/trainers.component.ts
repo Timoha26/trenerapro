@@ -19,15 +19,7 @@ export class TrainersComponent {
     offset: 0,
     limit: 10,
     sort: SortByEnum.Rating,
-    desc: false,
-    settlementIds: undefined,
-    sportIds: undefined,
-    clientCategoryIds: undefined,
-    trainingFormatIds: undefined,
-    verified: undefined,
-    minRating: undefined,
-    minPrice: undefined,
-    maxPrice: undefined
+    desc: false
   };
 
   constructor(private trainersService: TrainersService, private modalService: BsModalService) {

@@ -5,21 +5,25 @@ import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {NgForOf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {SettlementCreateModalComponent} from "./settlement.create.modal.component";
+import {TypeaheadModule} from "ngx-bootstrap/typeahead";
 
 @Component({
   selector: 'settlement-select',
   standalone: true,
   imports: [
     NgForOf,
-    FormsModule
+    FormsModule,
+    TypeaheadModule
   ],
   templateUrl: 'settlement.select.component.html'
 })
 export class SettlementSelectComponent {
   @Input() settlementId?: number;
-  @Output() settlementIdChanged = new EventEmitter<number>();
+  @Output() settlementChanged = new EventEmitter<SettlementModel>();
 
   settlements: SettlementModel[] = [];
+  selectedSettlement?: string;
+  chosenSettlement?: SettlementModel;
 
   private modalRef?: BsModalRef;
 
@@ -45,8 +49,9 @@ export class SettlementSelectComponent {
     this.settlementsService.get().subscribe({next: (data: SettlementModel[]) => this.settlements = data});
   }
 
-  onValueChange(newValue: number) {
-    this.settlementIdChanged.emit(Number(newValue));
+  onSelect(event: any) {
+    this.chosenSettlement = event.item;
+    this.settlementChanged.emit(event.item);
   }
 
   ngOnInit() {

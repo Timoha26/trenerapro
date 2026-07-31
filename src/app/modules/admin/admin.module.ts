@@ -41,6 +41,7 @@ import {CommonService} from "../../services/common.service";
 import {ContactsModalComponent} from "./components/contacts/contacts.modal.component";
 import {ContactsComponent} from "./components/contacts/contacts.component";
 import {SportsSelectComponent} from "./components/sports/sports.select.component";
+import {LocationsService} from "../../services/locations.service";
 
 
 @NgModule({
@@ -89,7 +90,8 @@ import {SportsSelectComponent} from "./components/sports/sports.select.component
     SportsService,
     SettlementsService,
     ContactsService,
-    CommonService
+    CommonService,
+    LocationsService
   ]
 })
 export class AdminModule {

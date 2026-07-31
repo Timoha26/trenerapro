@@ -1,3 +1,5 @@
+import {SettlementModel} from "../settlement.model";
+
 export interface LocationCreateModel {
   address?: string;
   settlementId?: number;
@@ -5,4 +7,5 @@ export interface LocationCreateModel {
   clubId?: number;
   lon?: number;
   lat?: number;
+  settlement?: SettlementModel;
 }

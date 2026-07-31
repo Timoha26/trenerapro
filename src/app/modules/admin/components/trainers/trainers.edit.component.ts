@@ -12,6 +12,10 @@ import {FileModalComponent} from "../file.modal/file.modal.component";
 import {CommonService} from "../../../../services/common.service";
 import {FileUploadService} from "../../../../services/file.upload.service";
 import {TrainerCreateModel} from "../../../../models/trainers/trainer.create.model";
+import {LocationCreateModalComponent} from "../location/location.create.modal.component";
+import {LocationCreateModel} from "../../../../models/locations/location.create.model";
+import {LocationsService} from "../../../../services/locations.service";
+import {LocationModel} from "../../../../models/locations/location.model";
 
 @Component({
   selector: 'admin-trainers-edit',
@@ -43,6 +47,7 @@ export class TrainersEditComponent {
   });
 
   private modalRef?: BsModalRef;
+  private deleteLocations: number[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
               private router: Router,
@@ -50,14 +55,15 @@ export class TrainersEditComponent {
               private toastr: ToastrService,
               private trainerService: TrainersService,
               private commonService: CommonService,
-              private fileUploadService: FileUploadService) {
+              private fileUploadService: FileUploadService,
+              private locationsService: LocationsService) {
     this.id = activatedRoute.snapshot.params['id'];
   }
 
   private getTrainer(id: number) {
     this.trainerService.getDetails(id).subscribe({
       next: data => {
-        if(data.files) {
+        if (data.files) {
           data.files.forEach(file => {
             file.url = this.commonService.restoreUrl(file.url);
           });
@@ -109,6 +115,33 @@ export class TrainersEditComponent {
     });
   }
 
+  addLocation() {
+    const modalOptions: ModalOptions = {
+      class: 'modal-dialog-centered modal-md'
+    };
+
+    this.modalRef = this.modalService.show(LocationCreateModalComponent, modalOptions);
+
+    this.modalRef.content.event.subscribe({
+      next: (location: LocationCreateModel) => {
+        if (location)
+          this.trainer.locations?.push(location);
+      }
+    });
+  }
+
+  removeLocation(location: LocationModel) {
+    const index = this.trainer.locations?.findIndex(item => item.address == location.address) ?? -1;
+
+    if (index < 0) return;
+
+    this.trainer.locations?.splice(index, 1);
+
+    if (!location.id) return;
+
+    this.deleteLocations.push(location.id);
+  }
+
   isImage(file: FileUploadModel) {
     return this.commonService.isImage(file);
   }
@@ -122,6 +155,7 @@ export class TrainersEditComponent {
     this.updateSports();
     this.updateTrainingFormats();
     this.updateClientCategories();
+    this.updateLocations();
   }
 
   private updateTrainer() {
@@ -156,7 +190,7 @@ export class TrainersEditComponent {
       });
   }
 
-  private updateTrainingFormats(){
+  private updateTrainingFormats() {
     if (!this.trainer.id || !this.trainer.trainingFormats || this.trainer.trainingFormats?.length == 0) return;
 
     this.trainerService.updateTrainingFormats(this.trainer.id, this.trainer.trainingFormats.map(format => format.id ?? 0))
@@ -165,13 +199,37 @@ export class TrainersEditComponent {
       });
   }
 
-  private updateClientCategories(){
+  private updateClientCategories() {
     if (!this.trainer.id || !this.trainer.clientCategories || this.trainer.clientCategories.length == 0) return;
 
     this.trainerService.updateClientCategories(this.trainer.id, this.trainer.clientCategories.map(format => format.id ?? 0))
       .subscribe({
         next: data => this.toastr.success('тренер сохранен', 'Клубы')
       });
+  }
+
+  private updateLocations() {
+    if (!this.trainer.locations || this.trainer.locations.length == 0) return;
+
+    const newLocations = this.trainer.locations.filter(location => !location.id);
+
+    newLocations.forEach(location => {
+      location.trainerId = this.trainer.id;
+
+      this.locationsService.create(location).subscribe({
+        next: data => {
+          this.toastr.success('локация добавлена', 'Тренер');
+        }
+      });
+    });
+
+    this.deleteLocations.forEach(locationId => {
+      this.locationsService.remove(locationId).subscribe({
+        next: () => {
+          this.toastr.success('локация удалена', 'Тренер');
+        }
+      });
+    });
   }
 
   ngOnInit() {

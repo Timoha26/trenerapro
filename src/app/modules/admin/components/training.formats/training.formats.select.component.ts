@@ -78,8 +78,6 @@ export class TrainingFormatsSelectComponent implements OnInit, OnChanges {
     if(changes['trainingFormats']){
       const current = changes['trainingFormats'].currentValue as TrainingFormatModel[];
 
-      console.log(this.trainingFormatIds, this.trainingFormats, current);
-
       if(this.trainingFormatIds.length < current.length)
         this.trainingFormatIds = current.map(format => format.id ?? 0);
     }

@@ -76,8 +76,6 @@ export class SportsSelectComponent {
     if(changes['sports']){
       const current = changes['sports'].currentValue as SportModel[];
 
-      console.log(this.sportIds, this.sports, current);
-
       if(this.sportIds.length < current.length)
         this.sportIds = current.map(sport => sport.id ?? 0);
     }

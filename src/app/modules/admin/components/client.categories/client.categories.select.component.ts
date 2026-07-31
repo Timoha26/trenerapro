@@ -78,8 +78,6 @@ export class ClientCategoriesSelectComponent implements OnInit, OnChanges {
     if(changes['clientCategories']){
       const current = changes['clientCategories'].currentValue as ClientCategoryModel[];
 
-      console.log(this.clientCategoryIds, this.clientCategories, current);
-
       if(this.clientCategoryIds.length < current.length)
         this.clientCategoryIds = current.map(category => category.id ?? 0);
     }

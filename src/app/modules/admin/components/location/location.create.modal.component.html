@@ -21,14 +21,18 @@
       </div>
     </div>
     <div class="row mb-1">
-      <label for="coords" class="form-label col-sm-4">coordinates</label>
-      <div class="col-sm-4" id="coords">
-        <input type="text" id="lon" name="lon" #lon="ngModel" [(ngModel)]="newLocation.lon"
-               class="form-control form-control-sm" required>
-      </div>
-      <div class="col-sm-4">
-        <input type="text" id="lat" name="lat" #lat="ngModel" [(ngModel)]="newLocation.lat"
-               class="form-control form-control-sm" required>
+      <label for="coords" class="form-label col-sm-4">Координаты</label>
+      <div class="col-sm-8" id="coords">
+        <div class="input-group">
+          <input type="number" id="lat" name="lat" #lat="ngModel" [(ngModel)]="newLocation.lat"
+                 placeholder="latitude" class="form-control form-control-sm" required>
+          <input type="number" id="lon" name="lon" #lon="ngModel" [(ngModel)]="newLocation.lon"
+                 placeholder="longitude" class="form-control form-control-sm" required>
+          <button type="button" class="btn btn-outline-success btn-sm" (click)="getCoords()"
+                  title="определить координаты">
+            <em class="fa fa-map-location-dot"></em>
+          </button>
+        </div>
       </div>
     </div>
   </div>

@@ -34,7 +34,8 @@
               "src/styles.scss",
               "src/app/app.component.scss",
               "src/app/modules/admin/admin.component.scss",
-              "src/fonts/fontawesome-all.min.css"
+              "src/fonts/fontawesome-all.min.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },
@@ -107,7 +108,8 @@
               "src/styles.scss",
               "src/app/app.component.scss",
               "src/app/modules/admin/admin.component.scss",
-              "src/fonts/fontawesome-all.min.css"
+              "src/fonts/fontawesome-all.min.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           }

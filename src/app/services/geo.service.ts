@@ -1,8 +1,9 @@
 import {Injectable, signal} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {conf} from "../conf/conf";
 import {Observable} from "rxjs";
 import {SettlementModel} from "../models/settlement.model";
+import {GeoModel} from "../models/geo/geo.model";
 
 @Injectable({providedIn: 'root'})
 export class GeoService {
@@ -35,6 +36,20 @@ export class GeoService {
   public selectSettlement(settlement: SettlementModel): void {
     this.currentSettlement.set(settlement);
     localStorage.setItem("user_settlement", JSON.stringify(settlement));
+  }
+
+  public getGeoCode(settlement: string, address: string): Observable<GeoModel[]> {
+    let params: HttpParams = new HttpParams()
+      .set('addressdetails', '1')
+      .set('format', 'jsonv2')
+      .set('limit', '1')
+      .set('country', conf.country)
+      .set('city', settlement)
+      .set('street', address);
+
+    return this.http.get<GeoModel[]>(conf.nominatimUrl + '/search', {
+      params: params
+    });
   }
 
   private loadSavedSettlements(settlements: SettlementModel[]) {

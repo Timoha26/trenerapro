@@ -68,7 +68,6 @@ export class ReviewCreateModalComponent implements OnInit {
   }
 
   save() {
-    console.log(this.newReview);
     this.reviewsService.create(this.newReview).subscribe({
       next: (data: ReviewModel) => {
         this.event.emit(data);

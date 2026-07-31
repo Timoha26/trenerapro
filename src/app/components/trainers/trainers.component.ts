@@ -43,7 +43,6 @@ export class TrainersComponent {
           maxPrice: filters.maxPrice,
           offset: 0
         })));
-        console.log(this.filters());
       }, 500);
 
       onCleanup(() => clearTimeout(this.debounceTimer));

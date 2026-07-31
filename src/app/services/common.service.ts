@@ -9,7 +9,7 @@ import {UserModel} from "../models/users/user.model";
 import {fakerRU as faker, SexType} from "@faker-js/faker";
 import {RoleEnum} from "../models/users/role.enum";
 import {GlobalFiltersModel} from "../models/global.filters.model";
-import {CoordsModel} from "../models/cities/coords.model";
+import {CoordsModel} from "../models/coords.model";
 
 @Injectable({providedIn: 'root'})
 export class CommonService {
@@ -18,10 +18,17 @@ export class CommonService {
 
   public globalFilters = signal<GlobalFiltersModel>({limit: 4, distance: 10});
 
-  public onChangeSportId(sportId?: number){
+  public onChangeGlobalSportId(sportId?: number){
     this.globalFilters.update(state => ({
       ...state,
       sportId: sportId
+    }));
+  }
+
+  public onChangeGlobalSettlementId(settlementId?: number){
+    this.globalFilters.update(state => ({
+      ...state,
+      settlementId: settlementId
     }));
   }
 

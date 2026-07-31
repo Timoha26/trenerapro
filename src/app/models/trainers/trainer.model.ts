@@ -1,4 +1,3 @@
-import {SettlementModel} from "../settlement.model";
 import {ClubModel} from "../clubs/club.model";
 import {GenderEnum} from "./gender.enum";
 import {PriceGradationEnum} from "./price.gradation.enum";
@@ -9,11 +8,10 @@ import {TrainingFormatModel} from "../training.format.model";
 import {FileUploadModel} from "../file.upload.model";
 import {ClientCategoryModel} from "../client.category.model";
 import {ReviewModel} from "../reviews/review.model";
+import {LocationModel} from "../locations/location.model";
 
 export interface TrainerModel {
   id?: number;
-  settlementId?: number;
-  settlement?: SettlementModel;
   firstname?: string;
   lastname?: string;
   patronymic?: string;
@@ -35,4 +33,5 @@ export interface TrainerModel {
   lessonAddresses?: any[];
   public?: boolean;
   reviews?: ReviewModel[];
+  locations?: LocationModel[];
 }

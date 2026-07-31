@@ -1,5 +1,5 @@
 import {QueryParametersModel} from "../query.parameters.model";
-import {CoordsModel} from "../cities/coords.model";
+import {CoordsModel} from "../coords.model";
 
 export interface TrainerFiltersModel extends QueryParametersModel {
   coords?: CoordsModel;

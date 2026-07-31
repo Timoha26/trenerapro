@@ -5,9 +5,9 @@ import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {FileModalComponent} from "../file.modal/file.modal.component";
 import {FileUploadModel} from "../../../../models/file.upload.model";
 import {ClubsService} from "../../../../services/clubs.service";
-import {ClubCreateRequestModel} from "../../../../models/clubs/club.create.request.model";
 import {FileUploadService} from "../../../../services/file.upload.service";
 import {CommonService} from "../../../../services/common.service";
+import {ClubCreateModel} from "../../../../models/clubs/club.create.model";
 
 @Component({
   selector: 'admin-clubs-create',
@@ -38,6 +38,9 @@ export class ClubsCreateComponent {
     this.modalRef.content.event.subscribe({
       next: (file: FileUploadModel) => {
         if (file) {
+          if(!this.club.uploadedFileIds)
+            this.club.uploadedFileIds = [];
+
           file.url = this.commonService.restoreUrl(file.url);
           this.club.uploadedFileIds.push(file.id ?? 0);
           this.files.push(file);
@@ -63,7 +66,7 @@ export class ClubsCreateComponent {
   }
 
   save() {
-    let club: ClubCreateRequestModel = JSON.parse(JSON.stringify(this.club));
+    let club: ClubCreateModel = JSON.parse(JSON.stringify(this.club));
 
     this.clubsService.create(club).subscribe({
       next: data => {

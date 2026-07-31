@@ -33,7 +33,7 @@ export class TrainersComponent {
           ...prev,
           coords: globalFilters.coords,
           distance: globalFilters.distance,
-          settlementIds: filters.settlementIds,
+          settlementIds: globalFilters.settlementId ? [globalFilters.settlementId] : undefined,
           sportIds: globalFilters.sportId ? [globalFilters.sportId] : undefined,
           clientCategoryIds: filters.clientCategoryIds,
           trainingFormatIds: filters.trainingFormatIds,

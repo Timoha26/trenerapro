@@ -134,8 +134,7 @@ export class TrainersEditComponent {
       gender: this.trainer.gender,
       price: this.trainer.price,
       priceGradation: this.trainer.priceGradation,
-      description: this.trainer.description,
-      settlementId: this.trainer.settlementId
+      description: this.trainer.description
     };
 
     this.trainerService.update(this.trainer.id, trainer).subscribe({

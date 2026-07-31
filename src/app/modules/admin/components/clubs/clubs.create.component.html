@@ -19,25 +19,16 @@
             <label for="name" class="form-label col-sm-4 col-md-3 col-lg-2">Название</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
               <input type="text" id="name" name="name" #name="ngModel"
-                     [(ngModel)]="club.createClub.name" placeholder="имя" required
+                     [(ngModel)]="club.name" placeholder="имя" required
                      class="form-control form-control-sm"
                      [ngClass]="{'is-invalid': name.invalid && (name.touched || name.dirty)}">
-            </div>
-          </div>
-          <div class="row mb-1">
-            <label for="address" class="form-label col-sm-4 col-md-3 col-lg-2">Адрес</label>
-            <div class="col-sm-8 col-md-9 col-lg-10">
-              <input type="text" id="address" name="address" #address="ngModel"
-                     [(ngModel)]="club.createClub.address" placeholder="адрес" required
-                     class="form-control form-control-sm"
-                     [ngClass]="{'is-invalid': address.invalid && (address.touched || address.dirty)}">
             </div>
           </div>
           <div class="row mb-1">
             <label for="description" class="form-label col-sm-4 col-md-3 col-lg-2">Описание</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
               <textarea id="description" name="description" #description="ngModel" rows="3"
-                        [(ngModel)]="club.createClub.description" placeholder="Описание" required
+                        [(ngModel)]="club.description" placeholder="Описание" required
                         class="form-control form-control-sm"
                         [ngClass]="{'is-invalid': description.invalid && (description.touched || description.dirty)}"></textarea>
             </div>
@@ -45,19 +36,19 @@
           <div class="row mb-1 border-bottom">
             <label class="form-label col-sm-4 col-md-3 col-lg-2">Локация</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-              <settlement-select [settlementId]="club.createClub.settlementId" (settlementIdChanged)="club.createClub.settlementId = $event"></settlement-select>
+<!--              <settlement-select [settlementId]="club.createClub.settlementId" (settlementIdChanged)="club.createClub.settlementId = $event"></settlement-select>-->
             </div>
           </div>
           <div class="row mb-1 border-bottom">
             <label class="form-label col-sm-4 col-md-3 col-lg-2">Спортивные дисциплины</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-              <sports-select [sportIds]="club.sportIds"></sports-select>
+<!--              <sports-select [sportIds]="club.sportIds"></sports-select>-->
             </div>
           </div>
           <div class="row mb-1 border-bottom">
             <label class="form-label col-sm-4 col-md-3 col-lg-2">Контакты</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
-              <contacts [clubId]="undefined" [contactIds]="club.contactIds"></contacts>
+<!--              <contacts [clubId]="undefined" [contactIds]="club.contactIds"></contacts>-->
             </div>
           </div>
 

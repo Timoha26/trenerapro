@@ -32,7 +32,7 @@ export class ClubFiltersComponent {
   clearFilters(event: Event) {
     event.preventDefault();
 
-    this.commonService.onChangeSportId(undefined);
+    this.commonService.onChangeGlobalSportId(undefined);
 
     this.dataFilters.set({});
   }
@@ -43,7 +43,7 @@ export class ClubFiltersComponent {
 
     const sportId = parseInt(select.value);
 
-    this.commonService.onChangeSportId(sportId);
+    this.commonService.onChangeGlobalSportId(sportId);
   }
 
   getSportId() {

@@ -1,6 +1,10 @@
 export interface SettlementModel {
   id?: number;
-  country?: string;
-  region?: string;
+  guid?: string;
   settlement?: string;
+  region?: string;
+  regionGuid?: string;
+  isCapital?: boolean;
+  lat?: number;
+  lon?: number;
 }

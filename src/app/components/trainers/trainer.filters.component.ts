@@ -53,7 +53,7 @@ export class TrainerFiltersComponent implements OnInit {
     for(let format of this.trainingFormats)
       format.checked = false;
 
-    this.commonService.onChangeSportId(undefined);
+    this.commonService.onChangeGlobalSportId(undefined);
 
     this.dataFilters.set({});
   }
@@ -89,7 +89,7 @@ export class TrainerFiltersComponent implements OnInit {
 
     const sportId = parseInt(select.value);
 
-    this.commonService.onChangeSportId(sportId);
+    this.commonService.onChangeGlobalSportId(sportId);
   }
 
   getSportId() {

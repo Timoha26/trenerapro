@@ -1,6 +1,7 @@
 export interface ClubCreateModel {
   name?: string;
-  address?: string;
   description?: string;
-  settlementId?: number;
+  sportIds?: number[];
+  contactIds?: number[];
+  uploadedFileIds?: number[];
 }

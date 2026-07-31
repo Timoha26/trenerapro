@@ -2,32 +2,27 @@ import {Injectable, signal} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {conf} from "../conf/conf";
 import {Observable} from "rxjs";
-import {CityModel} from "../models/cities/city.model";
+import {SettlementModel} from "../models/settlement.model";
 
 @Injectable({providedIn: 'root'})
 export class GeoService {
   constructor(private http: HttpClient) {
   }
 
-  public cities = signal<CityModel[]>([]);
+  public settlements = signal<SettlementModel[]>([]);
 
-  public currentCity = signal<CityModel | undefined>(undefined);
+  public currentSettlement = signal<SettlementModel | undefined>(undefined);
 
   private moscowGuid: string = "0c5b2444-70a0-4932-980c-b4dc0d3f02b5";
 
-  public getCities(): Observable<any> {
+  public getSettlements(): Observable<any> {
     return new Observable<any>(subscriber => {
-      this.http.get<CityModel[]>(conf.filesUrl + '/trainerpro/static/russia-cities.json')
+      this.http.get<SettlementModel[]>(conf.trainerProUrl + '/api/v1/settlements')
         .subscribe({
           next: data => {
-            const cities: CityModel[] = data.map(city => ({
-              ...city,
-              regionName: city.region.fullname
-            }));
+            this.settlements.set(data);
 
-            this.cities.set(cities);
-
-            this.loadSavedCity(cities);
+            this.loadSavedSettlements(data);
 
             subscriber.next(true);
             subscriber.complete();
@@ -37,23 +32,23 @@ export class GeoService {
     });
   }
 
-  public selectCity(city: CityModel): void {
-    this.currentCity.set(city);
-    localStorage.setItem("user_city", JSON.stringify(city));
+  public selectSettlement(settlement: SettlementModel): void {
+    this.currentSettlement.set(settlement);
+    localStorage.setItem("user_settlement", JSON.stringify(settlement));
   }
 
-  private loadSavedCity(cities: CityModel[]) {
-    const saved = localStorage.getItem("user_city");
+  private loadSavedSettlements(settlements: SettlementModel[]) {
+    const saved = localStorage.getItem("user_settlement");
 
     if (saved)
-      this.currentCity.set(JSON.parse(saved))
+      this.currentSettlement.set(JSON.parse(saved))
     else
-      this.detectCityByIP(cities);
+      this.detectSettlementsByIP(settlements);
   }
 
-  private detectCityByIP(cities: CityModel[]): void {
-    const moscow = cities.find(city => city.guid == this.moscowGuid);
+  private detectSettlementsByIP(settlements: SettlementModel[]): void {
+    const moscow = settlements.find(settlement => settlement.guid == this.moscowGuid);
 
-    this.currentCity.set(moscow);
+    this.currentSettlement.set(moscow);
   }
 }

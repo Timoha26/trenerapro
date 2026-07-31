@@ -2,8 +2,7 @@
   <select id="settlement" name="settlement" #settlement="ngModel" [(ngModel)]="settlementId"
           (ngModelChange)="onValueChange($event)" required class="form-control form-control-sm">
     <option [ngValue]="undefined" disabled>Выберите</option>
-    <option *ngFor="let option of settlements" [ngValue]="option.id">{{ option.country }}, {{ option.region }}
-      , {{ option.settlement }}
+    <option *ngFor="let option of settlements" [ngValue]="option.id">{{ option.region }}, {{ option.settlement }}
     </option>
   </select>
   <button type="button" class="btn btn-outline-success btn-sm" (click)="addSettlement()" title="Добавить локацию">

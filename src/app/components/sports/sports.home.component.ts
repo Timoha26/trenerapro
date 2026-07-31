@@ -122,7 +122,7 @@ export class SportsHomeComponent implements OnDestroy {
   }
 
   selectSport(sport?: SportModel) {
-    this.commonService.onChangeSportId(sport?.id);
+    this.commonService.onChangeGlobalSportId(sport?.id);
     //this.currentSportId = sport?.id;
   }
 
@@ -131,7 +131,7 @@ export class SportsHomeComponent implements OnDestroy {
   }
 
   ngOnInit() {
-    this.commonService.onChangeSportId(undefined);
+    this.commonService.onChangeGlobalSportId(undefined);
     this.getSports();
   }
 }

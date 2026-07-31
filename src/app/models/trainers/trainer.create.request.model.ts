@@ -1,6 +1,5 @@
 import {TrainerCreateModel} from "./trainer.create.model";
 
-
 export interface TrainerCreateRequestModel {
   createTrainer: TrainerCreateModel;
   sportIds: number[];

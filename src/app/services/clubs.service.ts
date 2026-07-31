@@ -6,7 +6,6 @@ import {ClubModel} from "../models/clubs/club.model";
 import {conf} from "../conf/conf";
 import {ClubFiltersModel} from "../models/clubs/club.filters.model";
 import {ClubDataFiltersModel} from "../models/clubs/club.data.filters.model";
-import {ClubCreateRequestModel} from "../models/clubs/club.create.request.model";
 import {ClubCreateModel} from "../models/clubs/club.create.model";
 import {GlobalFiltersModel} from "../models/global.filters.model";
 
@@ -26,12 +25,12 @@ export class ClubsService {
       .set('sort_by', filters?.sort ?? 6)
       .set('asc', !filters?.desc ?? 6);
 
-    if(filters?.coords && filters.distance){
-      params = params
-        .set('userLatitude', filters.coords.lat)
-        .set('userLongitude', filters.coords.lon)
-        .set('radiusKm', filters.distance);
-    }
+    // if(filters?.coords && filters.distance){
+    //   params = params
+    //     .set('lat', filters.coords.lat)
+    //     .set('lon', filters.coords.lon)
+    //     .set('distance', filters.distance);
+    // }
 
     let dataFilters: ClubDataFiltersModel = {
       settlementIds: filters?.settlementIds,
@@ -52,12 +51,15 @@ export class ClubsService {
     if (filters.sportId)
       params = params.set('sportId', filters.sportId);
 
-    if(filters.coords && filters.distance){
-      params = params
-        .set('userLatitude', filters.coords.lat)
-        .set('userLongitude', filters.coords.lon)
-        .set('radiusKm', filters.distance)
-    }
+    if(filters.settlementId)
+      params = params.set('settlementId', filters.settlementId);
+
+    // if(filters.coords && filters.distance){
+    //   params = params
+    //     .set('lat', filters.coords.lat)
+    //     .set('lon', filters.coords.lon)
+    //     .set('distance', filters.distance)
+    // }
 
     return this.http.get<ClubModel[]>(this.getUrl('/random'), {
       params: params
@@ -68,7 +70,7 @@ export class ClubsService {
     return this.http.get<ClubModel>(this.getUrl('/' + clubId));
   }
 
-  public create(club?: ClubCreateRequestModel): Observable<any> {
+  public create(club?: ClubCreateModel): Observable<any> {
     return this.http.post<any>(this.getUrl(''), club);
   }
 
@@ -98,14 +100,10 @@ export class ClubsService {
     });
   }
 
-  public getClubCreateRequestModel(): ClubCreateRequestModel {
+  public getClubCreateRequestModel(): ClubCreateModel {
     return {
-      createClub: {
-        name: undefined,
-        address: undefined,
-        description: undefined,
-        settlementId: undefined,
-      },
+      name: undefined,
+      description: undefined,
       sportIds: [],
       contactIds: [],
       uploadedFileIds: []

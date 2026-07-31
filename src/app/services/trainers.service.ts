@@ -26,12 +26,12 @@ export class TrainersService {
       .set('sort_by', filters?.sort ?? 'name')
       .set('asc', !filters?.desc ?? false);
 
-    if(filters?.coords && filters.distance){
-      params = params
-        .set('userLatitude', filters.coords.lat)
-        .set('userLongitude', filters.coords.lon)
-        .set('radiusKm', filters.distance);
-    }
+    // if(filters?.coords && filters.distance){
+    //   params = params
+    //     .set('lat', filters.coords.lat)
+    //     .set('lon', filters.coords.lon)
+    //     .set('distance', filters.distance);
+    // }
 
     let dataFilters: TrainerDataFiltersModel = {
       settlementIds: filters?.settlementIds,
@@ -56,12 +56,15 @@ export class TrainersService {
     if (filters.sportId)
       params = params.set('sportId', filters.sportId);
 
-    if(filters.coords && filters.distance){
-      params = params
-        .set('userLatitude', filters.coords.lat)
-        .set('userLongitude', filters.coords.lon)
-        .set('radiusKm', filters.distance)
-    }
+    if(filters.settlementId)
+      params = params.set('settlementId', filters.settlementId);
+
+    // if(filters.coords && filters.distance){
+    //   params = params
+    //     .set('lat', filters.coords.lat)
+    //     .set('lon', filters.coords.lon)
+    //     .set('distance', filters.distance)
+    // }
 
     return this.http.get<TrainerModel[]>(this.getUrl('/random'), {
       params: params
@@ -113,8 +116,7 @@ export class TrainersService {
         gender: undefined,
         price: undefined,
         priceGradation: undefined,
-        description: undefined,
-        settlementId: undefined
+        description: undefined
       },
       sportIds: [],
       trainingFormatIds: [],

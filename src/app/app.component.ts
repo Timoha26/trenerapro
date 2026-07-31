@@ -5,9 +5,9 @@ import {NgForm} from "@angular/forms";
 import {TokenModel} from "./models/token.model";
 import {CommonService} from "./services/common.service";
 import {GeoService} from "./services/geo.service";
-import {CityModel} from "./models/cities/city.model";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
-import {SelectCityModalComponent} from "./components/city/select.city.modal.component";
+import {SelectSettlementModalComponent} from "./components/settlements/select.settlement.modal.component";
+import {SettlementModel} from "./models/settlement.model";
 
 @Component({
   selector: 'app-root',
@@ -23,7 +23,7 @@ export class AppComponent {
     username: undefined,
     password: undefined
   };
-  currentCity?: CityModel = undefined;
+  currentSettlement?: SettlementModel = undefined;
   modalRef?: BsModalRef;
 
   constructor(private authService: AuthService,
@@ -58,20 +58,21 @@ export class AppComponent {
     const modalOptions: ModalOptions = {
       class: 'modal-dialog-centered modal-md',
       initialState: {
-        selectedCity: this.currentCity?.name,
-        chosenCity: this.currentCity
+        selectedSettlement: this.currentSettlement?.settlement,
+        chosenSettlement: this.currentSettlement
       }
     };
 
-    this.modalRef = this.modalService.show(SelectCityModalComponent, modalOptions);
+    this.modalRef = this.modalService.show(SelectSettlementModalComponent, modalOptions);
 
     this.modalRef.content.event.subscribe({
-      next: (city: CityModel) => {
-        if(city)
-          this.geoService.selectCity(city);
+      next: (settlement: SettlementModel) => {
+        if (settlement)
+          this.geoService.selectSettlement(settlement);
 
-        this.currentCity = this.geoService.currentCity();
-        this.commonService.onChangeGlobalCoords(this.currentCity?.coords.lat, this.currentCity?.coords.lon);
+        this.currentSettlement = this.geoService.currentSettlement();
+        this.commonService.onChangeGlobalCoords(this.currentSettlement?.lat, this.currentSettlement?.lon);
+        this.commonService.onChangeGlobalSettlementId(this.currentSettlement?.id);
       }
     });
   }
@@ -79,10 +80,11 @@ export class AppComponent {
   ngOnInit() {
     this.logoUrl = this.commonService.restoreUrl('/trainerpro/static/logo2.svg');
 
-    this.geoService.getCities().subscribe({
+    this.geoService.getSettlements().subscribe({
       next: () => {
-        this.currentCity = this.geoService.currentCity();
-        this.commonService.onChangeGlobalCoords(this.currentCity?.coords.lat, this.currentCity?.coords.lon);
+        this.currentSettlement = this.geoService.currentSettlement();
+        this.commonService.onChangeGlobalCoords(this.currentSettlement?.lat, this.currentSettlement?.lon);
+        this.commonService.onChangeGlobalSettlementId(this.currentSettlement?.id);
       }
     });
   }

@@ -102,9 +102,7 @@ export class ClubsEditComponent {
   private updateClub() {
     const club: ClubCreateModel = {
       name: this.club.name,
-      address: this.club.address,
-      description: this.club.description,
-      settlementId: this.club.settlementId
+      description: this.club.description
     };
 
     this.clubsService.update(this.club.id, club).subscribe({

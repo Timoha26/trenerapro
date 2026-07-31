@@ -16,11 +16,7 @@ import {FormsModule} from "@angular/forms";
 export class SettlementCreateModalComponent {
   event: EventEmitter<SettlementModel> = new EventEmitter<SettlementModel>();
 
-  newSettlement: SettlementModel = {
-    country: undefined,
-    region: undefined,
-    settlement: undefined
-  };
+  newSettlement: SettlementModel = {};
 
   constructor(private modalRef: BsModalRef, private toastr: ToastrService, private settlementsService: SettlementsService) {
   }

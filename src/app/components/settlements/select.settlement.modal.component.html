@@ -4,15 +4,15 @@
     <span aria-hidden="true" class="visually-hidden">&times;</span>
   </button>
 </div>
-<form name="reviewForm" #cityForm="ngForm" novalidate>
+<form name="reviewForm" #settlementForm="ngForm" novalidate>
   <div class="tp-modal-body">
     <div class="row">
       <div class="w-100 tp-typeahead-container">
-        <input type="text" id="city" name="city" #city="ngModel"
-               [(ngModel)]="selectedCity"
-               [typeahead]="cities"
-               typeaheadOptionField="name"
-               typeaheadGroupField="regionName"
+        <input type="text" id="settlement" name="settlement" #settlement="ngModel"
+               [(ngModel)]="selectedSettlement"
+               [typeahead]="settlements"
+               typeaheadOptionField="settlement"
+               typeaheadGroupField="region"
                [typeaheadMinLength]="0"
                [typeaheadScrollable]="true"
                [typeaheadOptionsInScrollableView]="8"
@@ -23,7 +23,7 @@
     </div>
   </div>
   <div class="tp-modal-footer">
-    <button type="button" class="btn-primary" (click)="save()" [disabled]="cityForm.invalid">
+    <button type="button" class="btn-primary" (click)="save()" [disabled]="settlementForm.invalid">
       Выбрать
     </button>
   </div>

@@ -33,7 +33,7 @@ export class ClubsComponent {
           ...prev,
           coords: globalFilters.coords,
           distance: globalFilters.distance,
-          settlementIds: filters.settlementIds,
+          settlementIds: globalFilters.settlementId ? [globalFilters.settlementId] : undefined,
           sportIds: globalFilters.sportId ? [globalFilters.sportId] : undefined,
           verified: filters.verified,
           minRating: filters.minRating,

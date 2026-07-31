@@ -4,13 +4,13 @@ import {NgClass} from "@angular/common";
 import {RatingModule} from "ngx-bootstrap/rating";
 import {BsModalRef} from "ngx-bootstrap/modal";
 import {GeoService} from "../../services/geo.service";
-import {CityModel} from "../../models/cities/city.model";
 import {TypeaheadModule} from "ngx-bootstrap/typeahead";
+import {SettlementModel} from "../../models/settlement.model";
 
 @Component({
-  selector: 'city-modal',
-  templateUrl: './select.city.modal.component.html',
-  styleUrls: ['./select.city.modal.component.scss'],
+  selector: 'settlement-modal',
+  templateUrl: './select.settlement.modal.component.html',
+  styleUrls: ['./select.settlement.modal.component.scss'],
   imports: [
     FormsModule,
     NgClass,
@@ -19,26 +19,26 @@ import {TypeaheadModule} from "ngx-bootstrap/typeahead";
   ],
   standalone: true
 })
-export class SelectCityModalComponent implements OnInit {
+export class SelectSettlementModalComponent implements OnInit {
   constructor(private modalRef: BsModalRef,
               private geoService: GeoService) {
   }
 
-  cities: CityModel[] = [];
-  selectedCity?: string;
-  chosenCity?: CityModel;
-  event: EventEmitter<CityModel> = new EventEmitter<CityModel>();
+  settlements: SettlementModel[] = [];
+  selectedSettlement?: string;
+  chosenSettlement?: SettlementModel;
+  event: EventEmitter<SettlementModel> = new EventEmitter<SettlementModel>();
 
   ngOnInit() {
-    this.cities = this.geoService.cities();
+    this.settlements = this.geoService.settlements();
   }
 
   onSelect(event: any) {
-    this.chosenCity = event.item;
+    this.chosenSettlement = event.item;
   }
 
   save() {
-    this.event.emit(this.chosenCity);
+    this.event.emit(this.chosenSettlement);
     this.modalRef.hide();
   }
 

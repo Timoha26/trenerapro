@@ -38,7 +38,7 @@ export class TrainersHomeComponent {
 
   private dataSubscription = toObservable(this.commonService.globalFilters).pipe(
     distinctUntilChanged(),
-    switchMap((param) => this.trainersService.getTop(param))
+    switchMap((param) => this.trainersService.getRandom(param))
   ).subscribe({
     next: data => {
       let items = data ?? [];

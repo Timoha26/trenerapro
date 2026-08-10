@@ -10,6 +10,8 @@ import {fakerRU as faker, SexType} from "@faker-js/faker";
 import {RoleEnum} from "../models/users/role.enum";
 import {GlobalFiltersModel} from "../models/global.filters.model";
 import {CoordsModel} from "../models/coords.model";
+import {SortByEnum} from "../models/sortBy.enum";
+import {SortOptionModel} from "../models/sort.option.model";
 
 @Injectable({providedIn: 'root'})
 export class CommonService {
@@ -18,34 +20,40 @@ export class CommonService {
 
   public globalFilters = signal<GlobalFiltersModel>({limit: 4, distance: 10});
 
-  public onChangeGlobalSportId(sportId?: number){
+  public onChangeGlobalSportId(sportId?: number) {
     this.globalFilters.update(state => ({
       ...state,
       sportId: sportId
     }));
   }
 
-  public onChangeGlobalSettlementId(settlementId?: number){
-    this.globalFilters.update(state => ({
-      ...state,
-      settlementId: settlementId
-    }));
-  }
-
-  public onChangeGlobalCoords(lat?: number, lon?: number){
+  public onChangeGlobalSettlement(settlementId?: number, lat?: number, lon?: number) {
     let coords: CoordsModel | undefined = undefined;
 
-    if(lat && lon)
+    if (lat && lon)
       coords = {lat: lat, lon: lon};
 
     this.globalFilters.update(state => ({
       ...state,
+      settlementId: settlementId,
       coords: coords
     }));
   }
 
-  public onChangeGlobalLimit(limit?: number){
-    if(!limit)
+  public onChangeUserGlobalCoords(lat?: number, lon?: number) {
+    let coords: CoordsModel | undefined = undefined;
+
+    if (lat && lon)
+      coords = {lat: lat, lon: lon};
+
+    this.globalFilters.update(state => ({
+      ...state,
+      userCoords: coords
+    }));
+  }
+
+  public onChangeGlobalLimit(limit?: number) {
+    if (!limit)
       limit = 4;
 
     this.globalFilters.update(state => ({
@@ -54,13 +62,28 @@ export class CommonService {
     }));
   }
 
-  public onChangeGlobalDistance(distance?: number){
-    if(!distance)
+  public onChangeGlobalDistance(distance?: number) {
+    if (!distance)
       distance = 10;
 
     this.globalFilters.update(state => ({
       ...state,
       distance: distance
+    }));
+  }
+
+  public onChangeGlobalSort(sortOption?: SortOptionModel) {
+    if (!sortOption)
+      sortOption = {
+        sort: SortByEnum.Rating,
+        desc: true,
+        name: "По рейтингу"
+      };
+
+    this.globalFilters.update(state => ({
+      ...state,
+      sort: sortOption?.sort,
+      desc: sortOption?.desc
     }));
   }
 

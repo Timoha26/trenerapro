@@ -1,4 +1,4 @@
-import {Component, effect, signal, untracked} from "@angular/core";
+import {Component, computed, effect, signal, untracked} from "@angular/core";
 import {TrainersService} from "../../services/trainers.service";
 import {TrainerModel} from "../../models/trainers/trainer.model";
 import {PageResultModel} from "../../models/page.result.model";
@@ -19,43 +19,62 @@ import {ReviewModel} from "../../models/reviews/review.model";
   templateUrl: './trainers.component.html'
 })
 export class TrainersComponent {
+  private debounceTimer: any;
+
+  private readonly combinedFilters = computed(() => {
+    const globalFilters = this.commonService.globalFilters();
+    const filters = this.dataFilters();
+
+    return {
+      coords: globalFilters.coords,
+      distance: globalFilters.distance,
+      settlementIds: globalFilters.settlementId ? [globalFilters.settlementId] : undefined,
+      sportIds: globalFilters.sportId ? [globalFilters.sportId] : undefined,
+      clientCategoryIds: filters.clientCategoryIds,
+      trainingFormatIds: filters.trainingFormatIds,
+      verified: filters.verified,
+      minRating: filters.minRating,
+      minPrice: filters.minPrice,
+      maxPrice: filters.maxPrice,
+      sort: globalFilters.sort,
+      desc: globalFilters.desc
+    };
+  });
+
   constructor(private trainersService: TrainersService,
               private commonService: CommonService,
               private modalService: BsModalService) {
     effect((onCleanup) => {
-      const globalFilters = this.commonService.globalFilters();
-      const filters = this.dataFilters();
-
-      clearTimeout(this.debounceTimer);
+      const filters= this.combinedFilters();
 
       this.debounceTimer = setTimeout(() => {
         untracked(() => this.filters.update(prev => ({
           ...prev,
-          coords: globalFilters.coords,
-          distance: globalFilters.distance,
-          settlementIds: globalFilters.settlementId ? [globalFilters.settlementId] : undefined,
-          sportIds: globalFilters.sportId ? [globalFilters.sportId] : undefined,
+          coords: filters.coords,
+          distance: filters.distance,
+          settlementIds: filters.settlementIds,
+          sportIds: filters.sportIds,
           clientCategoryIds: filters.clientCategoryIds,
           trainingFormatIds: filters.trainingFormatIds,
           verified: filters.verified,
           minRating: filters.minRating,
           minPrice: filters.minPrice,
           maxPrice: filters.maxPrice,
+          sort: filters.sort,
+          desc: filters.desc,
           offset: 0
         })));
-      }, 500);
+      }, 300);
 
       onCleanup(() => clearTimeout(this.debounceTimer));
     });
   }
 
-  private debounceTimer: any;
-
   public filters = signal<TrainerFiltersModel>({
     offset: 0,
     limit: 6,
     sort: SortByEnum.Rating,
-    desc: false
+    desc: true
   });
 
   public trainers: PageResultModel<TrainerModel> = {count: 0, items: []};
@@ -85,15 +104,6 @@ export class TrainersComponent {
     this.filters.update(prev => ({
       ...prev,
       offset: (event.page - 1) * event.itemsPerPage
-    }));
-  }
-
-  onSortChange(event: SortOptionModel) {
-    this.filters.update(prev => ({
-      ...prev,
-      sort: event.sort,
-      desc: event.desc,
-      offset: 0
     }));
   }
 

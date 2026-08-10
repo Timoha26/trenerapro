@@ -1,4 +1,4 @@
-import {Component, effect, signal, untracked} from "@angular/core";
+import {Component, computed, effect, signal, untracked} from "@angular/core";
 import {SortByEnum} from "../../models/sortBy.enum";
 import {PageResultModel} from "../../models/page.result.model";
 import {toObservable} from "@angular/core/rxjs-interop";
@@ -19,33 +19,48 @@ import {ReviewModel} from "../../models/reviews/review.model";
   templateUrl: './clubs.component.html'
 })
 export class ClubsComponent {
+  private debounceTimer: any;
+
+  private readonly combinedFilters = computed(() => {
+    const globalFilters = this.commonService.globalFilters();
+    const filters = this.dataFilters();
+
+    return {
+      coords: globalFilters.coords,
+      distance: globalFilters.distance,
+      settlementIds: globalFilters.settlementId ? [globalFilters.settlementId] : undefined,
+      sportIds: globalFilters.sportId ? [globalFilters.sportId] : undefined,
+      verified: filters.verified,
+      minRating: filters.minRating,
+      sort: globalFilters.sort,
+      desc: globalFilters.desc
+    };
+  });
+
   constructor(private clubsService: ClubsService,
               private commonService: CommonService,
               private modalService: BsModalService) {
     effect((onCleanup) => {
-      const globalFilters = this.commonService.globalFilters();
-      const filters = this.dataFilters();
-
-      clearTimeout(this.debounceTimer);
+      const filters= this.combinedFilters();
 
       this.debounceTimer = setTimeout(() => {
         untracked(() => this.filters.update(prev => ({
           ...prev,
-          coords: globalFilters.coords,
-          distance: globalFilters.distance,
-          settlementIds: globalFilters.settlementId ? [globalFilters.settlementId] : undefined,
-          sportIds: globalFilters.sportId ? [globalFilters.sportId] : undefined,
+          coords: filters.coords,
+          distance: filters.distance,
+          settlementIds: filters.settlementIds,
+          sportIds: filters.sportIds,
           verified: filters.verified,
           minRating: filters.minRating,
+          sort: filters.sort,
+          desc: filters.desc,
           offset: 0
         })));
-      }, 500);
+      }, 300);
 
       onCleanup(() => clearTimeout(this.debounceTimer));
     });
   }
-
-  private debounceTimer: any;
 
   public filters = signal<ClubFiltersModel>({
     offset: 0,
@@ -81,15 +96,6 @@ export class ClubsComponent {
     this.filters.update(prev => ({
       ...prev,
       offset: (event.page - 1) * event.itemsPerPage
-    }));
-  }
-
-  onSortChange(event: SortOptionModel) {
-    this.filters.update(prev => ({
-      ...prev,
-      sort: event.sort,
-      desc: event.desc,
-      offset: 0
     }));
   }
 

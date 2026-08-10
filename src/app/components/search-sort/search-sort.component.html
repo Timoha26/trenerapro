@@ -1,7 +1,10 @@
 <div class="search-sort-bar">
   <div class="search-wrapper">
-    <i class="fas fa-search"></i>
-    <input type="text" placeholder="Поиск тренера, вида спорта или клуба">
+    <em class="fas fa-search"></em>
+    <input type="text" placeholder="Поиск" [(ngModel)]="searchQuery" (keydown.enter)="search()">
+    <button type="button" (click)="search()">
+      <em class="fas fa-search"></em>
+    </button>
   </div>
   <select class="sort-select" [(ngModel)]="selectedSort" (change)="onChangeSort(selectedSort)">
     <option *ngFor="let option of sortOptions" [ngValue]="option.sort">{{option.name}}</option>

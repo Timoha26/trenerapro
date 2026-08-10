@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Output} from "@angular/core";
+import {Component} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SortByEnum} from "../../models/sortBy.enum";
 import {NgForOf} from "@angular/common";
 import {SortOptionModel} from "../../models/sort.option.model";
+import {CommonService} from "../../services/common.service";
 
 @Component({
   selector: 'search-sort',
@@ -15,10 +16,11 @@ import {SortOptionModel} from "../../models/sort.option.model";
   standalone: true
 })
 export class SearchSortComponent {
-  constructor() {
+  constructor(private commonService: CommonService) {
   }
 
   selectedSort: SortByEnum = SortByEnum.Rating;
+  searchQuery?: string = undefined;
 
   sortOptions: SortOptionModel[] = [
     {sort: SortByEnum.Rating, desc: true, name: "По рейтингу"},
@@ -26,19 +28,26 @@ export class SearchSortComponent {
     {sort: SortByEnum.Experience, desc: true, name: "По опыту"}
   ];
 
-  @Output() sortChange: EventEmitter<SortOptionModel> = new EventEmitter<SortOptionModel>();
-
   onChangeSort(selectedSort: SortByEnum) {
-    for(const option of this.sortOptions)
-      if(option.sort == selectedSort){
-        this.sortChange.emit(option);
+    for (const option of this.sortOptions)
+      if (option.sort == selectedSort) {
+        this.commonService.onChangeGlobalSort(option);
         return;
       }
 
-    this.sortChange.emit(this.sortOptions[0]);
+    this.commonService.onChangeGlobalSort(this.sortOptions[0]);
+  }
+
+  search() {
+    if(!this.searchQuery || this.searchQuery.length < 1) {
+      console.log('search');
+      return;
+    }
+
+    console.log(this.searchQuery);
   }
 
   ngOnInit() {
-    this.sortChange.emit(this.sortOptions[0]);
+    this.commonService.onChangeGlobalSort(this.sortOptions[0]);
   }
 }

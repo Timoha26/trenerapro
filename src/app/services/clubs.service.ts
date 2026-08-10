@@ -54,12 +54,20 @@ export class ClubsService {
     if(filters.settlementId)
       params = params.set('settlementId', filters.settlementId);
 
-    // if(filters.coords && filters.distance){
-    //   params = params
-    //     .set('lat', filters.coords.lat)
-    //     .set('lon', filters.coords.lon)
-    //     .set('distance', filters.distance)
-    // }
+    return this.http.get<ClubModel[]>(this.getUrl('/top'), {
+      params: params
+    });
+  }
+
+  public getRandom(filters: GlobalFiltersModel): Observable<ClubModel[]> {
+    let params: HttpParams = new HttpParams()
+      .set('limit', filters.limit ?? 4);
+
+    if (filters.sportId)
+      params = params.set('sportId', filters.sportId);
+
+    if(filters.settlementId)
+      params = params.set('settlementId', filters.settlementId);
 
     return this.http.get<ClubModel[]>(this.getUrl('/random'), {
       params: params

@@ -52,6 +52,30 @@ export class GeoService {
     });
   }
 
+  public getGeoUser(): Observable<GeolocationPosition> {
+    return new Observable(observer => {
+      if(!window.navigator.geolocation){
+        observer.error("no geolocation in browser");
+        return;
+      }
+
+      window.navigator.geolocation.getCurrentPosition(
+        (position) => {
+          observer.next(position);
+          observer.complete();
+        },
+        (error) => {
+          observer.error(error);
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
+        }
+      );
+    });
+  }
+
   private loadSavedSettlements(settlements: SettlementModel[]) {
     const saved = localStorage.getItem("user_settlement");
 

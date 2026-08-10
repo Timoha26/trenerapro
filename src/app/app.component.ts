@@ -8,7 +8,6 @@ import {GeoService} from "./services/geo.service";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {SelectSettlementModalComponent} from "./components/settlements/select.settlement.modal.component";
 import {SettlementModel} from "./models/settlement.model";
-import {CoordsModel} from "./models/coords.model";
 
 @Component({
   selector: 'app-root',

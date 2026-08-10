@@ -50,6 +50,11 @@ import {RatingModule} from "ngx-bootstrap/rating";
 import {GeoService} from "./services/geo.service";
 import {BsDropdownModule} from "ngx-bootstrap/dropdown";
 import {TypeaheadModule} from "ngx-bootstrap/typeahead";
+import {QuestionnaireComponent} from "./components/questionnaire/questionnaire.component";
+import {AboutComponent} from "./components/about/about.component";
+import {VerificationComponent} from "./components/verification/verification.component";
+import {SearchComponent} from "./components/search/search.component";
+import {EntityTypePipe} from "./pipes/entityType.pipe";
 
 registerLocaleData(localeRu)
 
@@ -61,7 +66,11 @@ registerLocaleData(localeRu)
     TrainersComponent,
     TrainersDetailsComponent,
     ClubsComponent,
-    ClubsDetailsComponent
+    ClubsDetailsComponent,
+    QuestionnaireComponent,
+    AboutComponent,
+    VerificationComponent,
+    SearchComponent
   ],
   imports: [
     ModalModule.forRoot(),
@@ -91,7 +100,8 @@ registerLocaleData(localeRu)
     ClubFiltersComponent,
     RatingModule,
     BsDropdownModule,
-    TypeaheadModule.forRoot()
+    TypeaheadModule.forRoot(),
+    EntityTypePipe
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'ru-RU'},

@@ -8,17 +8,9 @@
         <form class="search-form">
           <div class="search-group">
             <i class="fas fa-search"></i>
-            <input type="text" placeholder="Какой спорт?">
+            <input type="text" id="search" name="search" #search="ngModel" [(ngModel)]="searchText" (keydown.enter)="onSearch()" placeholder="Спорт\тренер\клуб?">
           </div>
-          <div class="search-divider"></div>
-          <div class="search-group location-group">
-            <i class="fas fa-map-marker-alt"></i>
-            <select>
-              <option>Кемерово</option>
-              <option>Москва</option>
-            </select>
-          </div>
-          <button type="button" class="btn-primary search-btn">Найти тренера</button>
+          <button type="button" class="btn-primary search-btn" (click)="onSearch()">Найти тренера</button>
         </form>
       </div>
     </div>
@@ -47,8 +39,8 @@
         <p>Начните зарабатывать на своих знаниях и опыте! Заполните анкету и находите клиентов рядом с домом.</p>
       </div>
       <div class="become-actions">
-        <button class="btn-primary">Заполнить анкету</button>
-        <button class="btn-outline" style="border-color: white; color: white;">Узнать больше</button>
+        <button class="btn-primary" routerLink="/questionnaire">Заполнить анкету</button>
+        <button class="btn-outline" style="border-color: white; color: white;" routerLink="/about">Узнать больше</button>
       </div>
     </div>
   </section>

@@ -1,8 +1,8 @@
 <div class="search-sort-bar">
   <div class="search-wrapper">
     <em class="fas fa-search"></em>
-    <input type="text" placeholder="Поиск" [(ngModel)]="searchQuery" (keydown.enter)="search()">
-    <button type="button" (click)="search()">
+    <input type="text" placeholder="Поиск" [(ngModel)]="searchText" (keydown.enter)="onSearch()">
+    <button type="button" (click)="onSearch()">
       <em class="fas fa-search"></em>
     </button>
   </div>

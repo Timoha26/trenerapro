@@ -508,6 +508,22 @@ header {
   }
 }
 
+.search-card {
+  display: flex;
+  flex-direction: column;
+  transition: 0.3s;
+  padding: 10px;
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      color: var(--primary);
+    }
+  }
+}
+
 .trainer-details-card {
   display: flex;
   flex-direction: column;

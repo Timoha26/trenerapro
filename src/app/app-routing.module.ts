@@ -7,6 +7,10 @@ import {TrainersDetailsComponent} from "./components/trainers/trainers.details.c
 import {ClubsComponent} from "./components/clubs/clubs.component";
 import {ClubsDetailsComponent} from "./components/clubs/clubs.details.component";
 import {AuthGuardService} from "./services/auth/auth.guard.service";
+import {QuestionnaireComponent} from "./components/questionnaire/questionnaire.component";
+import {AboutComponent} from "./components/about/about.component";
+import {VerificationComponent} from "./components/verification/verification.component";
+import {SearchComponent} from "./components/search/search.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
@@ -14,6 +18,10 @@ const routes: Routes = [
   {path: 'trainers/:id', component: TrainersDetailsComponent, pathMatch: 'full'},
   {path: 'clubs', component: ClubsComponent, pathMatch: 'full'},
   {path: 'clubs/:id', component: ClubsDetailsComponent, pathMatch: 'full'},
+  {path: 'questionnaire', component: QuestionnaireComponent, pathMatch: 'full'},
+  {path: 'about', component: AboutComponent, pathMatch: 'full'},
+  {path: 'verification', component: VerificationComponent, pathMatch: 'full'},
+  {path: 'search', component: SearchComponent, pathMatch: 'full'},
   {
     path: 'admin',
     loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule),

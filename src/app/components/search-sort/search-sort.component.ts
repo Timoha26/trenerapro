@@ -1,9 +1,12 @@
-import {Component} from "@angular/core";
+import {Component, effect, Input} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SortByEnum} from "../../models/sortBy.enum";
 import {NgForOf} from "@angular/common";
 import {SortOptionModel} from "../../models/sort.option.model";
 import {CommonService} from "../../services/common.service";
+import {GeoService} from "../../services/geo.service";
+import {ActivatedRoute, Router} from "@angular/router";
+import {EntityTypeEnum} from "../../models/search/entity.type.enum";
 
 @Component({
   selector: 'search-sort',
@@ -16,11 +19,19 @@ import {CommonService} from "../../services/common.service";
   standalone: true
 })
 export class SearchSortComponent {
-  constructor(private commonService: CommonService) {
+  constructor(private router: Router,
+              private route: ActivatedRoute,
+              private commonService: CommonService,
+              private geoService: GeoService) {
+    effect(() => {
+      this.settlementId = this.geoService.currentSettlement()?.id;
+    });
   }
 
+  private settlementId?: number;
+  private entityType?: EntityTypeEnum;
   selectedSort: SortByEnum = SortByEnum.Rating;
-  searchQuery?: string = undefined;
+  @Input() searchText?: string;
 
   sortOptions: SortOptionModel[] = [
     {sort: SortByEnum.Rating, desc: true, name: "По рейтингу"},
@@ -38,16 +49,34 @@ export class SearchSortComponent {
     this.commonService.onChangeGlobalSort(this.sortOptions[0]);
   }
 
-  search() {
-    if(!this.searchQuery || this.searchQuery.length < 1) {
-      console.log('search');
+  onSearch() {
+    if (!this.searchText || this.searchText.length < 1)
       return;
-    }
 
-    console.log(this.searchQuery);
+    this.router.navigate(['/search'], {
+      queryParams: {
+        searchText: this.searchText,
+        settlementId: this.settlementId,
+        entityType: this.entityType
+      }
+    });
   }
 
   ngOnInit() {
     this.commonService.onChangeGlobalSort(this.sortOptions[0]);
+
+    console.log(this.route.snapshot.routeConfig?.path);
+
+    switch (this.route.snapshot.routeConfig?.path) {
+      case 'trainers':
+        this.entityType = EntityTypeEnum.Trainer;
+        break;
+      case 'clubs':
+        this.entityType = EntityTypeEnum.Club;
+        break;
+      default:
+        this.entityType = undefined;
+        break;
+    }
   }
 }

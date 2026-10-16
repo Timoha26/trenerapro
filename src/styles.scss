@@ -294,7 +294,7 @@ header {
   position: relative;
   padding: 60px 0;
   background-size: contain !important;
-  background: #f2f3f5 url('http://minio-api.local/trainerpro/static/guys_playing.png') no-repeat right center;
+  background: #f2f3f5 url('https://s3.regru.cloud/trainerpro/static/guys_playing.png') no-repeat right center;
   border-radius: 0 0 20px 20px;
   margin-bottom: 40px;
 
@@ -968,7 +968,7 @@ header {
   flex-wrap: wrap;
   gap: 20px;
   background-size: cover;
-  background: #eee url('http://minio-api.local/trainerpro/static/guys_resting.png') center;
+  background: #eee url('https://s3.regru.cloud/trainerpro/static/guys_resting.png') center;
   position: relative;
 
   &::before {

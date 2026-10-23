@@ -1,13 +1,13 @@
 import {CurrencyPipe, NgClass, NgForOf} from "@angular/common";
 import {Component, Input, OnInit, signal} from "@angular/core";
-import {FormsModule} from "@angular/forms";
-import {SportsService} from "../../services/sports.service";
-import {SportModel} from "../../models/sport.model";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {CategoriesService} from "../../services/categories.service";
 import {ClientCategoriesService} from "../../services/client.categories.service";
 import {TrainerDataFiltersModel} from "../../models/trainers/trainer.data.filters.model";
 import {TrainingFormatsService} from "../../services/training.formats.service";
 import {NgxSliderModule, Options} from "@angular-slider/ngx-slider";
 import {CommonService} from "../../services/common.service";
+import {CategoryModel} from "../../models/category.model";
 
 @Component({
   selector: 'trainers-filters',
@@ -19,11 +19,12 @@ import {CommonService} from "../../services/common.service";
     NgForOf,
     NgClass,
     NgxSliderModule,
-    CurrencyPipe
+    CurrencyPipe,
+    ReactiveFormsModule
   ]
 })
 export class TrainerFiltersComponent implements OnInit {
-  constructor(private sportsService: SportsService,
+  constructor(private categoriesService: CategoriesService,
               private clientCategoriesService: ClientCategoriesService,
               private trainingFormatsService: TrainingFormatsService,
               private commonService: CommonService) {
@@ -43,6 +44,8 @@ export class TrainerFiltersComponent implements OnInit {
     options: {floor: 500, ceil: 5000}
   };
 
+  selectedCategoryId?: number = undefined;
+
   clearFilters(event: Event) {
     event.preventDefault();
     this.clearPriceRange();
@@ -53,7 +56,7 @@ export class TrainerFiltersComponent implements OnInit {
     for(let format of this.trainingFormats)
       format.checked = false;
 
-    this.commonService.onChangeGlobalSportId(undefined);
+    this.commonService.onChangeGlobalCategoryId(undefined);
 
     this.dataFilters.set({});
   }
@@ -83,17 +86,13 @@ export class TrainerFiltersComponent implements OnInit {
       }
   }
 
-  // sport
-  setSport(event: Event) {
+  // category
+  setCategory(event: Event) {
     const select = event.target as HTMLSelectElement;
 
-    const sportId = parseInt(select.value);
+    const categoryId = parseInt(select.value);
 
-    this.commonService.onChangeGlobalSportId(sportId);
-  }
-
-  getSportId() {
-    return this.commonService.globalFilters().sportId;
+    this.commonService.onChangeGlobalCategoryId(categoryId);
   }
 
   // rating
@@ -161,11 +160,14 @@ export class TrainerFiltersComponent implements OnInit {
     this.range.maxValue = this.range.options.ceil ?? 0
   }
 
-  sports: SportModel[] = [];
+  categories: CategoryModel[] = [];
 
-  private getSports() {
-    this.sportsService.get().subscribe({
-      next: data => this.sports = data || []
+  private getCategories() {
+    this.categoriesService.get().subscribe({
+      next: data => {
+        this.categories = data || [];
+        this.selectedCategoryId = this.commonService.globalFilters().categoryId;
+      }
     });
   }
 
@@ -195,7 +197,7 @@ export class TrainerFiltersComponent implements OnInit {
 
   ngOnInit() {
     this.clearPriceRange();
-    this.getSports();
+    this.getCategories();
     this.getClientCategories();
     this.getTrainingFormats();
   }

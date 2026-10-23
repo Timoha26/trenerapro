@@ -1,11 +1,9 @@
 <main class="container">
   <div class="page-header">
-    <h1>Клубы <span>Найдено 100 клубов</span></h1>
+    <h1>Клубы <span>{{ clubs.count | i18nPlural:clubsPluralMap }}</span></h1>
   </div>
 
   <search-sort></search-sort>
-
-  <sports></sports>
 
   <div class="content-grid">
 
@@ -21,7 +19,7 @@
           </div>
           <div class="trainer-body">
             <h3>{{ club.name }}</h3>
-            <p class="sport">{{ club.sports | sportsListener }}</p>
+            <p class="sport">{{ club.sports | categoriesListener }}</p>
             <div class="trainer-rating">
               <em class="fas fa-star"></em>
               <span>{{ club.rating?.rating }} ({{ club.rating?.reviewsCount | reviews }})</span>
@@ -38,7 +36,8 @@
         </div>
       </div>
 
-      <tp-pagination [currentPage]="1" [totalItems]="clubs.count ?? 0" [itemsPerPage]="filters().limit" (pageChange)="onPageChange($event)"></tp-pagination>
+      <tp-pagination [currentPage]="1" [totalItems]="clubs.count ?? 0" [itemsPerPage]="filters().limit"
+                     (pageChange)="onPageChange($event)"></tp-pagination>
     </section>
 
     <rightSidebar></rightSidebar>

@@ -2,7 +2,7 @@ import {Component} from "@angular/core";
 import {TrainersService} from "../../services/trainers.service";
 import {TrainerModel} from "../../models/trainers/trainer.model";
 import {NgForOf, NgIf} from "@angular/common";
-import {SportsListenerPipe} from "../../pipes/sportsListener.pipe";
+import {CategoriesListenerPipe} from "../../pipes/categoriesListener.pipe";
 import {Router, RouterLink} from "@angular/router";
 import {CommonService} from "../../services/common.service";
 import {GlobalFiltersModel} from "../../models/global.filters.model";
@@ -13,7 +13,7 @@ import {GlobalFiltersModel} from "../../models/global.filters.model";
   imports: [
     NgIf,
     NgForOf,
-    SportsListenerPipe,
+    CategoriesListenerPipe,
     RouterLink
   ],
   standalone: true

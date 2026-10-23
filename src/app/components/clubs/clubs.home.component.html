@@ -22,7 +22,7 @@
       </div>
       <div class="club-body">
         <h3>{{ club.name }}</h3>
-        <p class="sport">{{ club.sports | sportsListener }}</p>
+        <p class="sport">{{ club.sports | categoriesListener }}</p>
         <div class="trainer-rating">
           <em class="fas fa-star"></em>
           <span>{{ club.rating?.rating }} ({{ club.rating?.reviewsCount }} отзывов)</span>

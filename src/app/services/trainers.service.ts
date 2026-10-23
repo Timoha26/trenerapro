@@ -35,7 +35,7 @@ export class TrainersService {
 
     let dataFilters: TrainerDataFiltersModel = {
       settlementIds: filters?.settlementIds,
-      sportIds: filters?.sportIds,
+      sportIds: filters?.categoryIds,
       clientCategoryIds: filters?.clientCategoryIds,
       trainingFormatIds: filters?.trainingFormatIds,
       verified: filters?.verified,
@@ -53,8 +53,8 @@ export class TrainersService {
     let params: HttpParams = new HttpParams()
       .set('limit', filters.limit ?? 4);
 
-    if (filters.sportId)
-      params = params.set('sportId', filters.sportId);
+    if (filters.categoryId)
+      params = params.set('sportId', filters.categoryId);
 
     if(filters.settlementId)
       params = params.set('settlementId', filters.settlementId);
@@ -68,8 +68,8 @@ export class TrainersService {
     let params: HttpParams = new HttpParams()
       .set('limit', filters.limit ?? 4);
 
-    if (filters.sportId)
-      params = params.set('sportId', filters.sportId);
+    if (filters.categoryId)
+      params = params.set('sportId', filters.categoryId);
 
     if(filters.settlementId)
       params = params.set('settlementId', filters.settlementId);

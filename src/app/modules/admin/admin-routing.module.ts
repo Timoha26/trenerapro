@@ -9,12 +9,14 @@ import {TrainersEditComponent} from "./components/trainers/trainers.edit.compone
 import {ClubsComponent} from "./components/clubs/clubs.component";
 import {ClubsCreateComponent} from "./components/clubs/clubs.create.component";
 import {ClubsEditComponent} from "./components/clubs/clubs.edit.component";
+import {CategoriesComponent} from "./components/categories/categories.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   {
     path: '', component: AdminComponent, children: [
       {path: 'dashboard', component: DashboardComponent, title: 'Aдминка', canActivate: [AuthGuardService]},
+      {path: 'categories', component: CategoriesComponent, canActivate: [AuthGuardService]},
       {path: 'trainers', component: TrainersComponent, title: 'Aдминка тренеры', canActivate: [AuthGuardService]},
       {path: 'trainers/create', component: TrainersCreateComponent, title: 'Админка новый тренер', canActivate: [AuthGuardService]},
       {path: 'trainers/:id/edit', component: TrainersEditComponent, title: 'Админка изменить тренера', canActivate: [AuthGuardService]},

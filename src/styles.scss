@@ -103,6 +103,11 @@ button {
   font-family: inherit;
 }
 
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
 .container {
   max-width: var(--container);
   margin: 0 auto;
@@ -505,6 +510,95 @@ header {
   &:hover {
     box-shadow: var(--shadow);
     transform: translateY(-4px);
+  }
+}
+
+.landing-sports-grid {
+  //display: grid;
+  //grid-template-columns: repeat(4, 1fr);
+  //gap: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.sport-card {
+  position: relative;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: calc((100% - 3 * 20px) / 4);
+  height: 140px;
+
+  &:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-4px);
+  }
+
+  &__img-wrap {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #eee;
+    flex-shrink: 0;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      //background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__content {
+    display: none;
+    position: relative;
+    z-index: 2;
+    padding: 20px;
+    text-align: center;
+  }
+
+  &__text {
+    margin: 0;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  &__card-fav {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 16px;
+    height: 16px;
+    //background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+      color: #ef4444;
+    }
   }
 }
 
@@ -1046,7 +1140,7 @@ footer {
     font-size: 32px;
     font-weight: 800;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     gap: 16px;
 
     span {
@@ -1162,6 +1256,10 @@ footer {
   padding-bottom: 60px;
 
   &.details-grid {
+    grid-template-columns: 1fr 210px;
+  }
+
+  &.without-filters {
     grid-template-columns: 1fr 210px;
   }
 }
@@ -1283,6 +1381,15 @@ footer {
 .trainers-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.sports-grid {
+  //display: grid;
+  //grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
 }
 
@@ -1634,6 +1741,14 @@ footer {
     grid-template-columns: repeat(3, 1fr);
   }
 
+  .sports-grid {
+    //grid-template-columns: repeat(3, 1fr);
+  }
+
+  .sport-card {
+    width: calc((100% - 2 * 20px) / 3);
+  }
+
   .features-grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -1654,6 +1769,10 @@ footer {
 
     &.details-grid {
       grid-template-columns: 1fr;
+    }
+
+    &.without-filters {
+      grid-template-columns: 1fr 210px;
     }
   }
 }
@@ -1700,8 +1819,24 @@ footer {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .landing-sports-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sport-card {
+    height: 100px;
+  }
+
   .trainers-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sports-grid {
+    //grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sport-card {
+    width: calc((100% - 20px) / 2);
   }
 
   .features-grid {
@@ -1724,6 +1859,10 @@ footer {
     }
 
     &.details-grid {
+      grid-template-columns: 1fr;
+    }
+
+    &.without-filters {
       grid-template-columns: 1fr;
     }
   }
@@ -1829,8 +1968,9 @@ footer {
     display: none;
   }
 
-  .user-actions .location-select span {
-    display: none;
+  .user-actions {
+    margin-left: auto;
+    padding-top: 10px;
   }
 
   .landing-trainers-grid {
@@ -1839,6 +1979,14 @@ footer {
 
   .trainers-grid {
     grid-template-columns: 1fr;
+  }
+
+  .sports-grid {
+    //grid-template-columns: (2, 1fr);
+  }
+
+  .sport-card {
+    width: calc((100% - 20px) / 2);
   }
 
   .features-grid {

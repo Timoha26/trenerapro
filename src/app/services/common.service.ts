@@ -12,6 +12,8 @@ import {GlobalFiltersModel} from "../models/global.filters.model";
 import {CoordsModel} from "../models/coords.model";
 import {SortByEnum} from "../models/sortBy.enum";
 import {SortOptionModel} from "../models/sort.option.model";
+import {CategoryModel} from "../models/category.model";
+import {CategoryTreeModel} from "../models/category.tree.model";
 
 @Injectable({providedIn: 'root'})
 export class CommonService {
@@ -20,10 +22,10 @@ export class CommonService {
 
   public globalFilters = signal<GlobalFiltersModel>({limit: 4, distance: 10});
 
-  public onChangeGlobalSportId(sportId?: number) {
+  public onChangeGlobalCategoryId(categoryId?: number) {
     this.globalFilters.update(state => ({
       ...state,
-      sportId: sportId
+      categoryId: categoryId
     }));
   }
 
@@ -163,5 +165,46 @@ export class CommonService {
     };
 
     return createFakeUser();
+  }
+
+  public buildCategoriesTree(categories: CategoryModel[]): CategoryTreeModel[] {
+    const map: Record<number, CategoryTreeModel> = {};
+    const tree: CategoryTreeModel[] = [];
+
+    categories.forEach(item => {
+      map[item.id ?? 0] = {...item, subCategories: []};
+    });
+
+    categories.forEach(item => {
+      const category = map[item.id ?? 0];
+      if (!item.parentId || !map[item.parentId]) {
+        tree.push(category);
+      } else {
+        map[item.parentId].subCategories.push(category);
+      }
+    });
+
+    //для того что меню не лезло дальше второго уровня
+    tree.forEach(item => {
+      item.subCategories.forEach(subCategory => subCategory.parentId = undefined);
+    });
+
+    return tree;
+  }
+
+  public getSubCategoriesById(categories: CategoryTreeModel[], parentId?: number): CategoryTreeModel[] | null {
+    for (const category of categories) {
+      if (category.id == parentId)
+        return category.subCategories;
+
+      if (category.subCategories && category.subCategories.length > 0) {
+        const foundSubCategories = this.getSubCategoriesById(category.subCategories, parentId);
+
+        if (foundSubCategories !== null)
+          return foundSubCategories;
+      }
+    }
+
+    return null;
   }
 }

@@ -1,8 +1,8 @@
 import {NgClass, NgForOf} from "@angular/common";
 import {Component, Input, signal} from "@angular/core";
 import {FormsModule} from "@angular/forms";
-import {SportsService} from "../../services/sports.service";
-import {SportModel} from "../../models/sport.model";
+import {CategoriesService} from "../../services/categories.service";
+import {CategoryModel} from "../../models/category.model";
 import {ClubDataFiltersModel} from "../../models/clubs/club.data.filters.model";
 import {CommonService} from "../../services/common.service";
 
@@ -17,7 +17,7 @@ import {CommonService} from "../../services/common.service";
   ]
 })
 export class ClubFiltersComponent {
-  constructor(private sportsService: SportsService,
+  constructor(private categoriesService: CategoriesService,
               private commonService: CommonService) {
   }
 
@@ -29,25 +29,23 @@ export class ClubFiltersComponent {
     {stars: [1, 2, 3]}
   ];
 
+  selectedCategoryId?: number = undefined;
+
   clearFilters(event: Event) {
     event.preventDefault();
 
-    this.commonService.onChangeGlobalSportId(undefined);
+    this.commonService.onChangeGlobalCategoryId(undefined);
 
     this.dataFilters.set({});
   }
 
-  // sport
-  setSport(event: Event) {
+  // category
+  setCategory(event: Event) {
     const select = event.target as HTMLSelectElement;
 
-    const sportId = parseInt(select.value);
+    const categoryId = parseInt(select.value);
 
-    this.commonService.onChangeGlobalSportId(sportId);
-  }
-
-  getSportId() {
-    return this.commonService.globalFilters().sportId;
+    this.commonService.onChangeGlobalCategoryId(categoryId);
   }
 
   // rating
@@ -70,17 +68,18 @@ export class ClubFiltersComponent {
     }));
   }
 
-  sports: SportModel[] = [];
+  categories: CategoryModel[] = [];
 
-  private getSports() {
-    this.sportsService.get().subscribe({
+  private getCategories() {
+    this.categoriesService.get().subscribe({
       next: data => {
-        this.sports = data || [];
+        this.categories = data || [];
+        this.selectedCategoryId = this.commonService.globalFilters().categoryId;
       }
     });
   }
 
   ngOnInit() {
-    this.getSports();
+    this.getCategories();
   }
 }

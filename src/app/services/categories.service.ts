@@ -22,7 +22,7 @@ export class CategoriesService {
           id: item.id,
           name: item.name,
           icon: item.icon,
-          imageUrl: this.commonService.restoreUrl(item.imageUrl),
+          imageUrl: item.imageFile ? this.commonService.restoreUrl(item.imageFile.url) : undefined,
           parentId: item.parentSportId
         }))
       )

@@ -15,14 +15,14 @@ const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   {
     path: '', component: AdminComponent, children: [
-      {path: 'dashboard', component: DashboardComponent, title: 'Aдминка', canActivate: [AuthGuardService]},
-      {path: 'categories', component: CategoriesComponent, canActivate: [AuthGuardService]},
-      {path: 'trainers', component: TrainersComponent, title: 'Aдминка тренеры', canActivate: [AuthGuardService]},
-      {path: 'trainers/create', component: TrainersCreateComponent, title: 'Админка новый тренер', canActivate: [AuthGuardService]},
-      {path: 'trainers/:id/edit', component: TrainersEditComponent, title: 'Админка изменить тренера', canActivate: [AuthGuardService]},
-      {path: 'clubs', component: ClubsComponent, title: 'Aдминка клубы', canActivate: [AuthGuardService]},
-      {path: 'clubs/create', component: ClubsCreateComponent, title: 'Админка новый клуб', canActivate: [AuthGuardService]},
-      {path: 'clubs/:id/edit', component: ClubsEditComponent, title: 'Админка изменить клуб', canActivate: [AuthGuardService]}
+      {path: 'dashboard', component: DashboardComponent, title: 'ТренерPRO-админка', canActivate: [AuthGuardService]},
+      {path: 'categories', component: CategoriesComponent, title: 'ТренерPRO-админка категории', canActivate: [AuthGuardService]},
+      {path: 'trainers', component: TrainersComponent, title: 'ТренерPRO-админка тренеры', canActivate: [AuthGuardService]},
+      {path: 'trainers/create', component: TrainersCreateComponent, title: 'ТренерPRO-админка новый тренер', canActivate: [AuthGuardService]},
+      {path: 'trainers/:id/edit', component: TrainersEditComponent, title: 'ТренерPRO-админка изменить тренера', canActivate: [AuthGuardService]},
+      {path: 'clubs', component: ClubsComponent, title: 'ТренерPRO-админка клубы', canActivate: [AuthGuardService]},
+      {path: 'clubs/create', component: ClubsCreateComponent, title: 'ТренерPRO-админка новый клуб', canActivate: [AuthGuardService]},
+      {path: 'clubs/:id/edit', component: ClubsEditComponent, title: 'ТренерPRO-админка изменить клуб', canActivate: [AuthGuardService]}
     ]
   }
 ];

@@ -14,24 +14,23 @@ import {SearchComponent} from "./components/search/search.component";
 import {CategoriesComponent} from "./components/categories/categories.component";
 
 const routes: Routes = [
-  {path: '', component: HomeComponent, pathMatch: 'full'},
-  {path: 'categories', component: CategoriesComponent, pathMatch: 'full'},
-  {path: 'categories/:parentId', component: CategoriesComponent, pathMatch: 'full'},
-  {path: 'trainers', component: TrainersComponent, pathMatch: 'full'},
-  {path: 'trainers/:id', component: TrainersDetailsComponent, pathMatch: 'full'},
-  {path: 'clubs', component: ClubsComponent, pathMatch: 'full'},
-  {path: 'clubs/:id', component: ClubsDetailsComponent, pathMatch: 'full'},
-  {path: 'questionnaire', component: QuestionnaireComponent, pathMatch: 'full'},
-  {path: 'about', component: AboutComponent, pathMatch: 'full'},
-  {path: 'verification', component: VerificationComponent, pathMatch: 'full'},
-  {path: 'search', component: SearchComponent, pathMatch: 'full'},
+  {path: '', component: HomeComponent, pathMatch: 'full', title: 'ТренерPRO — Найдите проверенного спортивного тренера или клуб'},
+  {path: 'categories', component: CategoriesComponent, pathMatch: 'full', title: 'ТренерPRO категории'},
+  {path: 'trainers', component: TrainersComponent, pathMatch: 'full', title: 'ТренерPRO тренеры'},
+  {path: 'trainers/:id', component: TrainersDetailsComponent, pathMatch: 'full', title: 'ТренерPRO тренеры'},
+  {path: 'clubs', component: ClubsComponent, pathMatch: 'full', title: 'ТренерPRO клубы'},
+  {path: 'clubs/:id', component: ClubsDetailsComponent, pathMatch: 'full', title: 'ТренерPRO клубы'},
+  {path: 'questionnaire', component: QuestionnaireComponent, pathMatch: 'full', title: 'ТренерPRO анкета'},
+  {path: 'about', component: AboutComponent, pathMatch: 'full', title: 'ТренерPRO о нас'},
+  {path: 'verification', component: VerificationComponent, pathMatch: 'full', title: 'ТренерPRO о проверке'},
+  {path: 'search', component: SearchComponent, pathMatch: 'full', title: 'ТренерPRO поиск'},
   {
     path: 'admin',
     loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule),
-    title: 'СИП-строй админка',
+    title: 'ТренерPRO-админка',
     canMatch: [AuthGuardService]
   },
-  {path: '**', component: NotFoundComponent}
+  {path: '**', component: NotFoundComponent, title: 'ТренерPRO 404'}
 ];
 
 @NgModule({

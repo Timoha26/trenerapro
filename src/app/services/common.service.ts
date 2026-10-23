@@ -14,6 +14,7 @@ import {SortByEnum} from "../models/sortBy.enum";
 import {SortOptionModel} from "../models/sort.option.model";
 import {CategoryModel} from "../models/category.model";
 import {CategoryTreeModel} from "../models/category.tree.model";
+import {CategoryChainModel} from "../models/category.chain.model";
 
 @Injectable({providedIn: 'root'})
 export class CommonService {
@@ -206,5 +207,24 @@ export class CommonService {
     }
 
     return null;
+  }
+
+  public getChainCategories(categoryId: number, allCategories: CategoryModel[]): CategoryChainModel[] {
+    const chain: CategoryChainModel[] = [];
+
+    let current = allCategories.find(category => category.id === categoryId);
+
+    while (current) {
+      chain.push({
+        id: current?.parentId ? current.id : undefined,
+        name: current.name,
+        subCategoriesExist: allCategories.some(category => category.parentId == current?.id),
+        parentId: current?.parentId
+      });
+
+      current = allCategories.find(category => category.id === current?.parentId);
+    }
+
+    return chain.reverse();
   }
 }

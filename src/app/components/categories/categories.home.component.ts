@@ -6,6 +6,7 @@ import {CategoriesService} from "../../services/categories.service";
 import {CommonService} from "../../services/common.service";
 import {ResizeTrackerDirective} from "../../directives/resizeTracker.directive";
 import {CategoryTreeModel} from "../../models/category.tree.model";
+import {CategoryChainModel} from "../../models/category.chain.model";
 
 @Component({
   selector: 'categories',
@@ -19,24 +20,16 @@ import {CategoryTreeModel} from "../../models/category.tree.model";
   ]
 })
 export class CategoriesHomeComponent implements OnInit {
-
-  public currentId?: number = undefined;
-
   allCategories: CategoryModel[] = [];
   treeCategories: CategoryTreeModel[] = [];
   viewCategories: CategoryTreeModel[] = [];
   displayedCategories: CategoryTreeModel[] = [...this.viewCategories];
-  prevParentId?: number = undefined;
-  gotoSteps: number = 0;
   isSmallScreen: boolean = false;
+  chainCategories: CategoryChainModel[] = [];
 
   constructor(private router: Router,
               private categoriesService: CategoriesService,
               private commonService: CommonService) {
-    effect(() => {
-      const globalFilters = this.commonService.globalFilters();
-      this.currentId = globalFilters.categoryId;
-    });
   }
 
   private getCategories() {
@@ -64,29 +57,31 @@ export class CategoriesHomeComponent implements OnInit {
     }
   }
 
-  public goToBack() {
-    this.getViewCategories(this.prevParentId);
-    this.gotoSteps--;
-    if(this.allCategories && this.allCategories.length > 0) {
-      const prevCategory = this.allCategories.find(s => s.id == this.prevParentId);
+  goToPageByCategory(category: CategoryTreeModel) {
+    const chainCategory: CategoryChainModel = {
+      id: category.id,
+      name: category.name,
+      subCategoriesExist: category.subCategories && category.subCategories.length > 0,
+      parentId: category.parentId
+    };
 
-      if(prevCategory)
-        this.prevParentId = prevCategory.parentId;
-    }
+    this.goToPageByChain(chainCategory);
   }
 
-  public goToPage(category?: CategoryTreeModel) {
+  goToPageByChain(category?: CategoryChainModel) {
     if (!category) return;
 
-    if (category.subCategories && category.subCategories.length > 0) {
-      this.prevParentId = category.parentId;
-      this.gotoSteps++;
-
+    if (category.subCategoriesExist) {
+      this.chainCategories = this.commonService.getChainCategories(category.id ?? 0, this.allCategories);
       this.getViewCategories(category.id);
     } else {
       this.commonService.onChangeGlobalCategoryId(category.id);
       this.router.navigate(['/trainers']);
     }
+  }
+
+  isLastChainCategory(categoryId: number, categories: CategoryChainModel[]): boolean {
+    return categories.findIndex(c => c.id == categoryId) == categories.length - 1;
   }
 
   ngOnInit() {

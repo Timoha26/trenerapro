@@ -1,18 +1,20 @@
 <main class="container">
-  <div class="page-header">
+  <div class="page-header section-title m-0">
     <h1>Категории</h1>
-    <button type="button" class="btn-outline" (click)="goToBack()" *ngIf="gotoSteps > 0">
-      <em class="fas fa-angle-left"></em>
-      Назад
-    </button>
   </div>
 
   <div class="content-grid without-filters">
-    <section *ngIf="gotoSteps < 1">
+    <section *ngIf="chainCategories.length < 2">
       <div *ngFor="let section of viewCategories" style="margin-bottom:20px;">
-        <h2>{{ section.name }}</h2>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              {{ section.name }}
+            </li>
+          </ol>
+        </nav>
         <div class="sports-grid">
-          <div class="sport-card" *ngFor="let subCategory of section.subCategories" (click)="goToPage(subCategory)">
+          <div class="sport-card" *ngFor="let subCategory of section.subCategories" (click)="goToPageByCategory(subCategory)">
             <div class="sport-card__img-wrap">
               <div class="sport-card__card-fav"
                    *ngIf="!subCategory.subCategories || subCategory.subCategories.length < 1">
@@ -28,9 +30,17 @@
       </div>
     </section>
 
-    <section *ngIf="gotoSteps > 0">
+    <section *ngIf="chainCategories.length > 1">
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item" *ngFor="let category of chainCategories">
+            <a href="#" (click)="$event.preventDefault(); goToPageByChain(category)" *ngIf="!isLastChainCategory(category.id ?? 0, chainCategories)">{{ category.name }}</a>
+            <span *ngIf="isLastChainCategory(category.id ?? 0, chainCategories)">{{ category.name }}</span>
+          </li>
+        </ol>
+      </nav>
       <div class="sports-grid">
-        <div class="sport-card" *ngFor="let category of viewCategories" (click)="goToPage(category)">
+        <div class="sport-card" *ngFor="let category of viewCategories" (click)="goToPageByCategory(category)">
           <div class="sport-card__img-wrap">
             <div class="sport-card__card-fav" *ngIf="!category.subCategories || category.subCategories.length < 1">
               <i class="far fa-share-square"></i>

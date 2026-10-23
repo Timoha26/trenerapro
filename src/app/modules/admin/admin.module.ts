@@ -19,8 +19,8 @@ import {TrainersEditComponent} from "./components/trainers/trainers.edit.compone
 import {TrainersService} from "../../services/trainers.service";
 import {TrainingFormatsService} from "../../services/training.formats.service";
 import {ClientCategoriesService} from "../../services/client.categories.service";
-import {SportsService} from "../../services/sports.service";
-import {SportCreateModalComponent} from "./components/sports/sport.create.modal.component";
+import {CategoriesService} from "../../services/categories.service";
+import {CategoryCreateModalComponent} from "./components/categories/category.create.modal.component";
 import {
   TrainingFormatsCreateModalComponent
 } from "./components/training.formats/training.formats.create.modal.component";
@@ -40,8 +40,10 @@ import {ContactsService} from "../../services/contacts.service";
 import {CommonService} from "../../services/common.service";
 import {ContactsModalComponent} from "./components/contacts/contacts.modal.component";
 import {ContactsComponent} from "./components/contacts/contacts.component";
-import {SportsSelectComponent} from "./components/sports/sports.select.component";
+import {CategoriesSelectComponent} from "./components/categories/categories.select.component";
 import {LocationsService} from "../../services/locations.service";
+import {CategoriesComponent} from "./components/categories/categories.component";
+import {CategoryTreeComponent} from "./components/categories/category.tree.component";
 
 
 @NgModule({
@@ -53,7 +55,8 @@ import {LocationsService} from "../../services/locations.service";
     TrainersEditComponent,
     ClubsComponent,
     ClubsCreateComponent,
-    ClubsEditComponent
+    ClubsEditComponent,
+    CategoriesComponent
   ],
   imports: [
     CommonModule,
@@ -64,18 +67,19 @@ import {LocationsService} from "../../services/locations.service";
     InputMaskModule,
     ToastrModule.forRoot(),
     CollapseModule,
-    SportsSelectComponent,
+    CategoriesSelectComponent,
     TrainingFormatsSelectComponent,
     ClientCategoriesSelectComponent,
     SettlementSelectComponent,
     ConfirmationModalComponent,
-    SportCreateModalComponent,
+    CategoryCreateModalComponent,
     TrainingFormatsCreateModalComponent,
     ClientCategoriesCreateModalComponent,
     SettlementCreateModalComponent,
     FileModalComponent,
     ContactsComponent,
-    ContactsModalComponent
+    ContactsModalComponent,
+    CategoryTreeComponent
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'ru-RU'},
@@ -87,7 +91,7 @@ import {LocationsService} from "../../services/locations.service";
     AuthGuardService,
     TrainingFormatsService,
     ClientCategoriesService,
-    SportsService,
+    CategoriesService,
     SettlementsService,
     ContactsService,
     CommonService,

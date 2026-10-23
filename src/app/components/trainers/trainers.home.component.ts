@@ -4,7 +4,7 @@ import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {TrainersService} from "../../services/trainers.service";
 import {TrainerModel} from "../../models/trainers/trainer.model";
 import {distinctUntilChanged, switchMap} from "rxjs";
-import {SportsListenerPipe} from "../../pipes/sportsListener.pipe";
+import {CategoriesListenerPipe} from "../../pipes/categoriesListener.pipe";
 import {PriceGradationPipe} from "../../pipes/priceGradation.pipe";
 import {ReviewsPipe} from "../../pipes/reviews.pipe";
 import {CommonService} from "../../services/common.service";
@@ -22,7 +22,7 @@ import {toObservable} from "@angular/core/rxjs-interop";
     NgForOf,
     NgIf,
     CurrencyPipe,
-    SportsListenerPipe,
+    CategoriesListenerPipe,
     PriceGradationPipe,
     ReviewsPipe
   ]

@@ -1,4 +1,4 @@
-import {Component, computed, ElementRef, OnInit, signal, ViewChild} from "@angular/core";
+import {Component, computed, OnInit, signal} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {TrainersService} from "../../services/trainers.service";
 import {TrainerModel} from "../../models/trainers/trainer.model";

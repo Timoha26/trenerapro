@@ -2,7 +2,7 @@ import {CoordsModel} from "./coords.model";
 import {SortByEnum} from "./sortBy.enum";
 
 export interface GlobalFiltersModel {
-  sportId?: number;
+  categoryId?: number;
   settlementId?: number;
   coords?: CoordsModel;
   userCoords?: CoordsModel;

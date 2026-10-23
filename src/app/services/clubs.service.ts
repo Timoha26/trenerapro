@@ -34,7 +34,7 @@ export class ClubsService {
 
     let dataFilters: ClubDataFiltersModel = {
       settlementIds: filters?.settlementIds,
-      sportIds: filters?.sportIds,
+      sportIds: filters?.categoryIds,
       verified: filters?.verified,
       minRating: filters?.minRating
     };
@@ -48,8 +48,8 @@ export class ClubsService {
     let params: HttpParams = new HttpParams()
       .set('limit', filters.limit ?? 4);
 
-    if (filters.sportId)
-      params = params.set('sportId', filters.sportId);
+    if (filters.categoryId)
+      params = params.set('sportId', filters.categoryId);
 
     if(filters.settlementId)
       params = params.set('settlementId', filters.settlementId);
@@ -63,8 +63,8 @@ export class ClubsService {
     let params: HttpParams = new HttpParams()
       .set('limit', filters.limit ?? 4);
 
-    if (filters.sportId)
-      params = params.set('sportId', filters.sportId);
+    if (filters.categoryId)
+      params = params.set('sportId', filters.categoryId);
 
     if(filters.settlementId)
       params = params.set('settlementId', filters.settlementId);

@@ -9,7 +9,6 @@ import {ClubModel} from "../../models/clubs/club.model";
 import {ClubsService} from "../../services/clubs.service";
 import {CommonService} from "../../services/common.service";
 import {ClubDataFiltersModel} from "../../models/clubs/club.data.filters.model";
-import {SortOptionModel} from "../../models/sort.option.model";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {ReviewCreateModalComponent} from "../reviews/review.create.modal.component";
 import {ReviewModel} from "../../models/reviews/review.model";
@@ -29,7 +28,7 @@ export class ClubsComponent {
       coords: globalFilters.coords,
       distance: globalFilters.distance,
       settlementIds: globalFilters.settlementId ? [globalFilters.settlementId] : undefined,
-      sportIds: globalFilters.sportId ? [globalFilters.sportId] : undefined,
+      categoryIds: globalFilters.categoryId ? [globalFilters.categoryId] : undefined,
       verified: filters.verified,
       minRating: filters.minRating,
       sort: globalFilters.sort,
@@ -49,7 +48,7 @@ export class ClubsComponent {
           coords: filters.coords,
           distance: filters.distance,
           settlementIds: filters.settlementIds,
-          sportIds: filters.sportIds,
+          categoryIds: filters.categoryIds,
           verified: filters.verified,
           minRating: filters.minRating,
           sort: filters.sort,
@@ -70,6 +69,15 @@ export class ClubsComponent {
   });
 
   public clubs: PageResultModel<ClubModel> = {count: 0, items: []};
+
+  public clubsPluralMap: { [key: string]: string } = {
+    '=0': 'не найдены',
+    '=1': 'найден # клуб',
+    'few': 'найдено # клуба',
+    'many': 'найдено # клубов',
+    'other': 'найдено # клуба'
+  };
+
   private modalRef?: BsModalRef;
 
   dataFilters = signal<ClubDataFiltersModel>({});

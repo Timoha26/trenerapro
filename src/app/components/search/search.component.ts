@@ -52,8 +52,6 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (path != '/')
       path = path + '/' + item.entityId;
 
-    console.log(path);
-
     return path;
   }
 
@@ -73,8 +71,6 @@ export class SearchComponent implements OnInit, OnDestroy {
 
       if (entityType && Object.values(EntityTypeEnum).includes(entityType as EntityTypeEnum))
         this.entityType = entityType as EntityTypeEnum;
-
-      console.log(this.searchText, this.settlementId, this.entityType);
 
       if (this.searchText && this.searchText.length > 0)
         this.onSearch();

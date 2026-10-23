@@ -22,7 +22,7 @@ export class ClubsComponent {
     sort: SortByEnum.Rating,
     desc: false,
     settlementIds: undefined,
-    sportIds: undefined,
+    categoryIds: undefined,
     verified: undefined,
     minRating: undefined
   };

@@ -8,7 +8,6 @@ import {toObservable} from "@angular/core/rxjs-interop";
 import {distinctUntilChanged, switchMap} from "rxjs";
 import {SortByEnum} from "../../models/sortBy.enum";
 import {CommonService} from "../../services/common.service";
-import {SortOptionModel} from "../../models/sort.option.model";
 import {TrainerDataFiltersModel} from "../../models/trainers/trainer.data.filters.model";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {ReviewCreateModalComponent} from "../reviews/review.create.modal.component";
@@ -29,7 +28,7 @@ export class TrainersComponent {
       coords: globalFilters.coords,
       distance: globalFilters.distance,
       settlementIds: globalFilters.settlementId ? [globalFilters.settlementId] : undefined,
-      sportIds: globalFilters.sportId ? [globalFilters.sportId] : undefined,
+      categoryIds: globalFilters.categoryId ? [globalFilters.categoryId] : undefined,
       clientCategoryIds: filters.clientCategoryIds,
       trainingFormatIds: filters.trainingFormatIds,
       verified: filters.verified,
@@ -53,7 +52,7 @@ export class TrainersComponent {
           coords: filters.coords,
           distance: filters.distance,
           settlementIds: filters.settlementIds,
-          sportIds: filters.sportIds,
+          categoryIds: filters.categoryIds,
           clientCategoryIds: filters.clientCategoryIds,
           trainingFormatIds: filters.trainingFormatIds,
           verified: filters.verified,
@@ -78,6 +77,15 @@ export class TrainersComponent {
   });
 
   public trainers: PageResultModel<TrainerModel> = {count: 0, items: []};
+
+  public trainersPluralMap: { [key: string]: string } = {
+    '=0': 'не найдены',
+    '=1': 'найден # тренер',
+    'few': 'найдено # тренера',
+    'many': 'найдено # тренеров',
+    'other': 'найдено # тренера'
+  };
+
   private modalRef?: BsModalRef;
 
   dataFilters = signal<TrainerDataFiltersModel>({});

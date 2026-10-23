@@ -3,7 +3,7 @@ import {RouterLink} from "@angular/router";
 import {NgForOf, NgIf} from "@angular/common";
 import {ClubsService} from "../../services/clubs.service";
 import {ClubModel} from "../../models/clubs/club.model";
-import {SportsListenerPipe} from "../../pipes/sportsListener.pipe";
+import {CategoriesListenerPipe} from "../../pipes/categoriesListener.pipe";
 import {distinctUntilChanged, switchMap} from "rxjs";
 import {CommonService} from "../../services/common.service";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
@@ -19,7 +19,7 @@ import {toObservable} from "@angular/core/rxjs-interop";
     RouterLink,
     NgForOf,
     NgIf,
-    SportsListenerPipe
+    CategoriesListenerPipe
   ]
 })
 export class ClubsHomeComponent {

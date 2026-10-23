@@ -22,7 +22,7 @@
       </div>
       <div class="trainer-body">
         <h3>{{ trainer.firstname }} {{ trainer.lastname }}</h3>
-        <p class="sport">{{ trainer.sports | sportsListener }}</p>
+        <p class="sport">{{ trainer.sports | categoriesListener }}</p>
         <div class="trainer-rating">
           <em class="fas fa-star"></em>
           <span>{{ trainer.rating?.rating }} ({{ trainer.rating?.reviewsCount | reviews }})</span>

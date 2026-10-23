@@ -1,5 +1,4 @@
 import {Component, effect} from "@angular/core";
-import {SearchService} from "../../services/search.service";
 import {GeoService} from "../../services/geo.service";
 import {Router} from "@angular/router";
 

@@ -5,7 +5,7 @@ export interface ClubFiltersModel extends QueryParametersModel {
   coords?: CoordsModel;
   distance?: number;
   settlementIds?: number[],
-  sportIds?: number[],
+  categoryIds?: number[],
   verified?: boolean,
   minRating?: number
 }

@@ -18,7 +18,7 @@
       <div class="top-avatar"><img src="{{trainer.logoUrl}}" style="width:100%; height:100%; border-radius:50%;"></div>
       <div class="top-info">
         <h4>{{trainer.firstname}} {{trainer.lastname}}</h4>
-        <p class="text-ellipsis" title="{{trainer.sports | sportsListener}}">{{trainer.sports | sportsListener}}</p>
+        <p class="text-ellipsis" title="{{trainer.sports | categoriesListener}}">{{trainer.sports | categoriesListener}}</p>
         <p>
           <em class="fas fa-star"></em>
           {{trainer.rating?.rating}} ({{trainer.rating?.reviewsCount}})

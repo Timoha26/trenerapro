@@ -5,7 +5,7 @@ export interface TrainerFiltersModel extends QueryParametersModel {
   coords?: CoordsModel;
   distance?: number;
   settlementIds?: number[];
-  sportIds?: number[];
+  categoryIds?: number[];
   clientCategoryIds?: number[];
   trainingFormatIds?: number[];
   verified?: boolean;

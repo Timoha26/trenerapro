@@ -65,8 +65,6 @@ export class SearchSortComponent {
   ngOnInit() {
     this.commonService.onChangeGlobalSort(this.sortOptions[0]);
 
-    console.log(this.route.snapshot.routeConfig?.path);
-
     switch (this.route.snapshot.routeConfig?.path) {
       case 'trainers':
         this.entityType = EntityTypeEnum.Trainer;

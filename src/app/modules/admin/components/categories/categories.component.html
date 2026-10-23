@@ -1,0 +1,25 @@
+<section id="admin_projects" class="py-5">
+  <div class="container">
+    <div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between mb-4">
+      <div>
+        <h4 class="fw-bold mb-2">Категории</h4>
+      </div>
+      <div class="btn-group float-end">
+        <a class="btn btn-outline-success mt-3 mt-md-0" routerLink="/admin">
+          <em class="fas fa-angle-left"></em>
+          к админке
+        </a>
+        <a class="btn btn-outline-success mt-3 mt-md-0" (click)="addCategory(undefined)">
+          <em class="fas fa-plus"></em>
+          добавить
+        </a>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <admin-category-tree [categories]="categoriesTree" [lite]="false" [editable]="true" [selectable]="false"
+                        (addAction)="addCategory($event)" (editAction)="editCategory($event)"
+                        (removeAction)="remove($event)"></admin-category-tree>
+    </div>
+  </div>
+</section>

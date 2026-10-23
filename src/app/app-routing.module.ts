@@ -11,9 +11,12 @@ import {QuestionnaireComponent} from "./components/questionnaire/questionnaire.c
 import {AboutComponent} from "./components/about/about.component";
 import {VerificationComponent} from "./components/verification/verification.component";
 import {SearchComponent} from "./components/search/search.component";
+import {CategoriesComponent} from "./components/categories/categories.component";
 
 const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
+  {path: 'categories', component: CategoriesComponent, pathMatch: 'full'},
+  {path: 'categories/:parentId', component: CategoriesComponent, pathMatch: 'full'},
   {path: 'trainers', component: TrainersComponent, pathMatch: 'full'},
   {path: 'trainers/:id', component: TrainersDetailsComponent, pathMatch: 'full'},
   {path: 'clubs', component: ClubsComponent, pathMatch: 'full'},

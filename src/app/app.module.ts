@@ -15,9 +15,9 @@ import {TrainersHomeComponent} from "./components/trainers/trainers.home.compone
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ClubsHomeComponent} from "./components/clubs/clubs.home.component";
 import {ReviewsHomeComponent} from "./components/reviews/reviews.home.component";
-import {SportsHomeComponent} from "./components/sports/sports.home.component";
+import {CategoriesHomeComponent} from "./components/categories/categories.home.component";
 import {WhyusHomeComponent} from "./components/whyus/whyus.home.component";
-import {SportsService} from "./services/sports.service";
+import {CategoriesService} from "./services/categories.service";
 import {FormsModule} from "@angular/forms";
 import {TrainerFiltersComponent} from "./components/trainers/trainer.filters.component";
 import {RightSidebarComponent} from "./components/rightSidebar/rightSidebar.component";
@@ -32,7 +32,7 @@ import {AuthService} from "./services/auth/auth.service";
 import {AuthGuardService} from "./services/auth/auth.guard.service";
 import {SettlementsService} from "./services/settlements.service";
 import {PaginationComponent} from "./components/pagination/pagination.component";
-import {SportsListenerPipe} from "./pipes/sportsListener.pipe";
+import {CategoriesListenerPipe} from "./pipes/categoriesListener.pipe";
 import {PriceGradationPipe} from "./pipes/priceGradation.pipe";
 import {ClientCategoriesListenerPipe} from "./pipes/clientCategoriesListener.pipe";
 import {ClientCategoriesService} from "./services/client.categories.service";
@@ -55,6 +55,8 @@ import {AboutComponent} from "./components/about/about.component";
 import {VerificationComponent} from "./components/verification/verification.component";
 import {SearchComponent} from "./components/search/search.component";
 import {EntityTypePipe} from "./pipes/entityType.pipe";
+import {CategoriesComponent} from "./components/categories/categories.component";
+import {ResizeTrackerDirective} from "./directives/resizeTracker.directive";
 
 registerLocaleData(localeRu)
 
@@ -70,7 +72,8 @@ registerLocaleData(localeRu)
     QuestionnaireComponent,
     AboutComponent,
     VerificationComponent,
-    SearchComponent
+    SearchComponent,
+    CategoriesComponent
   ],
   imports: [
     ModalModule.forRoot(),
@@ -82,7 +85,7 @@ registerLocaleData(localeRu)
     TrainersHomeComponent,
     ClubsHomeComponent,
     ReviewsHomeComponent,
-    SportsHomeComponent,
+    CategoriesHomeComponent,
     WhyusHomeComponent,
     TrainerFiltersComponent,
     RightSidebarComponent,
@@ -90,7 +93,7 @@ registerLocaleData(localeRu)
     InputMaskModule,
     PaginationComponent,
     NgOptimizedImage,
-    SportsListenerPipe,
+    CategoriesListenerPipe,
     PriceGradationPipe,
     ClientCategoriesListenerPipe,
     AgePipe,
@@ -101,7 +104,8 @@ registerLocaleData(localeRu)
     RatingModule,
     BsDropdownModule,
     TypeaheadModule.forRoot(),
-    EntityTypePipe
+    EntityTypePipe,
+    ResizeTrackerDirective
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'ru-RU'},
@@ -110,7 +114,7 @@ registerLocaleData(localeRu)
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     TrainersService,
     ClubsService,
-    SportsService,
+    CategoriesService,
     ReviewsService,
     AuthService,
     AuthGuardService,

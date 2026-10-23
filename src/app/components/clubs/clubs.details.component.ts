@@ -1,5 +1,5 @@
 import {Component, computed, OnInit, signal} from "@angular/core";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import {FileUploadModel} from "../../models/file.upload.model";
 import {ClubModel} from "../../models/clubs/club.model";
 import {ClubsService} from "../../services/clubs.service";

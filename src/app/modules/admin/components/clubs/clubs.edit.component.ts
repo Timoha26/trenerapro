@@ -15,7 +15,7 @@ import {LocationCreateModel} from "../../../../models/locations/location.create.
 import {LocationModel} from "../../../../models/locations/location.model";
 
 @Component({
-  selector: 'admin-projects-edit',
+  selector: 'admin-clubs-edit',
   templateUrl: 'clubs.edit.component.html'
 })
 export class ClubsEditComponent {

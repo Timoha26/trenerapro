@@ -1,0 +1,33 @@
+<ul [ngClass]="{'list-group list-group-flush': !lite}">
+  <li *ngFor="let category of categories" class="list-group-item list-group-item-action">
+    <div *ngIf="!editable && selectable" class="form-check form-check-inline">
+      <input type="checkbox" class="form-check-input" id="category_{{category.id}}" [checked]="isChecked(category.id)"
+             (change)="checkboxChange([category, $event])" *ngIf="category.subCategories.length < 1">
+      <label class="form-check-label" for="category_{{category.id}}">
+        {{ category.name }}
+      </label>
+    </div>
+    <div *ngIf="!editable && !selectable">
+
+    </div>
+    <div *ngIf="editable">
+      <span class="form-check-label">{{ category.name }}</span>
+      <div class="btn-group float-end" role="group">
+        <button class="btn btn-success btn-xs" (click)="add(category.id)" title="Добавить подкатегорию">
+          <em class="fas fa-plus"></em>
+        </button>
+        <button class="btn btn-warning btn-xs" (click)="edit(category.id)" title="Редактировать">
+          <em class="fas fa-pen-to-square"></em>
+        </button>
+        <button class="btn btn-danger btn-xs" (click)="remove(category.id)" title="Удалить">
+          <em class="fas fa-trash"></em>
+        </button>
+      </div>
+    </div>
+    <admin-category-tree *ngIf="category.subCategories && category.subCategories.length > 0"
+                         [categories]="category.subCategories" [lite]="lite" [editable]="editable"
+                         [selectable]="selectable" [categoryIds]="categoryIds" (addAction)="add($event)"
+                         (editAction)="edit($event)" (removeAction)="remove($event)"
+                         (checkboxChangeAction)="checkboxChange($event)"></admin-category-tree>
+  </li>
+</ul>

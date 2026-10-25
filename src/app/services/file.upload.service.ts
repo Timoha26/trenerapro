@@ -14,7 +14,7 @@ export class FileUploadService {
     return conf.trainerProUrl + '/api/v1/files' + path;
   }
 
-  public upload(file: File, fileType: FileTypeEnum, trainerId?: number, clubId?: number): Observable<HttpEvent<any>> {
+  public upload(file: File, fileType: FileTypeEnum, trainerId?: number, clubId?: number, categoryId?: number): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
     formData.append('file', file, file.name);
@@ -25,6 +25,9 @@ export class FileUploadService {
 
     if (clubId)
       formData.append('clubId', clubId.toString());
+
+    if (categoryId)
+      formData.append('sportId', categoryId.toString());
 
     return this.http.post(this.getUrl(''), formData, {
       reportProgress: true,

@@ -8,12 +8,14 @@ import {FileUploadModel} from "../../../../models/file.upload.model";
 import {FileUploadService} from "../../../../services/file.upload.service";
 import {FileTypeEnum} from "../../../../models/file.type.enum";
 import {HttpEvent, HttpEventType} from "@angular/common/http";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'category-create-modal',
   templateUrl: 'category.create.modal.component.html',
   imports: [
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   standalone: true
 })
@@ -49,7 +51,7 @@ export class CategoryCreateModalComponent implements OnInit {
       next: (data: CategoryModel) => {
         this.event.emit(data);
         this.toastr.success('Категория создана', 'Категория');
-        this.modalRef.hide();
+        this.saveFile(data.id ?? 0);
       },
       error: (error) => {
         this.toastr.error('Произошла ошибка', 'Категория');
@@ -68,13 +70,13 @@ export class CategoryCreateModalComponent implements OnInit {
     this.file = input.files[0];
   }
 
-  private saveFile() {
+  private saveFile(categoryId: number) {
     if (!this.file) {
       this.toastr.warning('файл не выбран', 'Загрузка файла');
       return;
     }
 
-    this.fileUploadService.upload(this.file, this.fileType, undefined, undefined)
+    this.fileUploadService.upload(this.file, this.fileType, undefined, undefined, categoryId)
       .subscribe({
         next: (event: HttpEvent<any>) => {
           if (event.type === HttpEventType.UploadProgress) {
@@ -86,7 +88,7 @@ export class CategoryCreateModalComponent implements OnInit {
             if (fileUpload?.url) {
               this.toastr.success('файл загружен', 'Загрузка файла');
               this.newCategory.imageUrl = fileUpload.url;
-              this.saveCategory();
+              this.modalRef.hide();
             } else {
               this.toastr.error('нет пути к файлу', 'Загрузка файла');
             }
@@ -108,7 +110,7 @@ export class CategoryCreateModalComponent implements OnInit {
   }
 
   save() {
-    this.saveFile();
+    this.saveCategory();
   }
 
   cancel() {

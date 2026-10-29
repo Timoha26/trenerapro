@@ -5,7 +5,7 @@ import {EntityTypeEnum} from "../models/search/entity.type.enum";
   name: 'entityType',
   standalone: true
 })
-export class EntityTypePipe implements PipeTransform{
+export class EntityTypePipe implements PipeTransform {
   transform(value?: EntityTypeEnum): string {
     let result = 'undefined';
 
@@ -14,8 +14,8 @@ export class EntityTypePipe implements PipeTransform{
       {key: EntityTypeEnum.Club, name: "Клуб"}
     ];
 
-    for(let i = 0; i < entityTypeOptions.length; i++)
-      if(entityTypeOptions[i].key === value) {
+    for (let i = 0; i < entityTypeOptions.length; i++)
+      if (entityTypeOptions[i].key === value) {
         result = entityTypeOptions[i].name;
         break;
       }

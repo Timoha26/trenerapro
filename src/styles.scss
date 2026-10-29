@@ -640,6 +640,7 @@ header {
       flex: 0 0 400px;
       width: 400px;
       height: auto;
+      max-height: 500px;
       background: linear-gradient(145deg, #d9e0eb, #c2ccdb);
       display: flex;
       align-items: center;
@@ -710,12 +711,35 @@ header {
       }
 
       .distance-status {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        align-items: flex-start;
-        gap: 8px 16px;
-        margin: 6px 0 2px;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        width: 100%;
+
+        &__label,
+        &__value {
+          font-size: 14px;
+          padding: 8px 0;
+
+          i {
+            width: 18px;
+          }
+
+          em {
+            width: 18px;
+          }
+        }
+
+        &__label {
+          color: var(--text-gray);
+        }
+
+        &__label > em {
+          color: var(--primary);
+        }
+
+        &__value {
+          color: var(--text-dark);
+        }
 
         .distance {
           display: flex;
@@ -753,23 +777,6 @@ header {
 
           .label {
             letter-spacing: 0.2px;
-          }
-        }
-
-        .trainer-stats {
-          font-size: 13px;
-          color: var(--text-gray);
-          margin-bottom: 6px;
-          display: flex;
-          align-items: center;
-          gap: 8px;
-
-          i {
-            width: 14px;
-          }
-
-          em {
-            width: 14px;
           }
         }
       }
@@ -822,6 +829,10 @@ header {
         background: #1d3652;
       }
     }
+
+    h6 {
+      width: 100%;
+    }
   }
 }
 
@@ -864,20 +875,20 @@ header {
 
 .trainer-rating {
   color: #F59E0B;
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 8px;
   display: flex;
   align-items: center;
   gap: 4px;
 
   span {
-    color: var(--text-gray);
+    color: var(--text-dark);
   }
 }
 
 .trainer-stats {
-  font-size: 12px;
-  color: var(--text-gray);
+  font-size: 14px;
+  color: var(--text-dark);
   margin-bottom: 12px;
 }
 
@@ -1487,20 +1498,20 @@ footer {
 
 .trainer-rating {
   color: #F59E0B;
-  font-size: 13px;
+  font-size: 14px;
   margin-bottom: 8px;
   display: flex;
   align-items: center;
   gap: 6px;
 
   span {
-    color: var(--text-gray);
+    color: var(--text-dark);
   }
 }
 
 .trainer-stats {
-  font-size: 13px;
-  color: var(--text-gray);
+  font-size: 14px;
+  color: var(--text-dark);
   margin-bottom: 6px;
   display: flex;
   align-items: center;
@@ -1688,19 +1699,23 @@ footer {
 }
 
 .text-dark {
-  color: var(--text-dark);
+  color: var(--text-dark) !important;
 }
 
 .text-gray {
-  color: var(--text-gray);
+  color: var(--text-gray) !important;
 }
 
 .text-light {
-  color: var(--text-light);
+  color: var(--text-light) !important;
 }
 
 .text-gold {
-  color: var(--text-gold);
+  color: var(--text-gold) !important;
+}
+
+.text-as-primary {
+  color: var(--primary) !important;
 }
 
 /* Neighborhood Stats */
@@ -1733,6 +1748,153 @@ footer {
   --bs-btn-padding-x: 0.3rem;
   --bs-btn-font-size: 0.7rem;
   --bs-btn-border-radius: var(--bs-border-radius-sm);
+}
+
+.sm-hide {
+  display: inherit;
+}
+
+.trainer-services {
+  background-color: transparent;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  margin: 20px 0;
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    a {
+      color: var(--text-gray);
+      font-size: 14px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// Стили секции: Услуги и цены
+.services-grid {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .service-item {
+    flex: 1;
+
+    .service-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .service-desc {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      margin-bottom: 12px;
+    }
+
+    .service-price {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+
+      .price-period {
+        font-size: 0.95rem;
+        font-weight: 400;
+        color: var(--text-gray);
+      }
+    }
+  }
+
+  .service-divider {
+    width: 1px;
+    height: 60px;
+    background-color: var(--border);
+
+    @media (max-width: 600px) {
+      width: 100%;
+      height: 1px;
+    }
+  }
+}
+
+// Стили секции: Расписание
+.schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media (max-width: 550px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .day-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    background-color: transparent;
+
+    .day-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .day-time {
+      font-size: 0.8rem;
+      color: var(--text-gray);
+      white-space: nowrap;
+    }
+
+    // Выбранный текущий день (Пн)
+    &--active {
+      background-color: var(--bg-dark);
+      border-color: var(--border);
+
+      .day-name, .day-time {
+        color: var(--text-gold);
+      }
+    }
+
+    // Выходной (Вс)
+    &--disabled {
+      .day-name {
+        color: var(--text-gray);
+      }
+      .day-time {
+        color: #cbd5e1;
+      }
+    }
+  }
 }
 
 /* --- Responsive --- */
@@ -1898,13 +2060,16 @@ footer {
         flex: 0 0 100%;
         width: 100%;
         height: auto;
+        max-height: 300px;
         font-size: 38px;
         margin-bottom: 2px;
+        align-items: flex-start;
+        justify-content: flex-start;
       }
 
       .info {
         width: 100%;
-        align-items: center;
+        align-items: flex-start;
         padding: 16px;
 
         .name {
@@ -1920,10 +2085,14 @@ footer {
         }
 
         .distance-status {
-          align-items: center;
-          justify-content: center;
-          gap: 6px 14px;
-          margin: 4px 0 2px;
+          grid-template-columns: 140px 2fr;
+
+          &__label,
+          &__value {
+            text-align: left;
+            font-size: 0.9rem;
+            padding: 4px 0;
+          }
 
           .distance {
             font-size: 0.95rem;
@@ -1955,11 +2124,19 @@ footer {
         padding: 12px 20px;
         font-size: 1rem;
       }
+
+      h6 {
+        width: 100%;
+      }
     }
   }
 }
 
 @media (max-width: 600px) {
+  .container {
+    padding: 0 10px;
+  }
+
   .hero {
     padding: 30px 0;
 
@@ -1977,12 +2154,21 @@ footer {
     padding-top: 10px;
   }
 
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
   .landing-trainers-grid {
     grid-template-columns: 1fr;
   }
 
   .trainers-grid {
     grid-template-columns: 1fr;
+  }
+
+  .trainer-details-card {
+    //border: 0;
+    //border-radius: 0;
   }
 
   .sports-grid {
@@ -2044,5 +2230,9 @@ footer {
     .btn-primary, .btn-outline {
       width: 100%;
     }
+  }
+
+  .sm-hide {
+    display: none !important;
   }
 }

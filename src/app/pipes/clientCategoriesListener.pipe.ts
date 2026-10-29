@@ -13,6 +13,6 @@ export class ClientCategoriesListenerPipe implements PipeTransform {
 
     clientCategories.forEach(category => categoryNames.push(category.name ?? 'undefined'));
 
-    return categoryNames.join(', ');
+    return categoryNames.join(' ∙ ');
   }
 }

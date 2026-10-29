@@ -57,6 +57,8 @@ import {SearchComponent} from "./components/search/search.component";
 import {EntityTypePipe} from "./pipes/entityType.pipe";
 import {CategoriesComponent} from "./components/categories/categories.component";
 import {ResizeTrackerDirective} from "./directives/resizeTracker.directive";
+import {ScheduleService} from "./services/schedule.service";
+import {DayOfWeeksPipe} from "./pipes/dayOfWeeks.pipe";
 
 registerLocaleData(localeRu)
 
@@ -105,7 +107,8 @@ registerLocaleData(localeRu)
     BsDropdownModule,
     TypeaheadModule.forRoot(),
     EntityTypePipe,
-    ResizeTrackerDirective
+    ResizeTrackerDirective,
+    DayOfWeeksPipe
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'ru-RU'},
@@ -123,7 +126,8 @@ registerLocaleData(localeRu)
     ContactsService,
     CommonService,
     TrainingFormatsService,
-    GeoService
+    GeoService,
+    ScheduleService
   ],
   bootstrap: [AppComponent]
 })

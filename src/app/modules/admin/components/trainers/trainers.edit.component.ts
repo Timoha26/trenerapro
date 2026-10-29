@@ -16,6 +16,9 @@ import {LocationCreateModalComponent} from "../location/location.create.modal.co
 import {LocationCreateModel} from "../../../../models/locations/location.create.model";
 import {LocationsService} from "../../../../services/locations.service";
 import {LocationModel} from "../../../../models/locations/location.model";
+import {ScheduleService} from "../../../../services/schedule.service";
+import {ScheduleModel} from "../../../../models/schedule/schedule.model";
+import {ScheduleUpdateModel} from "../../../../models/schedule/schedule.update.model";
 
 @Component({
   selector: 'admin-trainers-edit',
@@ -26,6 +29,10 @@ export class TrainersEditComponent {
   trainer: TrainerModel = {};
 
   files: FileUploadModel[] = [];
+
+  schedule: ScheduleModel[] = this.scheduleService.getEmptyData();
+
+  private scheduleIsNotFound: boolean = false;
 
   genderOptions = [
     {key: GenderEnum.Male, name: "Мужщина"},
@@ -56,7 +63,8 @@ export class TrainersEditComponent {
               private trainerService: TrainersService,
               private commonService: CommonService,
               private fileUploadService: FileUploadService,
-              private locationsService: LocationsService) {
+              private locationsService: LocationsService,
+              private scheduleService: ScheduleService) {
     this.id = activatedRoute.snapshot.params['id'];
   }
 
@@ -70,6 +78,25 @@ export class TrainersEditComponent {
         }
 
         this.trainer = data;
+      }
+    });
+  }
+
+  private getSchedule(trainerId: number) {
+    this.scheduleService.get(trainerId).subscribe({
+      next: data => {
+        console.log(data);
+
+        if(data.schedule)
+          this.schedule = data.schedule;
+
+        this.scheduleIsNotFound = false;
+      },
+      error: err => {
+        if(err.status === 404)
+          this.scheduleIsNotFound = true;
+
+        this.scheduleIsNotFound = false;
       }
     });
   }
@@ -156,6 +183,7 @@ export class TrainersEditComponent {
     this.updateTrainingFormats();
     this.updateClientCategories();
     this.updateLocations();
+    this.updateSchedule();
   }
 
   private updateTrainer() {
@@ -165,10 +193,14 @@ export class TrainersEditComponent {
       patronymic: this.trainer.patronymic,
       age: this.trainer.age,
       experience: this.trainer.experience,
+      trainingExperience: this.trainer.trainingExperience,
       gender: this.trainer.gender,
       price: this.trainer.price,
       priceGradation: this.trainer.priceGradation,
-      description: this.trainer.description
+      description: this.trainer.description,
+      education: this.trainer.education,
+      area: this.trainer.area,
+      specialization: this.trainer.specialization
     };
 
     this.trainerService.update(this.trainer.id, trainer).subscribe({
@@ -232,8 +264,25 @@ export class TrainersEditComponent {
     });
   }
 
+  private updateSchedule(){
+    const updatedSchedule: ScheduleUpdateModel = {
+      schedule: this.schedule
+    }
+
+    if(this.scheduleIsNotFound)
+      this.scheduleService.create(this.id ?? 0, updatedSchedule).subscribe({
+        next: () => this.toastr.success('расписание сохранено', 'Тренер')
+      });
+    else
+      this.scheduleService.create(this.id ?? 0, updatedSchedule).subscribe({
+        next: () => this.toastr.success('расписание сохранено', 'Тренер')
+      });
+  }
+
   ngOnInit() {
-    if (this.id)
+    if (this.id) {
       this.getTrainer(this.id);
+      this.getSchedule(this.id);
+    }
   }
 }

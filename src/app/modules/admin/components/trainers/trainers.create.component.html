@@ -71,6 +71,15 @@
             </div>
           </div>
           <div class="row mb-1">
+            <label for="trainingExperience" class="form-label col-sm-4 col-md-3 col-lg-2">Тренерский стаж</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              <input type="number" id="trainingExperience" name="trainingExperience" #trainingExperience="ngModel"
+                     [(ngModel)]="trainer.createTrainer.trainingExperience" placeholder="тренерский стаж" required
+                     class="form-control form-control-sm"
+                     [ngClass]="{'is-invalid': trainingExperience.invalid && (trainingExperience.touched || trainingExperience.dirty)}">
+            </div>
+          </div>
+          <div class="row mb-1">
             <label for="description" class="form-label col-sm-4 col-md-3 col-lg-2">Описание</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
               <textarea id="description" name="description" #description="ngModel" rows="3"
@@ -97,11 +106,38 @@
               </select>
             </div>
           </div>
+          <div class="row mb-1">
+            <label for="education" class="form-label col-sm-4 col-md-3 col-lg-2">Образование</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              <input type="text" id="education" name="education" #education="ngModel"
+                     [(ngModel)]="trainer.createTrainer.education" placeholder="образование" required
+                     class="form-control form-control-sm"
+                     [ngClass]="{'is-invalid': education.invalid && (education.touched || education.dirty)}">
+            </div>
+          </div>
+          <div class="row mb-1">
+            <label for="specialization" class="form-label col-sm-4 col-md-3 col-lg-2">Специализация</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              <input type="text" id="specialization" name="specialization" #specialization="ngModel"
+                     [(ngModel)]="trainer.createTrainer.specialization" placeholder="cпециализация" required
+                     class="form-control form-control-sm"
+                     [ngClass]="{'is-invalid': specialization.invalid && (specialization.touched || specialization.dirty)}">
+            </div>
+          </div>
+          <div class="row mb-1">
+            <label for="area" class="form-label col-sm-4 col-md-3 col-lg-2">Направление</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              <input type="text" id="area" name="area" #area="ngModel"
+                     [(ngModel)]="trainer.createTrainer.area" placeholder="направление" required
+                     class="form-control form-control-sm"
+                     [ngClass]="{'is-invalid': area.invalid && (area.touched || area.dirty)}">
+            </div>
+          </div>
           <div class="row mb-1 border-bottom">
-            <label class="form-label col-sm-4 col-md-3 col-lg-2">Локация</label>
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Адрес</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
               <div class="d-inline-block w-100">
-                <button type="button" class="btn btn-outline-success btn-sm float-end" (click)="addLocation()" title="Добавить локацию">
+                <button type="button" class="btn btn-outline-success btn-sm float-end" (click)="addLocation()" title="Добавить адрес">
                   <em class="fa fa-plus"></em>
                 </button>
               </div>
@@ -110,17 +146,11 @@
                   {{location.settlement?.region}},
                   {{location.settlement?.settlement}},
                   {{location.address}}
-                  <button type="button" class="btn btn-outline-danger btn-xs float-end" (click)="removeLocation(location)" title="Удалить локацию">
+                  <button type="button" class="btn btn-outline-danger btn-xs float-end" (click)="removeLocation(location)" title="Удалить адрес">
                     <em class="fa fa-close"></em>
                   </button>
                 </li>
               </ul>
-            </div>
-          </div>
-          <div class="row mb-1 border-bottom">
-            <label class="form-label col-sm-4 col-md-3 col-lg-2">Категория</label>
-            <div class="col-sm-8 col-md-9 col-lg-10">
-              <categories-select [categoryIds]="trainer.sportIds"></categories-select>
             </div>
           </div>
           <div class="row mb-1 border-bottom">
@@ -133,6 +163,12 @@
             <label class="form-label col-sm-4 col-md-3 col-lg-2">Уровень подготовки</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
               <client-categories-select [clientCategoryIds]="trainer.clientCategoryIds"></client-categories-select>
+            </div>
+          </div>
+          <div class="row mb-1 border-bottom">
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Категория</label>
+            <div class="col-sm-8 col-md-9 col-lg-10">
+              <categories-select [categoryIds]="trainer.sportIds"></categories-select>
             </div>
           </div>
           <div class="row mb-1">
@@ -157,6 +193,33 @@
                 </div>
                 <div class="card-body d-flex flex-column" *ngIf="isNotImage(file)">
                   {{ file.url }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-1 border-bottom">
+            <div class="col-sm-6 col-md-4 col-lg-2 pb-2" *ngFor="let day of schedule">
+              <div class="card h-100 border-dark">
+                <div class="card-header">
+                  <p>{{ day.dayOfWeek | dayOfWeeks }}</p>
+
+                  <input type="time" id="schedule_startTime_{{day.dayOfWeek}}"
+                         name="schedule_startTime_{{day.dayOfWeek}}" #schedule_startTime_{{day.dayOfWeek}}="ngModel"
+                         [(ngModel)]="day.startTime" placeholder="начало" [disabled]="day.dayOff"
+                         class="form-control form-control-sm">
+
+                  <input type="time" id="schedule_endTime_{{day.dayOfWeek}}" name="schedule_endTime_{{day.dayOfWeek}}"
+                         #schedule_endTime_{{day.dayOfWeek}}="ngModel" [(ngModel)]="day.endTime" placeholder="конец"
+                         [disabled]="day.dayOff" class="form-control form-control-sm">
+
+                  <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="schedule_{{day.dayOfWeek}}"
+                           name="schedule_{{day.dayOfWeek}}" #schedule_{{day.dayOfWeek}}="ngModel"
+                           [(ngModel)]="day.dayOff">
+                    <label class="form-check-label" for="schedule_{{day.dayOfWeek}}">
+                      Выходной
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>

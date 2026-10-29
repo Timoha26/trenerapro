@@ -121,10 +121,14 @@ export class TrainersService {
         patronymic: undefined,
         age: undefined,
         experience: undefined,
+        trainingExperience: undefined,
         gender: undefined,
         price: undefined,
         priceGradation: undefined,
-        description: undefined
+        description: undefined,
+        education: undefined,
+        area: undefined,
+        specialization: undefined
       },
       sportIds: [],
       trainingFormatIds: [],

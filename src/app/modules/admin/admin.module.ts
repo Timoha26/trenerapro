@@ -44,6 +44,8 @@ import {CategoriesSelectComponent} from "./components/categories/categories.sele
 import {LocationsService} from "../../services/locations.service";
 import {CategoriesComponent} from "./components/categories/categories.component";
 import {CategoryTreeComponent} from "./components/categories/category.tree.component";
+import {ScheduleService} from "../../services/schedule.service";
+import {DayOfWeeksPipe} from "../../pipes/dayOfWeeks.pipe";
 
 
 @NgModule({
@@ -79,7 +81,8 @@ import {CategoryTreeComponent} from "./components/categories/category.tree.compo
     FileModalComponent,
     ContactsComponent,
     ContactsModalComponent,
-    CategoryTreeComponent
+    CategoryTreeComponent,
+    DayOfWeeksPipe
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'ru-RU'},
@@ -95,7 +98,8 @@ import {CategoryTreeComponent} from "./components/categories/category.tree.compo
     SettlementsService,
     ContactsService,
     CommonService,
-    LocationsService
+    LocationsService,
+    ScheduleService
   ]
 })
 export class AdminModule {

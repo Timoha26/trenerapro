@@ -13,6 +13,6 @@ export class TrainingFormatsListenerPipe implements PipeTransform{
 
     trainingFormats.forEach(format => formatNames.push(format.name ?? 'undefined'));
 
-    return formatNames.join(', ');
+    return formatNames.join(' ∙ ');
   }
 }

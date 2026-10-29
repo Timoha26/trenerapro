@@ -8,6 +8,8 @@ import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {ReviewCreateModalComponent} from "../reviews/review.create.modal.component";
 import {ReviewModel} from "../../models/reviews/review.model";
 import {PageStateEvent} from "../../models/page.state.event";
+import {ScheduleService} from "../../services/schedule.service";
+import {ScheduleModel} from "../../models/schedule/schedule.model";
 
 @Component({
   selector: 'landing-trainers-details',
@@ -17,12 +19,15 @@ export class TrainersDetailsComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
               private trainerService: TrainersService,
               private commonService: CommonService,
-              private modalService: BsModalService) {
+              private modalService: BsModalService,
+              private scheduleService: ScheduleService) {
     this.id = activatedRoute.snapshot.params['id'];
   }
 
   id: number | undefined;
   trainer: TrainerModel = {};
+  schedule: ScheduleModel[] = [];
+  currentDayOfWeek: number = 0;
   ratingMax = 5;
   private modalRef?: BsModalRef;
   allReviews = signal<ReviewModel[]>([]);
@@ -52,6 +57,15 @@ export class TrainersDetailsComponent implements OnInit {
         }
 
         this.trainer = data;
+      }
+    });
+  }
+
+  private getSchedule(trainerId: number){
+    this.scheduleService.get(trainerId).subscribe({
+      next: data => {
+        if(data.schedule && data.schedule.length > 0)
+          this.schedule = data.schedule;
       }
     });
   }
@@ -98,7 +112,12 @@ export class TrainersDetailsComponent implements OnInit {
   });
 
   ngOnInit() {
-    if (this.id)
+    if (this.id) {
       this.getTrainer(this.id);
+      this.getSchedule(this.id);
+    }
+
+    const day = new Date().getDay();
+    this.currentDayOfWeek = day === 0 ? 6 : day - 1;
   }
 }

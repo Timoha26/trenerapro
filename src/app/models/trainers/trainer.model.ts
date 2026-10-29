@@ -17,6 +17,7 @@ export interface TrainerModel {
   patronymic?: string;
   age?: number;
   experience?: number;
+  trainingExperience?: number; //тренерский стаж
   gender?: GenderEnum;
   price?: number;
   priceGradation?: PriceGradationEnum;
@@ -34,4 +35,9 @@ export interface TrainerModel {
   public?: boolean;
   reviews?: ReviewModel[];
   locations?: LocationModel[];
+  education?: string; //образование
+  area?: string; //область\направление
+  specialization?: string; //специализация
+  //schedule //расписание
+  //services //услуги
 }

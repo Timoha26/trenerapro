@@ -12,6 +12,9 @@ import {LocationCreateModalComponent} from "../location/location.create.modal.co
 import {LocationCreateModel} from "../../../../models/locations/location.create.model";
 import {LocationsService} from "../../../../services/locations.service";
 import {LocationModel} from "../../../../models/locations/location.model";
+import {ScheduleModel} from "../../../../models/schedule/schedule.model";
+import {ScheduleService} from "../../../../services/schedule.service";
+import {ScheduleUpdateModel} from "../../../../models/schedule/schedule.update.model";
 
 @Component({
   selector: 'admin-trainers-create',
@@ -24,12 +27,16 @@ export class TrainersCreateComponent {
               private trainerService: TrainersService,
               private fileUploadService: FileUploadService,
               private commonService: CommonService,
-              private locationsService: LocationsService) {
+              private locationsService: LocationsService,
+              private scheduleService: ScheduleService) {
   }
 
   trainer = this.trainerService.getTrainerCreateRequestModel();
 
+  schedule: ScheduleModel[] = this.scheduleService.getEmptyData();
+
   files: FileUploadModel[] = [];
+
   locations: LocationCreateModel[] = [];
 
   genderOptions = this.commonService.getGenderOptions();
@@ -102,6 +109,7 @@ export class TrainersCreateComponent {
     this.trainerService.create(trainer).subscribe({
       next: data => {
         this.saveLocations(data.id ?? 0);
+        this.saveSchedule(data.id ?? 0);
         this.toastr.success('тренер сохранен', 'Тренер');
         this.router.navigate(['/admin/trainers/' + data.id + '/edit']);
       }
@@ -119,6 +127,16 @@ export class TrainersCreateComponent {
           this.toastr.success('локация добавлена', 'Тренер');
         }
       });
+    });
+  }
+
+  private saveSchedule(trainerId: number) {
+    const updatedSchedule: ScheduleUpdateModel = {
+      schedule: this.schedule
+    }
+
+    this.scheduleService.create(trainerId, updatedSchedule).subscribe({
+      next: () => this.toastr.success('расписание сохранено', 'Тренер')
     });
   }
 }

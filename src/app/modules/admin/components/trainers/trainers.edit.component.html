@@ -80,10 +80,10 @@
             </div>
           </div>
           <div class="row mb-1">
-            <label for="description" class="form-label col-sm-4 col-md-3 col-lg-2">Описание</label>
+            <label for="description" class="form-label col-sm-4 col-md-3 col-lg-2">О тренере</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
               <textarea id="description" name="description" #description="ngModel" rows="3"
-                        [(ngModel)]="trainer.description" placeholder="Описание" required
+                        [(ngModel)]="trainer.description" placeholder="О тренере" required
                         class="form-control form-control-sm"
                         [ngClass]="{'is-invalid': description.invalid && (description.touched || description.dirty)}"></textarea>
             </div>
@@ -163,7 +163,7 @@
             </div>
           </div>
           <div class="row mb-1 border-bottom">
-            <label class="form-label col-sm-4 col-md-3 col-lg-2">Уровень подготовки</label>
+            <label class="form-label col-sm-4 col-md-3 col-lg-2">Кого тренирует</label>
             <div class="col-sm-8 col-md-9 col-lg-10">
               <client-categories-select [clientCategories]="trainer.clientCategories ?? []"></client-categories-select>
             </div>

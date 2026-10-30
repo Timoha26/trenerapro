@@ -43,6 +43,7 @@ jobs:
           tags: |
             type=ref,event=branch
             type=ref,event=tag
+            type=raw,value=latest
             type=sha,format=short
 
       - name: Setting up Docker Buildx

@@ -12,17 +12,30 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Bump version and push tag
+        id: tag_version
+        uses: anothrNick/github-tag-action@1.71.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PACKAGES_PAT }}
+          WITH_V: true
+          DEFAULT_BUMP: patch
+
+      - name: Extract and Log Version
+        run: |
+          echo "new tag: ${{ steps.tag_version.outputs.new_tag }}"
+          echo "build tag: ${{ steps.tag_version.outputs.version }}"
+
       - name: Build and push Docker image
         run: |
           echo "${{ secrets.GH_PACKAGES_PAT }}" | docker login ghcr.io -u ${{ secrets.GH_USERNAME }} --password-stdin
-          
+
           echo "::group::Building Docker image"
-          docker build -t ${{ secrets.GH_USERNAME }}/${{ secrets.GH_REPO_NAME }}:latest .
+          docker build -t ${{ secrets.GH_USERNAME }}/${{ secrets.GH_REPO_NAME }}:${{ steps.tag_version.outputs.new_tag }} .
           echo "Docker image built successfully."
           echo "::endgroup::"
 
           echo "::group::Pushing Docker image to Docker Hub"
-          docker push ghcr.io/${{ secrets.GH_USERNAME }}/${{ secrets.GH_REPO_NAME }}:latest
+          docker push ghcr.io/${{ secrets.GH_USERNAME }}/${{ secrets.GH_REPO_NAME }}:${{ steps.tag_version.outputs.new_tag }}
           echo "Docker image pushed successfully."
           echo "::endgroup::"
 
@@ -42,7 +55,7 @@ jobs:
             docker system prune -f
 
             echo "Pulling latest Docker image..."
-            docker pull ghcr.io/${{ secrets.GH_USERNAME }}/${{ secrets.GH_REPO_NAME }}:latest
+            docker pull ghcr.io/${{ secrets.GH_USERNAME }}/${{ secrets.GH_REPO_NAME }}:${{ steps.tag_version.outputs.new_tag }}
 
             echo "Restarting Docker Compose containers..."
             docker compose up -d --build --force-recreate

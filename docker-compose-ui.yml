@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   ui-app:
-    image: timoha26/trenerapro
+    image: ghcr.io/timoha26/trenerapro
     container_name: trainerpro-ui
     restart: always
     networks:

@@ -36,6 +36,6 @@ export class FileUploadService {
   }
 
   public remove(fileId: number): Observable<any> {
-    return this.http.delete(this.getUrl(''));
+    return this.http.delete(this.getUrl('/' + fileId));
   }
 }

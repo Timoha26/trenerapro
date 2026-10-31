@@ -3,14 +3,15 @@
   <section class="hero container">
     <div class="container">
       <div class="hero-content">
-        <h1>Найдите лучшего тренера для вашего ребенка <span>рядом с домом</span></h1>
-        <p>Более 1500 проверенных тренеров и 400 клубов по всему городу</p>
+        <h1>Начни свой путь с <span class="text-gold">ТренерPRO</span></h1>
+        <p>Успей разместить бесплатно свою анкету на ТренерPRO до 20.02.2027 года.</p>
         <form class="search-form">
           <div class="search-group">
-            <i class="fas fa-search"></i>
             <input type="text" id="search" name="search" #search="ngModel" [(ngModel)]="searchText" (keydown.enter)="onSearch()" placeholder="Спорт\тренер\клуб?">
           </div>
-          <button type="button" class="btn-primary search-btn" (click)="onSearch()">Найти тренера</button>
+          <button type="button" class="btn-primary search-btn" (click)="onSearch()">
+            <em class="fas fa-search"></em>
+          </button>
         </form>
       </div>
     </div>

@@ -85,8 +85,6 @@ export class TrainersEditComponent {
   private getSchedule(trainerId: number) {
     this.scheduleService.get(trainerId).subscribe({
       next: data => {
-        console.log(data);
-
         if(data.schedule)
           this.schedule = data.schedule;
 
@@ -137,7 +135,7 @@ export class TrainersEditComponent {
         if (index > -1)
           this.trainer.files.splice(index, 1);
 
-        this.toastr.success('файл удален', 'Загрузка файла');
+        this.toastr.success('файл удален', 'Файлы');
       }
     });
   }
@@ -218,7 +216,7 @@ export class TrainersEditComponent {
 
     this.trainerService.updateRelationsSports(this.trainer.id ?? 0, sportIds)
       .subscribe({
-        next: () => this.toastr.success('тренер сохранен', 'Клубы')
+        next: () => this.toastr.success('категории обновлены', 'Тренер')
       });
   }
 
@@ -227,7 +225,7 @@ export class TrainersEditComponent {
 
     this.trainerService.updateTrainingFormats(this.trainer.id, this.trainer.trainingFormats.map(format => format.id ?? 0))
       .subscribe({
-        next: data => this.toastr.success('тренер сохранен', 'Клубы')
+        next: data => this.toastr.success('формат занятий обновлен', 'Тренер')
       });
   }
 
@@ -236,7 +234,7 @@ export class TrainersEditComponent {
 
     this.trainerService.updateClientCategories(this.trainer.id, this.trainer.clientCategories.map(format => format.id ?? 0))
       .subscribe({
-        next: data => this.toastr.success('тренер сохранен', 'Клубы')
+        next: data => this.toastr.success('кого тренирует обновлено', 'Тренер')
       });
   }
 
@@ -267,14 +265,14 @@ export class TrainersEditComponent {
   private updateSchedule(){
     const updatedSchedule: ScheduleUpdateModel = {
       schedule: this.schedule
-    }
+    };
 
     if(this.scheduleIsNotFound)
       this.scheduleService.create(this.id ?? 0, updatedSchedule).subscribe({
         next: () => this.toastr.success('расписание сохранено', 'Тренер')
       });
     else
-      this.scheduleService.create(this.id ?? 0, updatedSchedule).subscribe({
+      this.scheduleService.update(this.id ?? 0, updatedSchedule).subscribe({
         next: () => this.toastr.success('расписание сохранено', 'Тренер')
       });
   }

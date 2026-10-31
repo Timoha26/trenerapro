@@ -69,7 +69,7 @@ export class TrainersCreateComponent {
     if (!fileId) return;
 
     this.fileUploadService.remove(fileId).subscribe({
-      next: data => this.toastr.success('файл удален', 'Загрузка файла')
+      next: data => this.toastr.success('файл удален', 'Файлы')
     });
   }
 
@@ -133,7 +133,7 @@ export class TrainersCreateComponent {
   private saveSchedule(trainerId: number) {
     const updatedSchedule: ScheduleUpdateModel = {
       schedule: this.schedule
-    }
+    };
 
     this.scheduleService.create(trainerId, updatedSchedule).subscribe({
       next: () => this.toastr.success('расписание сохранено', 'Тренер')

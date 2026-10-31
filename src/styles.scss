@@ -6,19 +6,20 @@
 
 /* --- CSS Reset & Variables --- */
 :root {
-  --primary: #F26C22;
+  --primary: #DAF326;
   --primary-light-bg: #FFF4EB;
-  --primary-hover: #d95b18;
+  --primary-hover: #EAFF4A;
   --secondary: #F6F6F6;
   --secondary-hover: #d7d7d7;
-  --text-dark: #1A1A1A;
+  --text-dark: #172600;
   --text-gray: #6B7280;
-  --text-light: #9CA3AF;
-  --text-gold: #F59E0B;
+  --text-light: #CCCCCC;
+  --text-gold: #DAF326;
   --bg-light: #F9FAFB;
   --bg-white: #FFFFFF;
-  --bg-dark: #F6F6F6;
-  --border: #E5E7EB;
+  --bg-dark: #1F1F1F;
+  --bg-black: #000000;
+  --border: #DAF326;
   --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   --radius: 12px;
   --btn-radius: 8px;
@@ -37,8 +38,8 @@ html {
 }
 
 body {
-  background-color: #FEFEFE;
-  color: var(--text-dark);
+  background-color: #000000;
+  color: var(--text-light);
   line-height: 1.5;
   min-height: 100vh;
 }
@@ -121,7 +122,7 @@ h2 {
 /* --- Buttons --- */
 .btn-primary {
   background-color: var(--primary);
-  color: white;
+  color: var(--text-dark);
   border: none;
   padding: 12px 24px;
   border-radius: var(--btn-radius);
@@ -139,7 +140,7 @@ h2 {
 .btn-outline {
   background: transparent;
   border: 1px solid var(--border);
-  color: var(--text-dark);
+  color: var(--text-light);
   padding: 12px 24px;
   border-radius: var(--btn-radius);
   font-weight: 600;
@@ -154,8 +155,8 @@ h2 {
 }
 
 .btn-white {
-  background: white;
-  color: var(--primary);
+  background: var(--bg-light);
+  color: var(--text-dark);
   padding: 10px 20px;
   border: none;
   border-radius: var(--btn-radius);
@@ -204,9 +205,8 @@ h2 {
 
 /* --- Header --- */
 header {
-  border-bottom: 1px solid var(--border);
   padding: 15px 0;
-  background: var(--bg-white);
+  background: var(--bg-black);
 }
 
 .header-inner {
@@ -224,7 +224,7 @@ header {
   font-size: 22px;
   cursor: pointer;
 
-  i {
+  em {
     color: var(--primary);
     font-size: 28px;
   }
@@ -235,7 +235,7 @@ header {
 
   span:not(.primary) {
     font-size: 12px;
-    color: var(--text-gray);
+    color: var(--text-light);
     font-weight: 400;
     display: block;
     line-height: 1;
@@ -251,13 +251,13 @@ header {
   gap: 28px;
 
   a {
-    color: var(--text-dark);
+    color: var(--text-light);
     font-weight: 500;
     font-size: 14px;
     padding-bottom: 7px;
 
     &.active {
-      color: var(--text-dark);
+      color: var(--text-light);
       border-bottom: 2px solid var(--primary);
       padding-bottom: 5px;
     }
@@ -302,8 +302,8 @@ header {
 .hero {
   position: relative;
   padding: 60px 0;
-  background-size: contain !important;
-  background: #f2f3f5 url('https://s3.regru.cloud/trainerpro/static/guys_playing.png') no-repeat right center;
+  background-size: cover !important;
+  background: url('https://s3.regru.cloud/trainerpro/static/header.webp') no-repeat bottom center;
   border-radius: 0 0 20px 20px;
   margin-bottom: 40px;
 
@@ -311,7 +311,7 @@ header {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+    //background: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
     border-radius: 0 0 20px 20px;
   }
 }
@@ -328,6 +328,7 @@ header {
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 16px;
+    text-shadow: 3px 3px 10px #000000;
 
     span {
       color: var(--primary);
@@ -335,10 +336,11 @@ header {
   }
 
   p {
-    color: var(--text-gray);
+    color: var(--text-light);
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 32px;
+    text-shadow: 3px 3px 10px #000000;
   }
 }
 
@@ -503,7 +505,7 @@ header {
 }
 
 .trainer-card {
-  background: white;
+  background: transparent;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
@@ -514,6 +516,18 @@ header {
   &:hover {
     box-shadow: var(--shadow);
     transform: translateY(-4px);
+  }
+}
+
+.trainer-img-wrap {
+  position: relative;
+  height: 180px;
+  background: #eee;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -529,7 +543,7 @@ header {
 
 .sport-card {
   position: relative;
-  background: white;
+  background: var(--bg-dark);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   overflow: hidden;
@@ -635,7 +649,6 @@ header {
     gap: 16px;
     align-items: flex-start;
 
-    /* фото (круглое) */
     .avatar {
       flex: 0 0 400px;
       width: 400px;
@@ -647,7 +660,6 @@ header {
       justify-content: center;
       font-size: 32px;
       font-weight: 500;
-      color: #2c3e50;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
       object-fit: cover;
       overflow: hidden;
@@ -671,13 +683,11 @@ header {
         font-weight: 700;
         font-size: 1.25rem;
         line-height: 1.3;
-        color: var(--text-dark);
         letter-spacing: -0.3px;
       }
 
       .speciality {
         font-size: 0.9rem;
-        color: var(--text-dark);
         font-weight: 450;
         margin-top: -2px;
       }
@@ -738,7 +748,7 @@ header {
         }
 
         &__value {
-          color: var(--text-dark);
+          color: var(--text-light);
         }
 
         .distance {
@@ -790,7 +800,6 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 14px;
-    border-top: 1px solid #eef2f7;
     gap: 12px;
 
     .price {
@@ -860,7 +869,7 @@ header {
   }
 
   p.sport {
-    color: var(--text-gray);
+    color: var(--text-light);
     font-size: 13px;
     margin-bottom: 8px;
   }
@@ -882,7 +891,7 @@ header {
   gap: 4px;
 
   span {
-    color: var(--text-dark);
+    color: var(--text-light);
   }
 }
 
@@ -903,7 +912,7 @@ header {
 /* --- Why Us (Features) --- */
 .why-us {
   padding: 48px 0 60px;
-  background: var(--bg-light);
+  background: var(--bg-dark);
 }
 
 .features-grid {
@@ -913,7 +922,7 @@ header {
 }
 
 .feature-item {
-  background: white;
+  background: var(--bg-black);
   padding: 24px;
   border-radius: var(--radius);
   display: flex;
@@ -945,7 +954,7 @@ header {
   justify-content: center;
   width: 44px;
   height: 44px;
-  background: var(--primary-light-bg);
+  background: var(--bg-dark);
   border-radius: 50%;
   margin-right: 14px;
   color: var(--primary);
@@ -974,7 +983,7 @@ header {
 .club-img {
   position: relative;
   height: 140px;
-  background: #eee;
+  background: var(--bg-dark);
   flex-shrink: 0;
 
   img {
@@ -1062,7 +1071,7 @@ header {
 
 .review-text {
   font-size: 14px;
-  color: var(--text-dark);
+  color: var(--text-light);
   line-height: 1.6;
 }
 
@@ -1116,10 +1125,9 @@ header {
 
 /* --- Footer --- */
 footer {
-  background: #1F2937;
-  color: white;
+  background: transparent;
+  color: var(--text-light);
   padding: 30px 0;
-  border-radius: 20px 20px 0 0;
 }
 
 .footer-inner {
@@ -1408,32 +1416,6 @@ footer {
   gap: 20px;
 }
 
-.trainer-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  transition: 0.3s;
-  display: flex;
-  flex-direction: column;
-
-  &:hover {
-    box-shadow: var(--shadow);
-  }
-}
-
-.trainer-img-wrap {
-  position: relative;
-  height: 180px;
-  background: #eee;
-  flex-shrink: 0;
-
-  img {
-    width: 100%;
-    height: 100%;
-  }
-}
-
 .card-badge {
   position: absolute;
   top: 12px;
@@ -1455,7 +1437,7 @@ footer {
   right: 12px;
   width: 32px;
   height: 32px;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(0, 0, 0, 0.8);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -1465,8 +1447,8 @@ footer {
   transition: 0.2s;
 
   &:hover {
-    background: white;
-    color: #ef4444;
+    background: var(--bg-black);
+    color: var(--primary);
   }
 }
 
@@ -1496,22 +1478,9 @@ footer {
   }
 }
 
-.trainer-rating {
-  color: #F59E0B;
-  font-size: 14px;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  span {
-    color: var(--text-dark);
-  }
-}
-
 .trainer-stats {
   font-size: 14px;
-  color: var(--text-dark);
+  color: var(--text-lite);
   margin-bottom: 6px;
   display: flex;
   align-items: center;
@@ -1589,7 +1558,7 @@ footer {
   border-radius: var(--radius);
   padding: 20px;
   margin-bottom: 20px;
-  background: white;
+  background: var(--bg-dark);
 
   h3 {
     font-size: 16px;
@@ -1600,8 +1569,8 @@ footer {
 
 /* Banner */
 .banner-promo {
-  background: linear-gradient(135deg, #5A4BD1 0%, #4B3DB8 100%);
-  color: white;
+  background: var(--primary);
+  color: var(--text-dark);
   padding: 24px;
   border-radius: var(--radius);
   text-align: center;
@@ -1759,7 +1728,6 @@ footer {
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
   margin: 20px 0;
 
   .card-header {
@@ -1775,7 +1743,7 @@ footer {
     }
 
     a {
-      color: var(--text-gray);
+      color: var(--primary);
       font-size: 14px;
 
       &:hover {
@@ -1803,25 +1771,25 @@ footer {
     .service-name {
       font-size: 1rem;
       font-weight: 600;
-      color: var(--text-dark);
+      color: var(--text-light);
       margin-bottom: 4px;
     }
 
     .service-desc {
       font-size: 0.85rem;
-      color: var(--text-gray);
+      color: var(--text-light);
       margin-bottom: 12px;
     }
 
     .service-price {
       font-size: 1rem;
       font-weight: 700;
-      color: var(--text-dark);
+      color: var(--text-light);
 
       .price-period {
         font-size: 0.95rem;
         font-weight: 400;
-        color: var(--text-gray);
+        color: var(--text-light);
       }
     }
   }
@@ -1866,23 +1834,13 @@ footer {
     .day-name {
       font-size: 0.9rem;
       font-weight: 700;
-      color: var(--text-dark);
+      color: var(--text-light);
     }
 
     .day-time {
       font-size: 0.8rem;
-      color: var(--text-gray);
+      color: var(--text-light);
       white-space: nowrap;
-    }
-
-    // Выбранный текущий день (Пн)
-    &--active {
-      background-color: var(--bg-dark);
-      border-color: var(--border);
-
-      .day-name, .day-time {
-        color: var(--text-gold);
-      }
     }
 
     // Выходной (Вс)
@@ -1892,6 +1850,16 @@ footer {
       }
       .day-time {
         color: #cbd5e1;
+      }
+    }
+
+    // Выбранный текущий день (Пн)
+    &--active {
+      background-color: var(--bg-dark);
+      border-color: var(--border);
+
+      .day-name, .day-time {
+        color: var(--text-gold);
       }
     }
   }
@@ -1955,10 +1923,7 @@ footer {
   }
 
   .search-form {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 15px;
-    border-radius: 20px;
+    border-radius: 30px;
   }
 
   .search-group {
@@ -1975,10 +1940,7 @@ footer {
   }
 
   .search-btn {
-    width: 100%;
     margin-left: 0;
-    justify-content: center;
-    display: flex;
   }
 
   .landing-trainers-grid {
@@ -2138,7 +2100,7 @@ footer {
   }
 
   .hero {
-    padding: 30px 0;
+    padding: 60px 0 15px 0;
 
     h1 {
       font-size: 26px;

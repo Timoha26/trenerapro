@@ -72,6 +72,12 @@ jobs:
             echo "Starting deployment on remote server..."
             cd /opt/trainerpro-ui
 
+            echo "Pre-cleaning..."
+            docker system prune -f
+
+            echo "Pulling latest Docker image..."
+            docker pull ghcr.io/${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
             echo "Restarting Docker Compose containers..."
             docker compose up -d --build --force-recreate
 

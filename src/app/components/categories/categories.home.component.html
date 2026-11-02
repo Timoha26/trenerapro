@@ -1,18 +1,16 @@
 <section class="sports container">
-  <div class="section-title">
-    <h2>Категории</h2>
-    <div class="btn-group">
-      <button type="button" class="btn-outline" routerLink="/categories">
-        Смотреть все
-      </button>
-    </div>
-  </div>
   <div *ngIf="chainCategories.length < 2">
     <div *ngFor="let section of viewCategories" style="margin-bottom:20px;">
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item">
-            {{ section.name }}
+            <h5>
+              {{ section.name }}
+              <a href="#" class="btn-link" routerLink="/categories">
+                все
+                <em class="fas fa-angle-right"></em>
+              </a>
+            </h5>
           </li>
         </ol>
       </nav>
@@ -36,7 +34,7 @@
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item" *ngFor="let category of chainCategories">
-          <a href="#" (click)="$event.preventDefault(); goToPageByChain(category)" *ngIf="!isLastChainCategory(category.id ?? 0, chainCategories)">{{ category.name }}</a>
+          <a href="#" class="btn-link" (click)="$event.preventDefault(); goToPageByChain(category)" *ngIf="!isLastChainCategory(category.id ?? 0, chainCategories)">{{ category.name }}</a>
           <span *ngIf="isLastChainCategory(category.id ?? 0, chainCategories)">{{ category.name }}</span>
         </li>
       </ol>

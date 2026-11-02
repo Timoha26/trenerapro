@@ -43,15 +43,22 @@ export class CategoriesHomeComponent implements OnInit {
   }
 
   private getViewCategories(parentId?: number){
-    this.viewCategories = parentId ? this.commonService.getSubCategoriesById(this.treeCategories, parentId) ?? [] : this.treeCategories;
+    let viewCategories = parentId ? this.commonService.getSubCategoriesById(this.treeCategories, parentId) ?? [] : this.treeCategories;
 
     this.onResize(this.isSmallScreen);
+
+    for (let category of viewCategories)
+      category.subCategories = this.isSmallScreen ? category.subCategories.slice(0, 2) : category.subCategories;
+
+    this.viewCategories = viewCategories;
+
+    console.log(this.isSmallScreen, viewCategories);
   }
 
   onResize(isSmallScreen: boolean): void {
     this.isSmallScreen = isSmallScreen;
     if (isSmallScreen) {
-      this.displayedCategories = this.viewCategories.slice(0, 4);
+      this.displayedCategories = this.viewCategories.slice(0, 2);
     } else {
       this.displayedCategories = this.viewCategories.slice(0, 12);
     }

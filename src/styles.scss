@@ -930,7 +930,6 @@ header {
   font-weight: 700;
   color: var(--primary);
   font-size: 16px;
-  margin-bottom: 12px;
   display: block;
 }
 
@@ -1520,13 +1519,6 @@ footer {
   }
 }
 
-.trainer-price {
-  font-weight: 700;
-  font-size: 16px;
-  margin: 12px 0 16px;
-  display: block;
-}
-
 .trainer-actions {
   display: flex;
   gap: 10px;
@@ -1941,6 +1933,12 @@ footer {
     &:hover {
       box-shadow: var(--shadow);
       transform: translateY(-4px);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .card {
+      flex: 0 0 200px;
     }
   }
 

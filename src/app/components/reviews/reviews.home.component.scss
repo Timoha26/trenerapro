@@ -38,6 +38,12 @@
     }
   }
 
+  @media (max-width: 600px) {
+    .review-card {
+      flex: 0 0 200px;
+    }
+  }
+
   .btn-slide {
     position: absolute;
     top: 50%;

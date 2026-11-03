@@ -86,7 +86,7 @@ export class AppComponent {
   ngOnInit() {
     this.getUserCoords();
 
-    this.logoUrl = this.commonService.restoreUrl('/trainerpro/static/logo2.svg');
+    this.logoUrl = this.commonService.restoreUrl('/trainerpro/static/logo3.svg');
 
     this.geoService.getSettlements().subscribe({
       next: () => {

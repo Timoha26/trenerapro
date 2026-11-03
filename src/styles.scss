@@ -38,7 +38,7 @@ html {
 }
 
 body {
-  background-color: #000000;
+  background-color: var(--bg-black);
   color: var(--text-light);
   line-height: 1.5;
   min-height: 100vh;
@@ -92,6 +92,10 @@ a {
   text-decoration: underline;
 }
 
+.breadcrumb-item {
+  width: 100%;
+}
+
 ul {
   list-style: none;
 }
@@ -117,6 +121,10 @@ h2 {
   max-width: var(--container);
   margin: 0 auto;
   padding: 0 20px;
+}
+
+main.container {
+  margin-top: 75px;
 }
 
 /* --- Buttons --- */
@@ -175,6 +183,10 @@ h2 {
     font-weight: 700;
   }
 
+  h5 {
+    width: 100%;
+  }
+
   a {
     color: var(--text-gray);
     font-size: 14px;
@@ -203,10 +215,22 @@ h2 {
   }
 }
 
+a.btn-link {
+  text-decoration: none;
+  color: var(--primary);
+  font-size: inherit;
+}
+
 /* --- Header --- */
 header {
   padding: 15px 0;
-  background: var(--bg-black);
+  background: transparent;
+  max-height: 75px;
+  z-index: 99999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .header-inner {
@@ -214,6 +238,7 @@ header {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  text-shadow: 0 0 10px #000000;
 }
 
 .logo {
@@ -301,9 +326,9 @@ header {
 /* --- Hero Section --- */
 .hero {
   position: relative;
-  padding: 60px 0;
+  padding: 135px 0 60px 0;
   background-size: cover !important;
-  background: url('https://s3.regru.cloud/trainerpro/static/header.webp') no-repeat bottom center;
+  background: url('https://s3.regru.cloud/trainerpro/static/header.webp') no-repeat center center;
   border-radius: 0 0 20px 20px;
   margin-bottom: 40px;
 
@@ -328,7 +353,7 @@ header {
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 16px;
-    text-shadow: 3px 3px 10px #000000;
+    text-shadow: 0 0 10px #000000;
 
     span {
       color: var(--primary);
@@ -897,7 +922,7 @@ header {
 
 .trainer-stats {
   font-size: 14px;
-  color: var(--text-dark);
+  color: var(--text-gray);
   margin-bottom: 12px;
 }
 
@@ -1480,7 +1505,7 @@ footer {
 
 .trainer-stats {
   font-size: 14px;
-  color: var(--text-lite);
+  color: var(--text-gray);
   margin-bottom: 6px;
   display: flex;
   align-items: center;
@@ -1687,6 +1712,18 @@ footer {
   color: var(--primary) !important;
 }
 
+.float-left {
+  float: left !important;
+}
+
+.float-right {
+  float: right !important;
+}
+
+.float-clear {
+  clear: both !important;
+}
+
 /* Neighborhood Stats */
 .stat-row {
   display: flex;
@@ -1848,6 +1885,7 @@ footer {
       .day-name {
         color: var(--text-gray);
       }
+
       .day-time {
         color: #cbd5e1;
       }
@@ -1862,6 +1900,72 @@ footer {
         color: var(--text-gold);
       }
     }
+  }
+}
+
+.grid-scroll {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 0 20px;
+
+  .grid-wrapper {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 20px;
+    padding: 20px 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+
+  .grid-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 300px;
+    scroll-snap-align: start;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-4px);
+    }
+  }
+
+  .btn-slide {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.3);
+    color: var(--text-light);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    font-size: 18px;
+    transition: background 0.3s;
+  }
+
+  .btn-slide-prev {
+    left: 0;
+  }
+
+  .btn-slide-next {
+    right: 0;
   }
 }
 
@@ -2100,7 +2204,7 @@ footer {
   }
 
   .hero {
-    padding: 60px 0 15px 0;
+    padding: 90px 0 15px 0;
 
     h1 {
       font-size: 26px;
@@ -2196,5 +2300,9 @@ footer {
 
   .sm-hide {
     display: none !important;
+  }
+
+  .location-select {
+    display: none;
   }
 }

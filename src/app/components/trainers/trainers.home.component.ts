@@ -1,6 +1,6 @@
-import {Component} from "@angular/core";
+import {Component, ElementRef, ViewChild} from "@angular/core";
 import {RouterLink} from "@angular/router";
-import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
+import {CurrencyPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
 import {TrainersService} from "../../services/trainers.service";
 import {TrainerModel} from "../../models/trainers/trainer.model";
 import {distinctUntilChanged, switchMap} from "rxjs";
@@ -12,6 +12,8 @@ import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
 import {ReviewCreateModalComponent} from "../reviews/review.create.modal.component";
 import {ReviewModel} from "../../models/reviews/review.model";
 import {toObservable} from "@angular/core/rxjs-interop";
+import {RatingModule} from "ngx-bootstrap/rating";
+import {PageResultModel} from "../../models/page.result.model";
 
 @Component({
   selector: 'landing-trainers-home',
@@ -24,11 +26,18 @@ import {toObservable} from "@angular/core/rxjs-interop";
     CurrencyPipe,
     CategoriesListenerPipe,
     PriceGradationPipe,
-    ReviewsPipe
+    ReviewsPipe,
+    DatePipe,
+    RatingModule
   ]
 })
 export class TrainersHomeComponent {
+  @ViewChild('slider', {read: ElementRef}) slider!: ElementRef<HTMLDivElement>;
   public trainers: TrainerModel[] = [];
+  private page: number = 1;
+  private itemsPerPage: number = 5;
+
+
   private modalRef?: BsModalRef;
 
   constructor(private trainersService: TrainersService,
@@ -55,6 +64,34 @@ export class TrainersHomeComponent {
       this.trainers = items;
     }
   });
+
+  onScroll(): void {
+    const element = this.slider.nativeElement;
+    const scrollRight = element.scrollLeft + element.clientWidth;
+    const totalWidth = element.scrollWidth;
+    const threshold = 300;
+
+    // if (totalWidth - scrollRight < threshold) {
+    //   this.getReviews();
+    // }
+  }
+
+  scrollSlider(direction: number): void {
+    const element = this.slider.nativeElement;
+
+    const firstItem = element.querySelector('.card') as HTMLElement;
+
+    if(firstItem){
+      const itemWidth = firstItem.clientWidth;
+      const gup = 20;
+      const scrollAmount = itemWidth + gup;
+
+      element.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  }
 
   addReview(trainerId?: number) {
     const modalOptions: ModalOptions = {

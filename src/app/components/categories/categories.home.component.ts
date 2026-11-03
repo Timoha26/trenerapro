@@ -42,18 +42,26 @@ export class CategoriesHomeComponent implements OnInit {
     });
   }
 
-  private getViewCategories(parentId?: number){
-    this.viewCategories = parentId ? this.commonService.getSubCategoriesById(this.treeCategories, parentId) ?? [] : this.treeCategories;
+  private getViewCategories(parentId?: number) {
+    let viewCategories = parentId ? this.commonService.getSubCategoriesById(this.treeCategories, parentId) ?? [] : this.treeCategories;
 
     this.onResize(this.isSmallScreen);
+
+    this.viewCategories = viewCategories;
+
+    console.log(this.isSmallScreen, viewCategories);
   }
 
   onResize(isSmallScreen: boolean): void {
     this.isSmallScreen = isSmallScreen;
+
     if (isSmallScreen) {
-      this.displayedCategories = this.viewCategories.slice(0, 4);
+      for(let section of this.viewCategories)
+        section.subCategories = section.subCategories.slice(0, 2);
+
+      this.displayedCategories = this.viewCategories.slice(0, 2);
     } else {
-      this.displayedCategories = this.viewCategories.slice(0, 12);
+      this.displayedCategories = this.viewCategories;
     }
   }
 

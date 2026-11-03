@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, ElementRef, ViewChild} from "@angular/core";
 import {RouterLink} from "@angular/router";
 import {NgForOf, NgIf} from "@angular/common";
 import {ClubsService} from "../../services/clubs.service";
@@ -23,6 +23,7 @@ import {toObservable} from "@angular/core/rxjs-interop";
   ]
 })
 export class ClubsHomeComponent {
+  @ViewChild('slider', {read: ElementRef}) slider!: ElementRef<HTMLDivElement>;
   public clubs: ClubModel[] = [];
   private modalRef?: BsModalRef;
 
@@ -50,6 +51,34 @@ export class ClubsHomeComponent {
       this.clubs = items;
     }
   });
+
+  onScroll(): void {
+    const element = this.slider.nativeElement;
+    const scrollRight = element.scrollLeft + element.clientWidth;
+    const totalWidth = element.scrollWidth;
+    const threshold = 300;
+
+    // if (totalWidth - scrollRight < threshold) {
+    //   this.getReviews();
+    // }
+  }
+
+  scrollSlider(direction: number): void {
+    const element = this.slider.nativeElement;
+
+    const firstItem = element.querySelector('.card') as HTMLElement;
+
+    if(firstItem){
+      const itemWidth = firstItem.clientWidth;
+      const gup = 20;
+      const scrollAmount = itemWidth + gup;
+
+      element.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  }
 
   addReview(clubId?: number) {
     const modalOptions: ModalOptions = {

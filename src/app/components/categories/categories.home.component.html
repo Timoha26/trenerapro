@@ -1,4 +1,4 @@
-<section class="sports container">
+<section class="sports container" style="margin-bottom:20px;">
   <div *ngIf="chainCategories.length < 2">
     <div *ngFor="let section of viewCategories" style="margin-bottom:20px;">
       <nav>
@@ -6,7 +6,7 @@
           <li class="breadcrumb-item">
             <h5>
               {{ section.name }}
-              <a href="#" class="btn-link" routerLink="/categories">
+              <a href="#" class="btn-link float-right" routerLink="/categories">
                 все
                 <em class="fas fa-angle-right"></em>
               </a>
@@ -15,7 +15,8 @@
         </ol>
       </nav>
       <div class="landing-sports-grid" appResizeTracker (isSmallScreen)="onResize($event)">
-        <div class="sport-card" *ngFor="let subCategory of section.subCategories" (click)="goToPageByCategory(subCategory)">
+        <div class="sport-card" *ngFor="let subCategory of section.subCategories"
+             (click)="goToPageByCategory(subCategory)">
           <div class="sport-card__img-wrap">
             <div class="sport-card__card-fav"
                  *ngIf="!subCategory.subCategories || subCategory.subCategories.length < 1">
@@ -34,8 +35,11 @@
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item" *ngFor="let category of chainCategories">
-          <a href="#" class="btn-link" (click)="$event.preventDefault(); goToPageByChain(category)" *ngIf="!isLastChainCategory(category.id ?? 0, chainCategories)">{{ category.name }}</a>
-          <span *ngIf="isLastChainCategory(category.id ?? 0, chainCategories)">{{ category.name }}</span>
+          <h5>
+            <a href="#" class="btn-link" (click)="$event.preventDefault(); goToPageByChain(category)"
+               *ngIf="!isLastChainCategory(category.id ?? 0, chainCategories)">{{ category.name }}</a>
+            <span *ngIf="isLastChainCategory(category.id ?? 0, chainCategories)">{{ category.name }}</span>
+          </h5>
         </li>
       </ol>
     </nav>

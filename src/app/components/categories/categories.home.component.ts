@@ -42,13 +42,10 @@ export class CategoriesHomeComponent implements OnInit {
     });
   }
 
-  private getViewCategories(parentId?: number){
+  private getViewCategories(parentId?: number) {
     let viewCategories = parentId ? this.commonService.getSubCategoriesById(this.treeCategories, parentId) ?? [] : this.treeCategories;
 
     this.onResize(this.isSmallScreen);
-
-    for (let category of viewCategories)
-      category.subCategories = this.isSmallScreen ? category.subCategories.slice(0, 2) : category.subCategories;
 
     this.viewCategories = viewCategories;
 
@@ -57,10 +54,14 @@ export class CategoriesHomeComponent implements OnInit {
 
   onResize(isSmallScreen: boolean): void {
     this.isSmallScreen = isSmallScreen;
+
     if (isSmallScreen) {
+      for(let section of this.viewCategories)
+        section.subCategories = section.subCategories.slice(0, 2);
+
       this.displayedCategories = this.viewCategories.slice(0, 2);
     } else {
-      this.displayedCategories = this.viewCategories.slice(0, 12);
+      this.displayedCategories = this.viewCategories;
     }
   }
 

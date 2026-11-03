@@ -1,40 +1,49 @@
 <section class="popular container">
   <div class="section-title">
-    <h2>Популярные тренеры</h2>
-    <button type="button" class="btn-outline" routerLink="/trainers">
-      Смотреть все
-    </button>
+    <h5>
+      Популярные тренеры
+      <a href="#" class="btn-link float-right" routerLink="/trainers">
+        все
+        <em class="fas fa-angle-right"></em>
+      </a>
+    </h5>
   </div>
   <div class="landing-trainers-grid" *ngIf="trainers.length < 1">
     В Вашем городе тренеры не найдены
   </div>
-  <div class="landing-trainers-grid" *ngIf="trainers.length > 0">
-    <div class="trainer-card" *ngFor="let trainer of trainers">
-      <div class="trainer-img-wrap">
-        <div class="card-badge" *ngIf="trainer.verified">
-          <em class="fas fa-check-circle"></em>
-          Проверен
+  <div class="grid-scroll" *ngIf="trainers.length > 0">
+    <button class="btn-slide btn-slide-prev" (click)="scrollSlider(-1)">
+      <em class="fas fa-angle-left"></em>
+    </button>
+    <button class="btn-slide btn-slide-next" (click)="scrollSlider(1)">
+      <em class="fas fa-angle-right"></em>
+    </button>
+    <div class="grid-wrapper" #slider (scroll)="onScroll()">
+      <div class="card" *ngFor="let trainer of trainers" routerLink="/trainers/{{trainer.id}}">
+        <div class="trainer-img-wrap">
+          <div class="card-badge" *ngIf="trainer.verified">
+            <em class="fas fa-check-circle"></em>
+            Проверен
+          </div>
+          <div class="card-fav" (click)="addReview(trainer.id)">
+            <em class="far fa-heart"></em>
+          </div>
+          <img src="{{trainer.logoUrl}}" alt="Trainer">
         </div>
-        <div class="card-fav" (click)="addReview(trainer.id)">
-          <em class="far fa-heart"></em>
+        <div class="trainer-body">
+          <h3>{{ trainer.firstname }} {{ trainer.lastname }}</h3>
+          <p class="sport">{{ trainer.sports | categoriesListener }}</p>
+          <div class="trainer-rating">
+            <em class="fas fa-star"></em>
+            <span>{{ trainer.rating?.rating }} ({{ trainer.rating?.reviewsCount | reviews }})</span>
+          </div>
+          <div class="trainer-stats">
+            <em class="fas fa-map-marker-alt"></em>
+            2.1 км от вас
+          </div>
+          <span class="trainer-price">от {{ trainer.price | currency }}
+            /{{ trainer.priceGradation | priceGradation }}</span>
         </div>
-        <img src="{{trainer.logoUrl}}" alt="Trainer">
-      </div>
-      <div class="trainer-body">
-        <h3>{{ trainer.firstname }} {{ trainer.lastname }}</h3>
-        <p class="sport">{{ trainer.sports | categoriesListener }}</p>
-        <div class="trainer-rating">
-          <em class="fas fa-star"></em>
-          <span>{{ trainer.rating?.rating }} ({{ trainer.rating?.reviewsCount | reviews }})</span>
-        </div>
-        <div class="trainer-stats">
-          <em class="fas fa-map-marker-alt"></em>
-          2.1 км от вас
-        </div>
-        <span class="trainer-price">
-          от {{ trainer.price | currency }}/{{ trainer.priceGradation | priceGradation }}
-        </span>
-        <button class="btn-primary" routerLink="/trainers/{{trainer.id}}">Подробнее</button>
       </div>
     </div>
   </div>

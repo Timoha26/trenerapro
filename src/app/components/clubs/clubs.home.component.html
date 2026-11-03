@@ -1,34 +1,43 @@
 <section class="clubs container">
   <div class="section-title">
-    <h2>Популярные клубы</h2>
-    <button type="button" class="btn-outline" routerLink="/clubs">
-      Смотреть все
-    </button>
+    <h5>
+      Популярные клубы
+      <a href="#" class="btn-link float-right" routerLink="/clubs">
+        все
+        <em class="fas fa-angle-right"></em>
+      </a>
+    </h5>
   </div>
   <div class="clubs-grid" *ngIf="clubs.length < 1">
     В Вашем городе клубы не найдены
   </div>
-  <div class="clubs-grid" *ngIf="clubs.length > 0">
-    <div class="club-card" *ngFor="let club of clubs">
-      <div class="club-img">
-        <div class="card-badge" *ngIf="club.verified">
-          <em class="fas fa-check-circle"></em>
-          Проверен
+  <div class="grid-scroll" *ngIf="clubs.length > 0">
+    <button class="btn-slide btn-slide-prev" (click)="scrollSlider(-1)">
+      <em class="fas fa-angle-left"></em>
+    </button>
+    <button class="btn-slide btn-slide-next" (click)="scrollSlider(1)">
+      <em class="fas fa-angle-right"></em>
+    </button>
+    <div class="grid-wrapper" #slider (scroll)="onScroll()">
+      <div class="card" *ngFor="let club of clubs" routerLink="/clubs/{{club.id}}">
+        <div class="club-img">
+          <div class="card-badge" *ngIf="club.verified">
+            <em class="fas fa-check-circle"></em>
+            Проверен
+          </div>
+          <div class="card-fav" (click)="addReview(club.id)">
+            <em class="far fa-heart"></em>
+          </div>
+          <img src="{{club.logoUrl}}" alt="Клуб">
         </div>
-        <div class="card-fav" (click)="addReview(club.id)">
-          <em class="far fa-heart"></em>
+        <div class="club-body">
+          <h3>{{ club.name }}</h3>
+          <p class="sport">{{ club.sports | categoriesListener }}</p>
+          <div class="trainer-rating">
+            <em class="fas fa-star"></em>
+            <span>{{ club.rating?.rating }} ({{ club.rating?.reviewsCount }} отзывов)</span>
+          </div>
         </div>
-        <img src="{{club.logoUrl}}" alt="Клуб">
-      </div>
-      <div class="club-body">
-        <h3>{{ club.name }}</h3>
-        <p class="sport">{{ club.sports | categoriesListener }}</p>
-        <div class="trainer-rating">
-          <em class="fas fa-star"></em>
-          <span>{{ club.rating?.rating }} ({{ club.rating?.reviewsCount }} отзывов)</span>
-        </div>
-<!--        <p class="loc">{{ club.address }}</p>-->
-        <button class="btn-primary" routerLink="/clubs/{{club.id}}">Подробнее</button>
       </div>
     </div>
   </div>

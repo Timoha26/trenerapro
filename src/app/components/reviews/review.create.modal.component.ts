@@ -11,7 +11,6 @@ import {RatingModule} from "ngx-bootstrap/rating";
 @Component({
   selector: 'review-create-modal',
   templateUrl: './review.create.modal.component.html',
-  styleUrls: ['./review.create.modal.component.scss'],
   imports: [
     FormsModule,
     NgClass,

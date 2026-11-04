@@ -82,7 +82,7 @@ export class TrainersDetailsComponent implements OnInit {
     event.preventDefault();
 
     const modalOptions: ModalOptions = {
-      class: 'modal-dialog-centered modal-md',
+      class: 'modal-dialog-centered modal-md landing-modal',
       initialState: {
         trainerId: trainerId
       }

@@ -117,7 +117,7 @@ export class TrainersComponent {
 
   addReview(trainerId?: number, clubId?: number) {
     const modalOptions: ModalOptions = {
-      class: 'modal-dialog-centered modal-md',
+      class: 'modal-dialog-centered modal-md landing-modal',
       initialState: {
         trainerId: trainerId,
         clubId: clubId

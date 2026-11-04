@@ -1,6 +1,5 @@
 import {Component, EventEmitter, OnInit} from "@angular/core";
 import {FormsModule} from "@angular/forms";
-import {NgClass} from "@angular/common";
 import {RatingModule} from "ngx-bootstrap/rating";
 import {BsModalRef} from "ngx-bootstrap/modal";
 import {GeoService} from "../../services/geo.service";
@@ -10,10 +9,8 @@ import {SettlementModel} from "../../models/settlement.model";
 @Component({
   selector: 'settlement-modal',
   templateUrl: './select.settlement.modal.component.html',
-  styleUrls: ['./select.settlement.modal.component.scss'],
   imports: [
     FormsModule,
-    NgClass,
     RatingModule,
     TypeaheadModule
   ],

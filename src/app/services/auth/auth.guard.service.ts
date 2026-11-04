@@ -24,10 +24,6 @@ export class AuthGuardService {
   }
 
   private checkAuth() {
-    if (this.authService.isLogged()) return true;
-
-    this.router.navigate(['/login']);
-
-    return false;
+    return this.authService.isLogged();
   }
 }

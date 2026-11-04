@@ -5,10 +5,16 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {Injectable} from "@angular/core";
 import {conf} from "../../conf/conf"
+import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
+import {AuthModalComponent} from "../../components/auth/auth.modal.component";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
-  constructor(private http: HttpClient, private router: Router) {
+  private modalRef?: BsModalRef;
+
+  constructor(private http: HttpClient,
+              private router: Router,
+              private modalService: BsModalService) {
   }
 
   private getUrl(path: string): string {
@@ -24,11 +30,44 @@ export class AuthService {
 
   public logout() {
     localStorage.removeItem('token');
-    this.router.navigate(['/']);
+
+    if (this.router.url.startsWith('/admin')) {
+      this.loginModal();
+      this.router.navigate(['/']);
+    }
+  }
+
+  public loginModal() {
+    const modalOptions: ModalOptions = {
+      class: 'modal-dialog-centered modal-sm landing-modal'
+    };
+
+    this.modalRef = this.modalService.show(AuthModalComponent, modalOptions);
+
+    this.modalRef.content.event.subscribe({
+      next: (result: boolean) => {
+        console.log(result ? 'logged' : 'not logged');
+      }
+    });
   }
 
   public isLogged(): boolean {
-    return this.getTokenData() != null;
+    const tokenData = this.getTokenData();
+
+    if (!tokenData || !tokenData.exp || !tokenData.accessToken) return false;
+
+    const expDate = new Date(tokenData.exp);
+    const nowDate = new Date();
+
+    const expTimeUtc = expDate.getTime();
+    const nowTimeUtc = nowDate.getTime();
+
+    if (nowTimeUtc > expTimeUtc) {
+      this.logout();
+      return false;
+    }
+
+    return true;
   }
 
   public getToken(): string | null {

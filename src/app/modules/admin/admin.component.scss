@@ -1,1 +1,9 @@
+admin-root {
+  display: block;
+  margin-top: 75px;
+  background-color: var(--bg-white);
 
+  h1, h2, h3, h4, h5, h6, label {
+    color: var(--bg-dark) !important;
+  }
+}

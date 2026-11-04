@@ -20,7 +20,7 @@
         <i class="fas fa-chevron-down" style="font-size: 10px;"></i>
       </div>
       <div class="user-avatar"><i class="fas fa-user"></i></div>
-      <a class="login-btn" *ngIf="!isLogged()" (click)="showLoginForm = true">Войти</a>
+      <a class="login-btn" *ngIf="!isLogged()" (click)="loginModal()">Войти</a>
       <a class="login-btn" *ngIf="isLogged()" (click)="logout()">Выйти</a>
     </div>
   </div>
@@ -45,30 +45,3 @@
     </div>
   </div>
 </footer>
-
-<div class="overlay" *ngIf="showLoginForm">
-  <div class="div-form-signin text-center">
-    <form name="authForm" #authForm="ngForm" novalidate>
-      <div class="div-form-signin-header">
-        <h1 class="h5 fw-bold">Вход</h1>
-        <button type="button" class="btn-close close" aria-label="Закрыть" (click)="showLoginForm = false"></button>
-      </div>
-      <div class="text-danger" *ngIf="authError">
-        {{ authError }}
-      </div>
-      <div class="form-floating mb-2">
-        <input type="text" id="username" name="username" #username="ngModel" [(ngModel)]="authData.username" required
-               placeholder="username" class="form-control">
-        <label for="username">Логин</label>
-      </div>
-      <div class="form-floating mb-2">
-        <input type="password" id="password" name="password" #password="ngModel" [(ngModel)]="authData.password"
-               required placeholder="password" class="form-control">
-        <label for="username">Пароль</label>
-      </div>
-      <button type="submit" class="w-100 btn-primary" (click)="login(authForm)" [disabled]="authForm.invalid">
-        Войти
-      </button>
-    </form>
-  </div>
-</div>

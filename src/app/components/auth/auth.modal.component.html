@@ -1,0 +1,30 @@
+<div class="tp-modal-header">
+  <h4 class="">Вход</h4>
+  <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="cancel()">
+    <span aria-hidden="true" class="visually-hidden">&times;</span>
+  </button>
+</div>
+<form name="authForm" #authForm="ngForm" novalidate>
+  <div class="tp-modal-body">
+    <div class="row">
+      <div class="text-danger" *ngIf="authError">
+        {{ authError }}
+      </div>
+    </div>
+    <div class="form-floating mb-2">
+      <input type="text" id="username" name="username" #username="ngModel" [(ngModel)]="authData.username" required
+             placeholder="username" class="form-control">
+      <label for="username">Логин</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" id="password" name="password" #password="ngModel" [(ngModel)]="authData.password"
+             required placeholder="password" class="form-control">
+      <label for="password">Пароль</label>
+    </div>
+  </div>
+  <div class="tp-modal-footer">
+    <button type="submit" class="w-100 btn-primary" (click)="login(authForm)" [disabled]="authForm.invalid">
+      Войти
+    </button>
+  </div>
+</form>

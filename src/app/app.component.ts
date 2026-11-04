@@ -1,8 +1,5 @@
 import {Component} from '@angular/core';
 import {AuthService} from "./services/auth/auth.service";
-import {AuthModel} from "./models/auth.model";
-import {NgForm} from "@angular/forms";
-import {TokenModel} from "./models/token.model";
 import {CommonService} from "./services/common.service";
 import {GeoService} from "./services/geo.service";
 import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap/modal";
@@ -17,12 +14,6 @@ import {SettlementModel} from "./models/settlement.model";
 export class AppComponent {
   title = 'trenerapro-app';
   logoUrl?: string;
-  showLoginForm: boolean = false;
-  authError?: string;
-  authData: AuthModel = {
-    username: undefined,
-    password: undefined
-  };
   currentSettlement?: SettlementModel = undefined;
   modalRef?: BsModalRef;
 
@@ -36,18 +27,8 @@ export class AppComponent {
     return this.authService.isLogged();
   }
 
-  login(form: NgForm) {
-    this.authService.login(this.authData).subscribe({
-      next: (data: TokenModel) => {
-        form.resetForm();
-        this.showLoginForm = false;
-        this.authError = undefined;
-      },
-      error: (error) => {
-        form.resetForm();
-        this.authError = 'Неверный логин или пароль!';
-      }
-    });
+  loginModal() {
+    this.authService.loginModal();
   }
 
   logout() {
@@ -56,7 +37,7 @@ export class AppComponent {
 
   selectCity() {
     const modalOptions: ModalOptions = {
-      class: 'modal-dialog-centered modal-md',
+      class: 'modal-dialog-centered modal-md landing-modal',
       initialState: {
         selectedSettlement: this.currentSettlement?.settlement,
         chosenSettlement: this.currentSettlement

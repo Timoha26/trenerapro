@@ -3,4 +3,5 @@ export interface TokenModel {
   tokenType?: string;
   userId?: number;
   userName?: string;
+  exp?: string;
 }

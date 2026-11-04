@@ -68,7 +68,7 @@ export class ClubsDetailsComponent implements OnInit {
     event.preventDefault();
 
     const modalOptions: ModalOptions = {
-      class: 'modal-dialog-centered modal-md',
+      class: 'modal-dialog-centered modal-md landing-modal',
       initialState: {
         clubId: clubId
       }
